@@ -3,7 +3,7 @@
 ### Resources
 All resources are stored in folders titled Lesson#-Description. They should be followed in the following order: 
 
-- Lesson 1: Introduction to Unix and Python
+- Lesson 1: Introduction to Python
 - Lesson 2: Scripting
 - Lesson 3: Jupyter notebooks and strings
 - Lesson 4: File input/output
