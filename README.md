@@ -12,7 +12,8 @@
 
 All lessons are stored in folders titled Lesson#-Description, each has a regular version and a student version which has some code removed for active-learning. Optional self-grading homeworks are listed along with lessons.
 
-- [Lesson 1: Introduction to Programming and Python - Variables](/Lesson_1_Basics/Lesson_1.ipynb)
+- [Lesson 0: Introduction to Programming and Python](/Lesson_1_Basics/Lesson_1.ipynb)
+- [Lesson 1: Operators and Data Types](/Lesson_1_Basics/Lesson_1.ipynb)
 - [Lesson 2: Iterables, Modules and Libraries](/Lesson_2_Control_Structs/Lesson_2_Control_structs_teacher.ipynb)
 - [Lesson 3: Abstraction and Functions](/Lesson_3_Abstraction_Functions/Lesson_3.ipynb)
   - [Functions Homework 1](https://www.w3schools.com/python/exercise.asp?filename=exercise_functions1)
