@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lesson 3 - Abstraction, Functions, and Scope – How to Learn to Code – Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Lesson_4_FileIO/Lesson_4_student.html" rel="next">
+<link href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-71ca8c516236da922f97ce572b69f8b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_3_Abstraction_Functions/functions_student.html"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">How to Learn to Code – Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_0_Introduction/Lesson_0_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 0 - Basic Introduction to Programming in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 2 - Data structures, Control flows, and Python Ecosystems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_3_Abstraction_Functions/functions_student.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NumPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_7_Plotting/plotting_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Plotting in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8a_Scikit_Learn/scikit_learn_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8a: Scikit-Learn</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8b_Python_Ecosystem/Lesson_8b_Python_Ecosystem_teacher.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8 - Python Ecosystem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8c_scanpy/Lesson_8c_scanpy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"></span></a><a href="https://scanpy.readthedocs.io/en/stable/">scanpy</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#motivating-example" id="toc-motivating-example" class="nav-link" data-scroll-target="#motivating-example">Motivating Example</a></li>
+  <li><a href="#pseudocode" id="toc-pseudocode" class="nav-link" data-scroll-target="#pseudocode">Pseudocode</a>
+  <ul class="collapse">
+  <li><a href="#first-example" id="toc-first-example" class="nav-link" data-scroll-target="#first-example">First example</a></li>
+  </ul></li>
+  <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope">Scope</a></li>
+  <li><a href="#default-values" id="toc-default-values" class="nav-link" data-scroll-target="#default-values">Default Values</a></li>
+  <li><a href="#docstrings" id="toc-docstrings" class="nav-link" data-scroll-target="#docstrings">Docstrings</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/master/Lesson_3_Abstraction_Functions/functions_student.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img" alt="Open In Colab"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>Learning objectives: Students will be able to design, use, and write functions with consistent variable scoping and design choices.</p>
+<p>Specific skills: * Writing psuedocode * Writing basic functions * Using functions * Using multiple arguments in a function and calling them inside the scope of the function * Writing local and global variables and pass them between scopes * Adding default values to a function parameter * Docstrings * Using <code>assert</code> to test a functions output</p>
+<p>Table of Contents</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Abstraction is a core concept in programming; it’s the idea of taking something complex and assigning it a simpler and more reusable form. You’ve already learned about a form of abstraction in lessons 1 and 2: variables. When you assign a string, number, list, etc. to a variable you’re separating the item (the data in the variable) from the accession (the variable name).</p>
+<p>This same idea can be applied to processes; these are called functions. Functions allow you to execute a series of commands using a single execution call and can be written to process multiple inputs by being called multiple times.</p>
+<p>Abstraction is a fundamentally difficult concept to grasp in programming, so don’t feel bad if it takes a bit to wrap your head around.</p>
+</section>
+<section id="motivating-example" class="level2">
+<h2 class="anchored" data-anchor-id="motivating-example">Motivating Example</h2>
+<p>Consider a common training task: building a calculator that can do the following with two numbers: - Add - Subtract - Multiply - Divide - Calculate an exponent (raise the first number to the power of the second)</p>
+<p>We choose this because it is straightforward to understand, has a clear requirement for inputs/outputs, and is easily testable. You already learned how to do all of these mathematical operations, so the only novel concept will be related to building and running functions.</p>
+</section>
+<section id="pseudocode" class="level2">
+<h2 class="anchored" data-anchor-id="pseudocode">Pseudocode</h2>
+<p>When writing functions it’s important to think about 3 things: - What does my function need to do? <em>or</em> What output should my function return? - What input does it require? - What steps need to happen to go from input to output?</p>
+<p>Writing out these requirements and steps in natural language is an organized and efficient way to understand your function before writing it, which makes the creation and testing easier. This is called <em>pseudocode</em> because it is not code but explains the logic behind a section of code that’s organized in the same way as the code itself.</p>
+<p>Here’s how I would write these notes for our calculator example:</p>
+<ul>
+<li><strong>Input</strong>:
+<ul>
+<li>Mathematical operation</li>
+<li>Number 1</li>
+<li>Number 2</li>
+</ul></li>
+<li><strong>Output</strong>:
+<ul>
+<li>Resulting value from operation</li>
+</ul></li>
+<li><strong>Process (pseudocode)</strong>:
+<ul>
+<li>Check for inputted operation</li>
+<li>Calculate the operation using two inputted values</li>
+<li>Return resulting value</li>
+</ul></li>
+</ul>
+<section id="first-example" class="level3">
+<h3 class="anchored" data-anchor-id="first-example">First example</h3>
+<p>With that, let’s write our first, and simplest, form of a function: a function to add two numbers.</p>
+<div id="cell-3" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(num_1, num_2):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">+</span> num_2</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Note: you can also return without an intermediate variable</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">def add(num_1, num_2):</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    return num_1 + num_2</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice how the function has three major components: - <code>def add(num_1, num_2):</code> which defines the name of the function and the inputs in the function declaration. - The commands to be run whenever the function is run, we only have one in this case: <code>result = num_1 + num_2</code>. - <code>return result</code>, which tells the function that it’s done everything it needs to and what value(s) to give to the global scope (more on that later). Whatever value(s) are returned can then be set as a variable when you call the function, as you’ll see in the next block of code. - Note: You can return multiple values by giving a comma separated list of them, e.g.&nbsp;<code>return foo, bar, baz</code></p>
+<p>Also notice that if you try to run the code block above nothing happens. This is because all we’ve done so far is <em>define</em> the function, meaning we built the machinery, but we haven’t actually ran it yet.</p>
+<p>You’ve probably already run a function without realizing it though using the humble <code>print()</code>. If you’ve printed anything using that, you’ve run a function. <code>print()</code> takes in one or more strings and outputs them to the terminal. Calling a function is usually as simple as calling print, you type the name of the function followed by parentheses containing the inputs.</p>
+<p>Let’s give this a go with our adding function in a couple different flavors, all of which are functionally identical:</p>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#All are equivalent</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Positional args</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>add_result <span class="op">=</span> add(<span class="dv">2</span>, <span class="dv">8</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Keyword args</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>add_result <span class="op">=</span> add(num_1<span class="op">=</span><span class="dv">2</span>, num_2<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Positional args with variables</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>num_1 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>num_2 <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>add_result <span class="op">=</span> add(num_1, num_2)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Keyword args with variables</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>num_1 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>num_2 <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>add_result <span class="op">=</span> add(num_1<span class="op">=</span>num_1, num_2<span class="op">=</span>num_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see, there are a few different ways you can specify inputs for functions: 1. Positional arguments: assume the inputs are given in the same order as defined in the function definition (first argument for <code>add()</code> is always <code>num_1</code>, second is always <code>num_2</code>). 2. Keyword arguments: explicitly state which argument you are assinging during the function use, non-ordered.</p>
+<p>Both methods are used in different contexts, generally it comes down to how complex a set of inputs are and your preferred style, just remember that positional args are dependent on the order they’re in during the definition, so it’s easier to lead to errors.</p>
+</section>
+</section>
+<section id="scope" class="level2">
+<h2 class="anchored" data-anchor-id="scope">Scope</h2>
+<p>Now that we’re talking about input variables it’s important to consider <em>scope</em>. This is the concept that <strong>whatever happens in a function stays in a function unless returned</strong>, but the opposite is not true.</p>
+<p>Take the demonstrations for example:</p>
+<div id="cell-8" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Global scope: accessible to all</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>global_scope_tester <span class="op">=</span> <span class="st">"foo"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Before function; outside of function scope: </span><span class="sc">{</span>global_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_scope():</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Inside function; outside of function scope: </span><span class="sc">{</span>global_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    local_scope_tester <span class="op">=</span> <span class="st">"bar"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Inside function; inside of function scope: </span><span class="sc">{</span>local_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>print_scope()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can see that global variables are accessible to: - Code outside of functions - Code inside functions without passing them as input - (Warning: this is bad practice and should not be used often; leads to difficult testing and untraceable code)</p>
+<p>You may notice that there is still a scenario missing: what if you try to print <code>local_scope_tester</code> outside of the function?</p>
+<p>Try to run the following:</p>
+<div id="cell-10" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Inside function; outside of function scope: </span><span class="sc">{</span>local_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you may have guessed, this code doesn’t run. In fact, if you check carefully, you can see that the error type is a <code>NameError</code>, meaning that according to wherever the code is looking there isn’t a variable named <code>local_scope_tester</code>. That variable is considered local to the function, and unless you return the value you can’t access it outside of the function.</p>
+<p>Here’s how to fix that:</p>
+<div id="cell-12" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Global scope: accessible to all</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>global_scope_tester <span class="op">=</span> <span class="st">"foo"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Defined before function; called outside of function scope: </span><span class="sc">{</span>global_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_scope():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Defined inside function; called outside of function scope: </span><span class="sc">{</span>global_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    local_scope_tester <span class="op">=</span> <span class="st">"bar"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Defined inside function; called inside of function scope: </span><span class="sc">{</span>local_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_scope_tester</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>local_scope_tester <span class="op">=</span> print_scope()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Defined inside function; called outside of function scope: </span><span class="sc">{</span>local_scope_tester<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is the motivation for returning values and writing organized input/output for your functions, keeping scopes and i/o organized leads to readable and consistent code with minimal errors.</p>
+</section>
+<section id="default-values" class="level2">
+<h2 class="anchored" data-anchor-id="default-values">Default Values</h2>
+<p>Sometimes you may have a function that will rarely need a different input than a known value. In our addition function, let’s assume someone almost always wants to add 5 to a value. In situations like these it’s useful to add a default value in the function definition, this ensures known outcome for the developer but also makes it easier for users to run code if they don’t want to specify function inputs when the parameter value is (usually) obvious.</p>
+<p>Here’s a re-definition of the addition machine with a default value of 5 for <code>num_2</code>:</p>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(num_1, num_2<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">+</span> num_2</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>add_res <span class="op">=</span> add(num_1<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(add_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pretty simple, huh? To set a default value all you need to do is set the input parameter equal to the default value in the definition. Whenever the function is called it now only requires <code>num_1</code>, since the function already knows what <code>num_2</code> is.</p>
+<p>Of course in this case since addition is commutative (doesn’t matter which order the numbers are in) this is pretty useless. Let’s write a subtraction function where the order of inputs matters:</p>
+<div id="cell-17" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> subtract(num_1, num_2<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">-</span> num_2</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>subtract_res <span class="op">=</span> subtract(num_1<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subtract_res)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subtract(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subtract(<span class="dv">9</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subtract(num_1<span class="op">=</span><span class="dv">43</span>, num_2<span class="op">=</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hopefully you can see how default values are useful now, especially when you have a function being used many times. Default values are optional, use your best judgement to add them when they make sense for your function and the context it’s being used.</p>
+</section>
+<section id="docstrings" class="level2">
+<h2 class="anchored" data-anchor-id="docstrings">Docstrings</h2>
+<p>You can imagine that if you’re writing a lot of functions that do a lot of different things just having the names be different might not be enough to easily figure out what you need quickly. Luckily there is a standardized solution to this: docstrings. These are little descriptor blocks below a function definition to clarify what a function does, what it’s inputs/outputs are, and any other relevant information (such as stackoverflow citations!)</p>
+<p>There are multiple docstring format standards, but I prefer the Google style. VSCode even has automatic docstring generators to make the process even easier. Here’s the template for a Google style docstring:</p>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> function_with_types_in_docstring(param1, param2):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Example function with types documented in the docstring.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    General notes here</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">        param1 (int): The first parameter.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">        param2 (str): The second parameter.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">        bool: The return value. True for success, False otherwise.</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    .. Links:</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">        https://www.python.org/dev/peps/pep-0484/</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    .. </span><span class="al">TODO</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">        foo</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">        bar</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that these types of text blocks can be used for a script as well, so you can have consistently organized code from top to bottom.</p>
+<p>Let’s go ahead and define all the other functions needed for our calculator with some basic docstrings to exemplify the process:</p>
+<div id="cell-22" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(num_1, num_2):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Add two numbers together."""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">+</span> num_2</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> subtract(num_1, num_2):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Subtract num_2 from num_1.</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">        num_1 (Union[int, float]): Number to subtract from.</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">        num_2 (Union[int, float]): Number to subtract with.</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Union[int, float]: Result of subtraction process.</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">-</span> num_2</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(num_1, num_2):</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Multiply two values together, order doesn't matter."""</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num_1 <span class="op">*</span> num_2</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(num_1, num_2):</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Wait, which number is the numerator and which is the denominator?"""</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">/</span> num_2</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exponent(num_1, num_2):</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Take num_1 to the power of num_2"""</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> num_1 <span class="op">**</span> num_2</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have all our components we can build the calculator, remember here is our function design: - <strong>Input</strong>: - Mathematical operation - Number 1 - Number 2 - <strong>Output</strong>: - Resulting value from operation - <strong>Process (pseudocode)</strong>: - Check for inputted operation - Calculate the operation using two inputted values - Return resulting value</p>
+<p>Knowing that, we’ll follow this design pretty closely:</p>
+<div id="cell-24" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculator(operation, num_1, num_2):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculates a value given a mathematical operation and two values.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">        operation (str): Choice of ["add", "subtract", "multiply", "divide", "exponent"]</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">        num_1 (Union[int, float]): Value 1</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">        num_2 (Union[int, float]): Value 2</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">        Union[int, float]: Value returned from the desired math operation.</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> operation <span class="op">==</span> <span class="st">"add"</span>:</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> add(num_1, num_2)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> operation <span class="op">==</span> <span class="st">"subtract"</span>:</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> subtract(num_1, num_2)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> operation <span class="op">==</span> <span class="st">"multiply"</span>:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> multiply(num_1, num_2)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> operation <span class="op">==</span> <span class="st">"divide"</span>:</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> divide(num_1, num_2)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> operation <span class="op">==</span> <span class="st">"exponent"</span>:</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> exponent(num_1, num_2)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Bad input"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>calculator(<span class="st">"sum"</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bad input</code></pre>
+</div>
+</div>
+<p>As you can see this function follows a pretty clear logic: depending on the desired operation it runs the function defined above with the given values, and then returns the value gotten from that. This is meant to demonstrate how functions can be run inside of functions and the results used within the external function. This structure can be done repeatedly for a nested structure, or you can design a process to use a flat structure where you minimally nest function calls. The theory behind which is better is hotly debated, but my rule of thumb is that as long as it follows a consistent logic and you document your functions well nesting can be a great way to chain operations together, such as above.</p>
+</section>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<p>Now that we’ve completed our function it’s time to test it. Testing is very underlooked in the world of scientific computing, but is arguably <em>more</em> important when dealing with high amounts of data and long workflows to ensure consistent results.</p>
+<p>In Python testing is extremely straightforward with the <code>assert</code> command. This allows you to compare any two values, if they are the same it returns with a value of True, if not it returns a value of False. This allows us to test a given function by writing a “unit test” for the function, where we input a known value with a known outcome and test whether the function responds appropriately.</p>
+<p>Here is a basic example:</p>
+<div id="cell-27" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Passes, nothing happens</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> calculator(<span class="st">"add"</span>, <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-28" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fails, raises an error</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> calculator(<span class="st">"add"</span>, <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AssertionError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg ansi-bold">/home/lswhiteh/python-class/Lesson_3_Abstraction_Functions/Lesson_3.ipynb Cell 29'</span> in <span class="ansi-cyan-fg">&lt;cell line: 2&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg ansi-bold">      &lt;a href='vscode-notebook-cell://wsl%2Bubuntu/home/lswhiteh/python-class/Lesson_3_Abstraction_Functions/Lesson_3.ipynb#ch0000031vscode-remote?line=0'&gt;1&lt;/a&gt;</span> #Fails, raises an error
+<span class="ansi-green-fg">----&gt; &lt;a href='vscode-notebook-cell://wsl%2Bubuntu/home/lswhiteh/python-class/Lesson_3_Abstraction_Functions/Lesson_3.ipynb#ch0000031vscode-remote?line=1'&gt;2&lt;/a&gt;</span> assert calculator("add", 2, 2) == 5
+
+<span class="ansi-red-fg">AssertionError</span>: </pre>
+</div>
+</div>
+</div>
+<p>As you can see when an assertion fails it raises a specific type of error called an <code>AssertionError</code>. If you don’t want the program to proceed if the test fails, you can just let it error out. If you want to acknowledge it happened but keep going you can use something called a <code>try/catch</code> block, here’s an example:</p>
+<div id="cell-30" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> calculator(<span class="st">"add"</span>, <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">AssertionError</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Test failed!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test failed</code></pre>
+</div>
+</div>
+<p>While this is handy for small situations, it’s preferable to write unit tests for all functions and store them in separate modules for your code. While automated unit testing is outside of the scope of this lecture I highly recommend you read <a href="https://realpython.com/python-testing/">this excellent tutorial on RealPython.</a></p>
+<p>Consistent and robust unit testing will not only save your code from silently producing erroneous results, it will ensure your code is reproducible even if you make changes.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>The following exercises will help you better understand functions, scope, and testing</p>
+<ol type="1">
+<li>Write a function that; given two positional args in first and second position, returns them in the opposite order, i.e.&nbsp;second then first</li>
+</ol>
+<div id="cell-33" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 1 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Write a better docstring for the <code>divide()</code> function defined earlier</li>
+</ol>
+<div id="cell-35" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Write a function that prints a subtracts a global variable from a local variable and returns the result, print said result</li>
+</ol>
+<div id="cell-37" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 3 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>3</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Write a unit test for any of the calculator sub-functions above, write a conditional print statement based on the output as demonstrated above</li>
+</ol>
+<div id="cell-39" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 4 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Testing value: 2
+Passed!
+
+Testing value: 3
+Didn't work with 3!</code></pre>
+</div>
+</div>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../Lesson_3_Abstraction_Functions";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" class="pagination-link" aria-label="Lesson 2 - Data structures, Control flows, and Python Ecosystems">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lesson 2 - Data structures, Control flows, and Python Ecosystems</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="pagination-link" aria-label="Lesson 4 - File IO and string manipulation">
+        <span class="nav-page-text"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

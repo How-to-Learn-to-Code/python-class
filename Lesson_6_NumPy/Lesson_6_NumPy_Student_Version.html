@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>NumPy – How to Learn to Code – Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Lesson_7_Plotting/plotting_student.html" rel="next">
+<link href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-71ca8c516236da922f97ce572b69f8b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html"><span class="chapter-title">NumPy</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">How to Learn to Code – Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_0_Introduction/Lesson_0_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 0 - Basic Introduction to Programming in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 2 - Data structures, Control flows, and Python Ecosystems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_3_Abstraction_Functions/functions_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">NumPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_7_Plotting/plotting_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Plotting in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8a_Scikit_Learn/scikit_learn_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8a: Scikit-Learn</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8b_Python_Ecosystem/Lesson_8b_Python_Ecosystem_teacher.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8 - Python Ecosystem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8c_scanpy/Lesson_8c_scanpy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"></span></a><a href="https://scanpy.readthedocs.io/en/stable/">scanpy</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#whats-the-deal-with-numpy" id="toc-whats-the-deal-with-numpy" class="nav-link" data-scroll-target="#whats-the-deal-with-numpy">What’s the deal with NumPy?</a></li>
+  <li><a href="#whats-the-deal-with-numpy-arrays" id="toc-whats-the-deal-with-numpy-arrays" class="nav-link" data-scroll-target="#whats-the-deal-with-numpy-arrays">What’s the deal with NumPy arrays?</a></li>
+  <li><a href="#in-class-exercise" id="toc-in-class-exercise" class="nav-link" data-scroll-target="#in-class-exercise">In class exercise</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">NumPy</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/master/Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img" alt="Open In Colab"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>The python package <strong>NumPy</strong> is an indespensible tool for efficient data manipulation and numerical processing. It is a highly curated and tested collection of functions centered around the manipulation of thier proprietary data type, the <code>numpy.array</code>. The <code>numpy.array</code> is similar to the standard <code>list</code> type, but it has some important differences that make it particularly useful for generic vector and matrix algebra and element-wise data manipulation.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>What is scientific computing?</li>
+<li>What is NumPy?</li>
+<li>What are the benefits of NumPy?</li>
+<li>What is a <code>numpy.array</code>, and why use it?</li>
+<li>Where is the NumPy documentation located? Right <a href="https://numpy.org/doc/stable/reference/index.html">here</a>!</li>
+</ul>
+</section>
+<section id="whats-the-deal-with-numpy" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-deal-with-numpy">What’s the deal with NumPy?</h2>
+<p><a href="https://numpy.org/"><strong>NumPy</strong></a> is the foundational Python package for scientific computing. Scientific computing encompasses any tools, functions, or algorithms that are used to generate or simulate mathematical models and problems. Python in its base form is fine for some data manipulation with support for generic algorithm construction (e.g.&nbsp;loops and function declaration), but as soon as you need to do any mathematics, especially on a large scale (e.g.&nbsp;large data sets), generic Python falls short with respect to efficient built-in functionality. NumPy is a heavily curated and tested package that contains thousands, if not hundreds of thousands, of useful functions for generic mathematical manipulation of your data. This includes general mathematics, like find the natural logarithm, as well as general statistics, like the variance and quanitles. These included functions are also very effienct with respect to compuational time and memory, so they should be used whenever possible.</p>
+<p>So what makes NumPy so efficient? Part of the efficiency comes from the the fact that the algorithms used behind the scenes are tuned to be as efficient as possible by dedicated computer scientists. Another reason that the code is efficient is that large chunks of the code are written in <em>C</em> and <em>C++</em> rather than in Python. A pre-compiled <em>C</em> or <em>C++</em> function is called by NumPy to execute your code, and the results are passed back to you in Python. It is not necessarily important to understand why this is more efficient, but it is important to point out that it is done in this manner because it is more efficient than strictly using Python. They are playing 4-dimensional chess while you are playing checkers, metaphorically, so there is no use in reinvinteing the wheel with respect to creating homemade functions.</p>
+<p>A final reason that NumPy is so efficient is the introduction of the <code>numpy.array</code>. The <code>numpy.array</code> is a generic n-dimensional array object. The easiest way to think about it is that a <code>numpy.array</code> is an n-dimensional matrix which can be used to store and manipulate your data or just do simple matrix and vector algebra. The reason this object is more efficient than the standard Python <code>list</code> is how the memory is stored in each case. In a standard <code>list</code> all of the members are stored in random spots in memory, so when they need to be accessed, the computer has to search around for them. In a <code>numpy.array</code> all of the data points are stored in sequential memory. This means that if you are at a point in your array, <code>my_array[a][b][c]</code>, and want to access the adjacent piece of data, <code>my_array[a][b][c+1]</code>, the computer can just accesses the adjacent memory address instead of searching through all of the memory for the correct piece of data. In the previous example <code>my_array</code> designates a 3-dimensional array as seen by the three different indexes following the <code>my_array</code> call. Most functions in Numpy are built around manipulating these objects, and are coded in such a way as to take advantage of the memory allocation in an optimal way, and are therefore very efficient.</p>
+<p>In order to demonstrate the power of NumPy, we can start with the standard dot product. In the code block below we generate two vectors of length 1000 and store them in <code>numpy.array</code> objects and <code>list</code> objects. We create a generic function, <code>my_dot_0</code>, that takes the dot product of two input vectors using a standard for loop. We then time the output.</p>
+<div id="cell-2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># np is the standard abbreviation for numpy</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This example uses the random package so setting the seed ensures</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we get the same result every time we run this block.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">5</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># generic code block to run a dot product with any array like object</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_dot_0(a0, a1):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    dot <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(a0)):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        dot <span class="op">+=</span> a0[i] <span class="op">*</span> a1[i]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dot</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># create the vectors as numpy arrays</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># np.random.randn is the normal distribution with the number</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># in the parentheses indicating the size of the array you want</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>A_arr <span class="op">=</span> np.random.randn(<span class="dv">10000</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>B_arr <span class="op">=</span> np.random.randn(<span class="dv">10000</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># copy the vectors as lists</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>A_list <span class="op">=</span> <span class="bu">list</span>(A_arr)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>B_list <span class="op">=</span> <span class="bu">list</span>(B_arr)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># %timeit is a built it jupyter notebook function for timing functions easily</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># -n 10 is a statement about how many runs it will use for the time output</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># tmp is a placeholder variable to prevent output clutter</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"list time for my_dot_0:"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_0(A_list, B_list)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">np.array time for my_dot_0:"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_0(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>list time for my_dot_0:
+3.3 ms ± 305 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+np.array time for my_dot_0:
+4.89 ms ± 493 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+</div>
+</div>
+<p>In a surprise result, seemingly contrary to everything previously stated, the <code>list</code> manipulation came out faster than the manipulation using the <code>numpy.array</code>. The small caveat is that the <code>numpy.array</code> object is built for speed when used with NumPy’s built in functions. We can try the test again, but this time we use some built in functions from NumPy to clean up the function definition and improve our results, hopefully.</p>
+<div id="cell-4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using built in NumPy functions</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># np.multiply does element-wise multiplication</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># np.sum adds the elements of the array together </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_dot_1(a0, a1):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.multiply(a0, a1))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"list time for my_dot_1:"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_1(A_list, B_list)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">np.array time for my_dot_1:"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_1(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>list time for my_dot_1:
+1.49 ms ± 171 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+np.array time for my_dot_1:
+21.8 µs ± 14.5 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+</div>
+</div>
+<p>That’s more like it! Notice that the <code>list</code> speed sees some improvement using the built in NumPy functions as well, but certainly not as much as the <code>numpy.array</code>. In general the NumPy functions can handle generic <code>list</code> types, but the full potential is unlocked with the <code>numpy.array</code> type. For this final speed test, we can use the the totally pre-built <code>numpy.dot</code> function and check out the speed.</p>
+<div id="cell-6" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"list time for np.dot:"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> np.dot(A_list, B_list)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">np.array time for np.dot:"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> np.dot(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>list time for np.dot:
+2.97 ms ± 399 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+np.array time for np.dot:
+The slowest run took 14.49 times longer than the fastest. This could mean that an intermediate result is being cached.
+15.5 µs ± 24.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+</div>
+</div>
+<p>Will you look at that! The totally pre-built function is even faster than our last test with the two different functions. Notice that the <code>list</code> test really struggles, comparitively, with this function. Together, all of these speed tests should highlight: 1. NumPy functions are very efficient. 2. NumPy functions are relatively easy to use and clean up your code. 3. NumPy functions work best with <code>numpy.array</code> objects. 4. If you can find a NumPy function to handle your <code>numpy.array</code> objects, you should use it rather than trying to build your own function.</p>
+</section>
+<section id="whats-the-deal-with-numpy-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-deal-with-numpy-arrays">What’s the deal with NumPy arrays?</h2>
+<p>Now that we know why we should use the humble <code>numpy.array</code>, we should probably learn how to use this object. As mentioned previously is, it is very similar to you standard <code>list</code> with a few built in features that make it easier to use in a a numerical sense. The first feature that is crucial is that unlike a list all of the rows/columns should have the same length, much like any matrix you would normally deal with. This means that <code>numpy.array</code> are best suited for comparing tests or doing data manipulation on data that would fit into a traditional n-dimensional matrix. Below is an example of a data set that is fine in a <code>list</code> but should be avoided in a <code>numpy.array</code>. Python will throw a warning that this functionality is depricated (outdated, no longer supported).</p>
+<div id="cell-8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_list)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>my_matrix <span class="op">=</span> np.array(my_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0, 1, 1], [2, 3]]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/marshall/.local/lib/python3.6/site-packages/ipykernel_launcher.py:3: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  This is separate from the ipykernel package so we can avoid doing imports until</code></pre>
+</div>
+</div>
+<p>Now that we know what data works best in a <code>numpy.array</code>, we can look into how to build these arrays. In the first example we will look at how to make a (2,3,4) matrix that is filled with 0s for simplicity. In this case we use the built in <code>shape</code> attribute of the array to check its dimensions.</p>
+<div id="cell-10" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># can make an array of any size filled with </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.zeros((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># just outputs 0s for the shape that you tell it</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> np.array([[[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]], [[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]]])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>a2 <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>a2.resize((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># resize changes the shape of the original array, this can be called on any array</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check that the shapes are equivalent</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a0 shape ='</span>,a0.shape,<span class="st">', a1 shape ='</span>, a1.shape,<span class="st">', a2 shape ='</span>, a2.shape,<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check on the dimensions of the above arrays</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'the above arrays have dimension'</span>, a0.ndim, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># this how the resize works with respect to rows/columns in that it starts by filling rows</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange creates an array with 12 numbers from 0-11</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>a3 <span class="op">=</span> np.arange(<span class="dv">12</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>a3.resize((<span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>a0 shape = (2, 3, 4) , a1 shape = (2, 3, 4) , a2 shape = (2, 3, 4) 
+
+the above arrays have dimension 3 
+
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]</code></pre>
+</div>
+</div>
+<p>At some point it might also be helpful to sort data within an array, find specific instances of things within an array, delete rows or columns, or add data. This can all be done using NumPy’s built in functions as well. In the following example we will try to use NumPy to manipulate a data set in a way that would be potentially be useful for your own data. We can also run some simple statistics for fun!</p>
+<div id="cell-12" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate a 5x30 array full or of random numbers</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.random.randn(<span class="dv">5</span>, <span class="dv">300</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pretend that one of the data points was unfilled, or a NaN</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>a0[<span class="dv">3</span>][<span class="dv">5</span>] <span class="op">=</span> np.nan</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to be able to find that nan</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># np.isnan sets all instances of nan to true within the array, everything else is false</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># np.where generates a tuple of arrays that show the indices of where the trues are located</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># the tuple that np.where generates will always have the same dimension as the array queried</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>where_nan <span class="op">=</span> np.where(np.isnan(a0))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we are using NaN in this example but you could use any generic conditional to check</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>where_negative <span class="op">=</span> np.where(a0 <span class="op">&lt;</span> <span class="fl">0.</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># here is a way you could print out the ordered pairs of where the nans were located</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(where_nan[<span class="dv">0</span>])):</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'the location of the NaN is'</span>,(where_nan[<span class="dv">0</span>][i],where_nan[<span class="dv">1</span>][i]),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># since the NaN would mess up our data we want to delete the row it is located in</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>row_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">0</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we could do the same thing if we wanted the column gone instead</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>col_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">1</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># we could also replace the nan with a 0 if we knew what that value should be </span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># the tilde (~) flips the boolean values since np.where replaces false not true</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># unlike the previous np.where usage, this outputs our original array with replacements</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># instead of a tuple. This has to do with the arguments fed into the function. </span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># The NumPy documentation is wonderful and should be consulted regularly.</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>replace_nan <span class="op">=</span> np.where(<span class="op">~</span>np.isnan(a0), a0, <span class="fl">0.</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># let's plot some of the data we generated</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># first we import the plotting package</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install matplotlib</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co"># we then want to plot the distribution of the 2nd and 4th rows</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co"># we can take extract the rows using standard indexing</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co"># we then have to take the transpose of the data so that the plt.hist function will read the data correctly</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>hist <span class="op">=</span> plt.hist(np.transpose(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]]), [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">"$2^</span><span class="sc">{nd}</span><span class="st">$ row"</span>,<span class="st">"$4^</span><span class="sc">{th}</span><span class="st">$ row"</span>])</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co"># we can output the mean and variance as well to see if it matches the expected 0,1</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.average(replace_nan[[<span class="dv">1</span> ,<span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> np.var(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'row'</span>, rows[i], <span class="st">'mean ='</span>,mean[i], <span class="st">'and variance ='</span>, variance[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>the location of the NaN is (3, 5) 
+
+row 2 mean = 0.02053209316073448 and variance = 1.0315188879373587
+row 4 mean = -0.10027662190124971 and variance = 0.8912458143138923</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson_6_NumPy_Student_Version_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="in-class-exercise" class="level1">
+<h1>In class exercise</h1>
+<p>In this exercise we will walk through some of the stuff we have covered previously and introduce some new helper functions that should be useful for most people. In general we will have an “expected” response curve, we will generate some data with noise, and then we will compare the noisy data to the expected response. We are going to pretend that we are doing some sampling every 0.01s between 0.0s and 1.0s, and this will be our independent variable space, or our time domain. We will start with generating the independent variable space using two different methods, using <code>np.arange</code> and <code>np.linspace</code>. They are both useful, but sometimes one is better than the other depending on the context. **For the exercise there will be a ’‘’statement’’’. The quotations and the statement should be correct answer to make the code run.</p>
+<div id="cell-15" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we will start with generating an array that goes from 0-1 with a step size of 0.01</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace, as well as np.arange, but the work in slightly different ways</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace always includes the start and stop values, but the step size is variable</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in all cases replace the '''comment''' with the appropriate answer</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>t_linspace <span class="op">=</span> np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="st">'''number of time steps here'''</span>) </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange always includes the start value with the specified step value, but may not include the </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># wanted last step</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>t_arange <span class="op">=</span> np.arange(<span class="fl">0.</span>, <span class="st">'''end of range value'''</span>, <span class="fl">0.01</span>)  </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the outputs are correct</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The step size is'</span>, t_linspace[<span class="dv">1</span>] <span class="op">-</span> t_linspace[<span class="dv">0</span>]) <span class="co"># uses np.linspace output</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The final step is at'</span>, t_arange[<span class="op">-</span><span class="dv">1</span>])   <span class="co"># uses np.arange output</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> t_linspace <span class="co"># specify t for later use now that we have checked both</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The step size is 0.01
+The final step is at 1.0</code></pre>
+</div>
+</div>
+<p>Now that we have generated our independent variable space, we can specify what our expected response function should look like. In our case we would like to generate the following curve that we can pretend is expected position, <em>y</em>, given a time value, <em>t</em>, from our time domain.</p>
+<p><span class="math inline">\(y = 0.5 e^{t^2} + 1.5\)</span></p>
+<div id="cell-17" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is fairly straight forward as you can use generic python syntax for everything but the exponential</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the only numpy specific function you might need is np.exp for the exponential</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>expected_response <span class="op">=</span> <span class="st">'''appropriate response function'''</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot expected curve</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'expected response curve'</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson_6_NumPy_Student_Version_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now that we have our expected value we can simulate noise in our data. We will do this through introducing random values such that the average should replicate our data. Below we have <em>N</em> represent the normal distribution. The <code>np.random.randn</code> function is N(0,1), and the transformation to the correct Normal distribution space is included below since this is not a statistics course. We will generate 50 samples of the same length as our <em>t</em> vector.</p>
+<p><span class="math inline">\(t_{rand} = t * N_{mult}(\mu = 1, \sigma^2 = 0.001) + N_{add}(\mu = 0, \sigma^2 = 0.005)\)</span></p>
+<div id="cell-19" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the two random arrays of shape 50 x length of the time domain</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mult_rand <span class="op">=</span> np.sqrt(<span class="fl">0.001</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span> <span class="op">+</span> <span class="fl">1.</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>add_rand <span class="op">=</span> np.sqrt(<span class="fl">0.005</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add noise to the t variable, this will come directly from the equation above</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># it's a linear transformation of a*t + b, but using the appropriate NumPy syntax</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>t_rand <span class="op">=</span> <span class="st">'''appropriate linear function'''</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># use the same syntax as before to process the randomized time data</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be a direct copy from what you have in the previous code snippet</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>random_response <span class="op">=</span> <span class="st">'''same response function as before but acted on t_rand'''</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># find the min, max, and average response at each time step</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> np.<span class="bu">max</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)  </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> np.<span class="bu">min</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> np.mean(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this plots the output generated above as </span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Generated Mean'</span>, <span class="st">'Min/Max Range'</span>], loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson_6_NumPy_Student_Version_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s finally do some procesing so we can finalize our data for output! We can pretend that the 8th and 23rd sample ranges were done by a trainee that had set the sample frequency to be a little too slow. We are also limited by our instruments in that they are unreliable when the position is greater than 3.25 so we will remove any samples that reached more than 3.25 at any time in the experiment. <strong>Side note:</strong> this is not a real example, and data should only be excluded when appropriate.</p>
+<div id="cell-21" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the 8th and 23rd sample rows from the data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.delete(random_response, [<span class="st">'''8th row index'''</span>, <span class="st">'''23rd row index'''</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># store the number of samples left over after removing the bad trainee data</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be equal to the number of rows left over in the data</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.shape[<span class="st">'''row index'''</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the bad trainee data is'</span>, number_of_samples)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to find where the remaining data exceeds 3.25, and then delete those rows</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># we will then re calculate the number of samples to get an idea for how many samples were removed by this filter</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>too_big_indices <span class="op">=</span> np.<span class="st">'''find things function'''</span>(<span class="st">'''data set that excludes the bad data'''</span> <span class="op">&gt;</span> <span class="st">'''appropriate upper bound'''</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.<span class="st">'''remove stuff function'''</span>(exclude_data, <span class="st">'''tuple that we can find the correct rows from'''</span>[<span class="dv">0</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.<span class="st">'''correct statement that will only give us the number of rows'''</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the data &gt; 3.25 is'</span>, number_of_samples)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># this replots the data to show the results</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># any large peaks should be gone now</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Filtered Mean'</span>, <span class="st">'Min/Max Range'</span>],loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co"># in this final step we will at the time domain on top of rest of the data set </span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># this will allow us to save the data in one large array rather than an array for the time</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># and an array for the pre-filtered data</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="co"># a subtlety of NumPy is that ranges have dimension 1, while our response has two dimensions</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># in order for the append function to work we have to make our time domain two dimensional</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co"># which is just 1 x number of time points</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co"># we use reshape here instead of resize because resize will change the original t data</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co"># while reshape will just output a new array of the correct shape</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>t_vec <span class="op">=</span> t.reshape([<span class="st">'''new two dimensional shape of t'''</span>]) </span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can use append to add the sampled data to the end of the time domain</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.append(<span class="st">'''right t data set'''</span>,<span class="st">'''full response data'''</span>, axis <span class="op">=</span> <span class="st">'''row index'''</span>)</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="co"># this step we realize it might be nice to include the expected response in the output as well</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="co"># so it does not have to be generated again later</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.insert(<span class="st">'''finalized data'''</span>, <span class="st">'''index that we want to insert the expected data before'''</span>, <span class="st">'''expected data'''</span>, axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="co"># so the rows should look like 1: time, 2: expected response, 3-52: sampled data</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="co"># step just checks that our final data has the correct shape, 52 x number of time steps</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'our final_data for output has shape'</span>, <span class="st">'''shape of the final data set'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The number of samples left after removing the bad trainee data is 48
+The number of samples left after removing the data &gt; 3.25 is 36
+our final_data for output has shape (52, 101)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson_6_NumPy_Student_Version_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Here is a website that goes through a good sample of NumPy <a href="https://www.w3schools.com/python/numpy/numpy_exercises.asp">problems</a>. It covers some functions that this lesson did not explicitly cover as this lesson tried to introduce some more advanced attributes of NumPy that might be immediately relevant for your data processing.</p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../Lesson_6_NumPy";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="pagination-link" aria-label="Lesson 5: Pandas as a dataframe API">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Lesson_7_Plotting/plotting_student.html" class="pagination-link" aria-label="Plotting in Python">
+        <span class="nav-page-text"><span class="chapter-title">Plotting in Python</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

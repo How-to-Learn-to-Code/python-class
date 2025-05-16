@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lesson 5: Pandas as a dataframe API – How to Learn to Code – Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" rel="next">
+<link href="../Lesson_4_FileIO/Lesson_4_student.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-71ca8c516236da922f97ce572b69f8b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">How to Learn to Code – Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_0_Introduction/Lesson_0_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 0 - Basic Introduction to Programming in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 2 - Data structures, Control flows, and Python Ecosystems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_3_Abstraction_Functions/functions_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NumPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_7_Plotting/plotting_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Plotting in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8a_Scikit_Learn/scikit_learn_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8a: Scikit-Learn</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8b_Python_Ecosystem/Lesson_8b_Python_Ecosystem_teacher.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8 - Python Ecosystem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8c_scanpy/Lesson_8c_scanpy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"></span></a><a href="https://scanpy.readthedocs.io/en/stable/">scanpy</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#subsetting-data-frames" id="toc-subsetting-data-frames" class="nav-link" data-scroll-target="#subsetting-data-frames">Subsetting Data Frames</a></li>
+  <li><a href="#joining-data-frames" id="toc-joining-data-frames" class="nav-link" data-scroll-target="#joining-data-frames">Joining Data Frames</a></li>
+  <li><a href="#other-useful-pandas-functions-conditional-subsetting" id="toc-other-useful-pandas-functions-conditional-subsetting" class="nav-link" data-scroll-target="#other-useful-pandas-functions-conditional-subsetting">Other useful pandas functions: conditional subsetting</a></li>
+  <li><a href="#other-useful-pandas-functions-groupby" id="toc-other-useful-pandas-functions-groupby" class="nav-link" data-scroll-target="#other-useful-pandas-functions-groupby">Other useful pandas functions: groupby</a></li>
+  <li><a href="#other-useful-pandas-functions-statistics" id="toc-other-useful-pandas-functions-statistics" class="nav-link" data-scroll-target="#other-useful-pandas-functions-statistics">Other useful pandas functions: statistics</a></li>
+  </ul></li>
+  <li><a href="#in-class-exercises" id="toc-in-class-exercises" class="nav-link" data-scroll-target="#in-class-exercises">In-class exercises</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/master/Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img" alt="Open In Colab"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>Students will gain a better understanding of how to use pandas for manipulating data frames</p>
+<p>Specific coding skills learned: - Subsetting data frames - Joining data frames together - Other useful pandas functions (incuding groupby, statistics, and conditional subsetting)</p>
+<div id="cell-3" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pandas </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install matplotlib </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install numpy </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In our last class, we discussed the basics of how to use pandas to read in our data. When we load in data from a CSV file with Pandas using a function such as reas_csv, we get a data structure known as a data frame. Basically, this is a two-dimensional table of rows and columns.</p>
+<p>This is useful in terms of allowing us to visualize our data, but most users will want to utilize the data for their own research purposes. Therefore, users will find it helpful to use pandas as an application programming interface (or API), which is basically a set of functions that allow users access to the features of the data.</p>
+<p>For this class, we are going to be using daily weather history data from multiple U.S. cities from July 2014 - June 2015 (downloaded from FiveThirtyEight’s public repository of data found here: https://github.com/fivethirtyeight/data/tree/master/us-weather-history).</p>
+<p>The first set of data we are going to read in is from Philadelphia.</p>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KPHL.csv</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>philly_weather <span class="op">=</span> pd.read_csv(<span class="st">'KPHL.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>philly_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="subsetting-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="subsetting-data-frames">Subsetting Data Frames</h3>
+<p>The rows of this data frame represent each day during this period, and the columns represent the weather data that has been collected.</p>
+<p>As you can see, there are numerous types of data that has been collected, including the temperatures that occurred that day, what the average temperatures have been for that day over the years, the records for that day, and the amount of precipitation that occurred both on that day and on average for that day.</p>
+<section id="question-1-lets-say-that-you-do-not-care-about-the-temperature-data-so-most-of-these-columns-are-not-neccessary.-how-can-you-get-the-data-you-want-to-have" class="level5">
+<h5 class="anchored" data-anchor-id="question-1-lets-say-that-you-do-not-care-about-the-temperature-data-so-most-of-these-columns-are-not-neccessary.-how-can-you-get-the-data-you-want-to-have">Question 1: Let’s say that you do not care about the temperature data, so most of these columns are not neccessary. How can you get the data you want to have?</h5>
+</section>
+<section id="answer-you-can-subset-the-data-frame-to-only-contain-the-columns-you-need" class="level5">
+<h5 class="anchored" data-anchor-id="answer-you-can-subset-the-data-frame-to-only-contain-the-columns-you-need">Answer: You can subset the data frame to only contain the columns you need</h5>
+<p>In pandas, one of the ways you can select certain subsets of the data is to specify them by the row and/or column names.</p>
+<p>To select a particular column (for example, the actual preciptation for each day) , you use square brackets [] along with the column name of the column of interest in quotation marks. Alternatively, this is known as “slicing”, since you are taking a slice of the original data frame.</p>
+<div id="cell-9" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>philly_weather[<span class="st">"actual_precipitation"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In order to get both columns of precipitation data, we need to use double brackets, then within the brackets we list the columns of interest with a comma between them, as shown below.</p>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>philly_weather[[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another way of selecting these columns is to add to the end of our data frame object “.loc” (which looks for the names of the columns by labels). Since our matrix is rows by columns, the “:” symbol tells the computer that we want all of the rows, but only the columns with specific labels.</p>
+<div id="cell-13" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[:,[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Likewise, we can do the same for the rows, only placing the “:” after the comma (in the columns position), and selecting the rows by label before the comma, as shown below.</p>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-16" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>,<span class="st">"2014-7-2"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While this is not too difficult if we only need a handful of rows and/or columns, this could become time-consuming if we want to get a series of rows and/or columns.</p>
+</section>
+<section id="question-2-instead-of-using-the-labels-of-the-rowscolumns-what-is-another-attribute-you-can-use-to-subset-the-data" class="level5">
+<h5 class="anchored" data-anchor-id="question-2-instead-of-using-the-labels-of-the-rowscolumns-what-is-another-attribute-you-can-use-to-subset-the-data">Question 2: Instead of using the labels of the rows/columns, what is another attribute you can use to subset the data?</h5>
+</section>
+<section id="answer-you-can-use-their-numerical-location-ex-the-1st-row-or-2nd-column" class="level5">
+<h5 class="anchored" data-anchor-id="answer-you-can-use-their-numerical-location-ex-the-1st-row-or-2nd-column">Answer: You can use their numerical location (ex: the 1st row or 2nd column)</h5>
+<p>A little earlier in the lesson, we used “.loc” to select rows and columns by their label. To do this by their index, we can instead use “.iloc” to select the row and/or column index value(s).</p>
+<p>Given that the “actual_precipitation” and “average_precipitation” columns represent the 9th through 11th rows respectively, this is how we subset the data to obtain the values in these columns .</p>
+<p>(note: the first piece of code means “select the data from the 9th column up to, but not including, the 12th column”).</p>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[<span class="dv">0</span>:<span class="dv">2</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the numbers are not in a sequence (ex: columns 0, 5, and 7), you can get the subset of the data like this</p>
+<div id="cell-23" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,[<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">7</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="joining-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="joining-data-frames">Joining Data Frames</h3>
+<p>Of course, we might not only be interested in the data from one city. Imagine that we want to do side-by-side comparisons of the average precipitation in Seattle vs.&nbsp;Philadelphia.</p>
+<p>Let’s first read in the weather pattern data for Seattle as well.</p>
+<div id="cell-25" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KSEA.csv</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>seattle_weather <span class="op">=</span> pd.read_csv(<span class="st">'KSEA.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>seattle_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using what we learned earlier, we can subset our data to only look at the columns dealing with precipitation:</p>
+<div id="cell-27" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip <span class="op">=</span> philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip <span class="op">=</span> seattle_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Rather than having to flip between both data frames, we can instead combine them into one separate data frame using the function “join”.</p>
+<p>There are four different ways that we can join our data, which we will go through below: “left”, “right”, “inner”, and “outer”</p>
+<p>For the sake of an example, let us sort our data such that Philadelphia’s precipitation data is sorted by the lowest to highest record precipitation, while Seattle’s precipitation data is sorted from the highest to lowest record precipitation.</p>
+<div id="cell-29" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered <span class="op">=</span> philly_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-30" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered <span class="op">=</span> seattle_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A left join indicates that we preserve the order of the data frame is getting another data frame joined to it (in this case, the Philadelphia precipitation data). Since the suffix names are the same for both dataframes, we use lsuffix and rsuffix to specify which columns came from which dataframe.</p>
+<p>(Note: ‘left’ is the default setting)</p>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'left'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Likewise, a right join indicates that we preserve the order of the data frame that is being joined to the first data frame (in this case, the Seattle precipitation data).</p>
+<div id="cell-34" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'right'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to order the dates lexographically, we can change the how parameter to ‘outer’ (or the union of the datasets).</p>
+<div id="cell-36" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'outer'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When we combine these datasets together, we can easily compare data from both data frames, for example plotting the record precipitation in Seattle vs.&nbsp;Philadelphia</p>
+<div id="cell-38" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>all_precipitation <span class="op">=</span> philly_weather_precip.join(seattle_weather_precip,lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let us pretend that we want to add information about each month (stored in the months object)</p>
+<div id="cell-40" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.Series([<span class="st">'July'</span>, <span class="st">'August'</span>,<span class="st">'September'</span>,<span class="st">'October'</span>,<span class="st">'November'</span>,<span class="st">'December'</span>,<span class="st">'January'</span>,<span class="st">'February'</span>,<span class="st">'March'</span>,<span class="st">'April'</span>,<span class="st">'May'</span>,<span class="st">'June'</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> months.repeat([<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">28</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>])</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.DataFrame(months, columns <span class="op">=</span> [<span class="st">'months'</span>])</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>months.index <span class="op">=</span> all_precipitation.index</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>months.index.name <span class="op">=</span> <span class="st">'date'</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>months</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let us say that in addition to the rainfall data, we also started to collect information about the average dewpoint on each day for the first three months in Philadelphia. However, due to statewide budget cuts scientists could not afford to gather data for the rest of the year.</p>
+<div id="cell-42" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> np.random.randint(<span class="dv">40</span>,<span class="dv">70</span>,size<span class="op">=</span><span class="dv">92</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> pd.DataFrame(dewpoint, columns<span class="op">=</span>[<span class="st">'dewpoint'</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>dewpoint.index <span class="op">=</span> all_precipitation.index[<span class="dv">0</span>:<span class="dv">92</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dewpoint.index.name <span class="op">=</span> <span class="st">'date'</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dewpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As done previously, we can join the datasets together, but you will notice below that all of the dates where there was no dewpoint recorded are labeled ‘NaN’ (“Not a number”, or undefined, data points).</p>
+<div id="cell-44" class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What if you only want to keep the values where dewpoints are recorded? To do this, you can use join with the how parameter set to ‘inner’ (or intersection of the data), as shown below.</p>
+<div id="cell-46" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint, how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="other-useful-pandas-functions-conditional-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="other-useful-pandas-functions-conditional-subsetting">Other useful pandas functions: conditional subsetting</h3>
+<p>There are other ways to subset datasets by their index or their rownames/colnames.</p>
+<p>Let us say that you are only looking for days where the max temperature was greater than 90. How would we be able to get only those rows?</p>
+<p>To do this, we can do something called conditional subsetting.</p>
+<p>Remember in lesson 1 when we learned about comparisons, such as “greater than” ( &gt; ), “lesser than” ( &lt; ), “equals” (==)? We can subset our data this way as well.</p>
+<p>To pick the rows where the max temperature was greater than 90, we can subset the data as follows</p>
+<div id="cell-49" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_max_temp"</span>] <span class="op">&gt;</span> <span class="dv">90</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As another example, what if we wanted to get all the days where it did not rain?</p>
+<div id="cell-51" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_precipitation"</span>] <span class="op">==</span> <span class="fl">0.00</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What if we want to omit years where the high occurred that year? (Hint: remember the boolean operators AND (&amp;) and OR (|)</p>
+<p>Answer:</p>
+<div id="cell-53" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>philly_weather[(philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2014</span>) <span class="op">&amp;</span> (philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2015</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="other-useful-pandas-functions-groupby" class="level3">
+<h3 class="anchored" data-anchor-id="other-useful-pandas-functions-groupby">Other useful pandas functions: groupby</h3>
+<p>Let us go back to to the all_precip_wmonths object, when we added information about which month each day was in for the combined Philly and Seattle precipitation data. One neat thing we can do is to group data based on certain column values (such as months), as shown below.</p>
+<div id="cell-55" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can do functions such as mean, min, and max for each month, rather than every day.</p>
+<div id="cell-57" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-58" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).<span class="bu">min</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-59" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">'months'</span>]).<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Remember when we plotted the record precipitation in Philadelphia vs.&nbsp;Seattle? What if we instead plotted the mean month-to-month instead of daily?</p>
+<div id="cell-61" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mean_months_precip <span class="op">=</span> all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> plt.gca()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From this graph, we can see that months where the record precipitation was on average the highest in Philadelphia (such as August and July) are the lowest precipitation times in Seattle!</p>
+</section>
+<section id="other-useful-pandas-functions-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="other-useful-pandas-functions-statistics">Other useful pandas functions: statistics</h3>
+<p>Lastly, we can perform statistics on our data as a whole. We have already gone through how certain mathematical functions such as min, max, or mean can be calculated on different groups, but this can also be done to columns of the data frame as well.</p>
+<p>For example, we can get the mean value of the actual precipitation in Seattle and Philadelphia, as shown below:</p>
+<div id="cell-64" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_seattle"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-65" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_philly"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see, on average the daily precipitation in Philadelphia is only 0.02 inches greater than Seattle.</p>
+<p>If you wanted to look at both at the same time, we follow the same rules that we did in label-based subsetting:</p>
+<div id="cell-68" class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In general, if you wanted to look at multiple statistics at once, you can call the function ‘describe’, as shown below:</p>
+<div id="cell-70" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="in-class-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="in-class-exercises">In-class exercises</h2>
+<section id="in-class-exercise-1-how-would-we-select-the-precipitation-data-from-july-1st-and-july-2nd-2014-in-philadelphia-using-label-based-subsetting" class="level5">
+<h5 class="anchored" data-anchor-id="in-class-exercise-1-how-would-we-select-the-precipitation-data-from-july-1st-and-july-2nd-2014-in-philadelphia-using-label-based-subsetting">In-class exercise 1: How would we select the precipitation data from July 1st and July 2nd, 2014, in Philadelphia, using label-based subsetting?</h5>
+</section>
+<section id="answer" class="level5">
+<h5 class="anchored" data-anchor-id="answer">Answer:</h5>
+</section>
+<section id="in-class-exercise-2-what-would-we-do-to-only-select-the-precipitation-data-from-july-1st-and-july-2nd-2014-using-index-based-subsetting" class="level5">
+<h5 class="anchored" data-anchor-id="in-class-exercise-2-what-would-we-do-to-only-select-the-precipitation-data-from-july-1st-and-july-2nd-2014-using-index-based-subsetting">In-class exercise 2: What would we do to only select the precipitation data from July 1st and July 2nd, 2014 using index-based subsetting?</h5>
+</section>
+<section id="answer-1" class="level5">
+<h5 class="anchored" data-anchor-id="answer-1">Answer:</h5>
+</section>
+<section id="in-class-exercise-3-using-the-all_precipitation-and-months-objects-called-earlier-how-can-we-join-these-dataframes-together-and-save-it-as-a-new-object-titled-all_precip_wmonths" class="level5">
+<h5 class="anchored" data-anchor-id="in-class-exercise-3-using-the-all_precipitation-and-months-objects-called-earlier-how-can-we-join-these-dataframes-together-and-save-it-as-a-new-object-titled-all_precip_wmonths">In-class exercise 3: Using the ‘all_precipitation’ and ‘months’ objects called earlier, how can we join these dataframes together and save it as a new object titled ‘all_precip_wmonths’?</h5>
+</section>
+<section id="answer-2" class="level5">
+<h5 class="anchored" data-anchor-id="answer-2">Answer:</h5>
+</section>
+<section id="in-class-exercise-4-go-back-and-use-the-philly_weather-and-seattle_weather-objects-to-figure-out-which-days-had-a-record-minimum-tempeature-under-10-in-either-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="in-class-exercise-4-go-back-and-use-the-philly_weather-and-seattle_weather-objects-to-figure-out-which-days-had-a-record-minimum-tempeature-under-10-in-either-dataset">In-class exercise 4: Go back and use the philly_weather and seattle_weather objects to figure out which days had a record minimum tempeature under 10 in either dataset</h5>
+</section>
+<section id="answer-3" class="level5">
+<h5 class="anchored" data-anchor-id="answer-3">Answer:</h5>
+</section>
+<section id="in-class-exercise-5-using-the-all_precip_wmonths-object-how-would-you-find-the-differences-in-standard-deviation-in-average-precipitation-between-philadelphia-and-seattle-for-each-month-hint-you-may-want-to-use-the-pandas-function-values-at-some-point-in-this-answer" class="level5">
+<h5 class="anchored" data-anchor-id="in-class-exercise-5-using-the-all_precip_wmonths-object-how-would-you-find-the-differences-in-standard-deviation-in-average-precipitation-between-philadelphia-and-seattle-for-each-month-hint-you-may-want-to-use-the-pandas-function-values-at-some-point-in-this-answer">In-class exercise 5: Using the all_precip_wmonths object, how would you find the differences in standard deviation in average precipitation between Philadelphia and Seattle for each month? (Hint: you may want to use the pandas function “values” at some point in this answer)</h5>
+</section>
+<section id="answer-4" class="level5">
+<h5 class="anchored" data-anchor-id="answer-4">Answer:</h5>
+</section>
+</section>
+<section id="homework" class="level2">
+<h2 class="anchored" data-anchor-id="homework">Homework</h2>
+<p>There are 81 different exercises pertaining to manipulating Pandas data frames found here: https://www.w3resource.com/python-exercises/pandas/index-dataframe.php (with the predicted output as well as possible solutions to the problems).</p>
+<p>I would suggest doing problems 3, 4, 5, 7, 9, 10, 12, 13, 14, 15, 24, and 31 (and if you have time/interest, problems 33, 44, 45, 49, and 52 are also good choices)</p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../Lesson_5_Pandas_DataFrame";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="pagination-link" aria-label="Lesson 4 - File IO and string manipulation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" class="pagination-link" aria-label="NumPy">
+        <span class="nav-page-text"><span class="chapter-title">NumPy</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

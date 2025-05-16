@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lesson 4 - File IO and string manipulation – How to Learn to Code – Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" rel="next">
+<link href="../Lesson_3_Abstraction_Functions/functions_student.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-71ca8c516236da922f97ce572b69f8b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_4_FileIO/Lesson_4_student.html"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">How to Learn to Code – Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">index.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_0_Introduction/Lesson_0_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 0 - Basic Introduction to Programming in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_2_Control_Structs/Lesson_2_Control_structs_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 2 - Data structures, Control flows, and Python Ecosystems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_3_Abstraction_Functions/functions_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_4_FileIO/Lesson_4_student.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NumPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_7_Plotting/plotting_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Plotting in Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8a_Scikit_Learn/scikit_learn_student.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8a: Scikit-Learn</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8b_Python_Ecosystem/Lesson_8b_Python_Ecosystem_teacher.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 8 - Python Ecosystem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lesson_8c_scanpy/Lesson_8c_scanpy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"></span></a><a href="https://scanpy.readthedocs.io/en/stable/">scanpy</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#motivating-example" id="toc-motivating-example" class="nav-link" data-scroll-target="#motivating-example">Motivating Example</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a>
+  <ul class="collapse">
+  <li><a href="#file-objects" id="toc-file-objects" class="nav-link" data-scroll-target="#file-objects">File Objects</a></li>
+  <li><a href="#reading-a-file-object" id="toc-reading-a-file-object" class="nav-link" data-scroll-target="#reading-a-file-object">Reading a file object</a></li>
+  <li><a href="#exhausting-a-file" id="toc-exhausting-a-file" class="nav-link" data-scroll-target="#exhausting-a-file">“Exhausting” a file</a></li>
+  <li><a href="#working-with-the-file" id="toc-working-with-the-file" class="nav-link" data-scroll-target="#working-with-the-file">Working with the file</a></li>
+  <li><a href="#stripping" id="toc-stripping" class="nav-link" data-scroll-target="#stripping">Stripping</a></li>
+  <li><a href="#closing-files" id="toc-closing-files" class="nav-link" data-scroll-target="#closing-files">Closing files</a></li>
+  <li><a href="#context-management" id="toc-context-management" class="nav-link" data-scroll-target="#context-management">Context management</a></li>
+  <li><a href="#reading-many-lines" id="toc-reading-many-lines" class="nav-link" data-scroll-target="#reading-many-lines">Reading many lines</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul></li>
+  <li><a href="#manipulating-strings" id="toc-manipulating-strings" class="nav-link" data-scroll-target="#manipulating-strings">Manipulating strings</a>
+  <ul class="collapse">
+  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1">Exercises</a></li>
+  </ul></li>
+  <li><a href="#reading-multiple-files" id="toc-reading-multiple-files" class="nav-link" data-scroll-target="#reading-multiple-files">Reading multiple files</a>
+  <ul class="collapse">
+  <li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2">Exercises</a></li>
+  </ul></li>
+  <li><a href="#visualization-pulling-it-all-together" id="toc-visualization-pulling-it-all-together" class="nav-link" data-scroll-target="#visualization-pulling-it-all-together">Visualization: pulling it all together</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Lesson 4 - File IO and string manipulation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/master/Lesson_4_FileIO/Lesson_4_student.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img" alt="Open In Colab"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>Learning objectives: Students will be able to load text files into Python objects, and learn to manipulate file names and strings.</p>
+<p>Specific skills:</p>
+<ul>
+<li>Loading text from files</li>
+<li>Using context managers to safely open and close files</li>
+<li>Basic string manipulation</li>
+<li>Using loops to load many files</li>
+<li>Writing list comprehensions</li>
+</ul>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Every program has an input and an output. In science, the input is usually your raw data; the output can be anything from processed data, statistical tests, model predictions, or figures for a paper or presentation. In any case, loading your input data is one of the first tasks that you will have to execute in your code.</p>
+<p>You have already seen how to load data into a <code>pandas.DataFrame</code>. However, not all data will be formatted this way. This lesson will teach you how to deal with text files, but the tools learned here will be applicable to a variety of different file types that you may come accross in your research.</p>
+</section>
+<section id="motivating-example" class="level1">
+<h1>Motivating Example</h1>
+<p>You are analyzing data, and your collaborator just sent you several files containing lists of genes that are upregulated in specific cell types. You might be interested in using these gene lists to determine how similar cells in your data set are to the cell types discovered by your collaborator. You have all the files in a single directory, but now you need to figure out how to import all of the gene lists into Python.</p>
+<p>How do you go about reading the data from all of these files? We will learn about the tools for reading data in this lesson.</p>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<p>We will be using data in external files for this lesson, so we will need a way to access these. In Colab, we can do this by cloning the data from GitHub. You can also access your Google Drive from Colab, by mounting your Drive every time you open your notebook.</p>
+<p>We clone from github using a language called bash. This language is specialized for communicating with UNIX operating systems, including MacOS and Linux (Google Colab is running your notebook on a Linux server). We can run bash commands in our notebook by starting a line with an exclamation point or percent sign.</p>
+<div id="08a937da-ec1f-4297-809a-dd01f5dff63b" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>git clone https:<span class="op">//</span>github.com<span class="op">/</span>How<span class="op">-</span>to<span class="op">-</span>Learn<span class="op">-</span>to<span class="op">-</span>Code<span class="op">/</span>python<span class="op">-</span><span class="kw">class</span>.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we have access to all the files in the GitHub repository. Next, we want to change the folder where our code will execute. This is called the <strong>working directory</strong>. We can change the working directory using the <code>cd</code> bash command.</p>
+<div id="77bd63db-8688-4f00-bdbc-813c584c7723" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>cd python<span class="op">-</span><span class="kw">class</span><span class="op">/</span>Lesson_4_FileIO<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to check that we are in the correct working directory, we can tell bash to print our current working directory using the command <code>pwd</code>.</p>
+<div id="e1953610-412c-44f6-a9fd-578eddba2912" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also see all the files in our current directory, using the “list” command <code>ls</code>.</p>
+<div id="ce7ea0b8-8bcc-4f5e-82a0-5c05c57d0773" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="files" class="level1">
+<h1>Files</h1>
+<div id="8f6168e0-c142-4443-9d97-47c7b82ad22b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>filepath <span class="op">=</span> <span class="st">'dna.txt'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_file <span class="op">=</span> <span class="bu">open</span>(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="file-objects" class="level3">
+<h3 class="anchored" data-anchor-id="file-objects">File Objects</h3>
+<ul>
+<li>cannot directly print a file object</li>
+</ul>
+<div id="c0470e70-4241-48f2-9e38-d73d450f9ba0" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;_io.TextIOWrapper name='dna.txt' mode='r' encoding='UTF-8'&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="reading-a-file-object" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-file-object">Reading a file object</h3>
+<div id="29d27c74-beb0-4a47-ab1c-2255078a5942" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>file_contents <span class="op">=</span> my_file.read()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (file_contents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ATATCGCGAA
+</code></pre>
+</div>
+</div>
+</section>
+<section id="exhausting-a-file" class="level3">
+<h3 class="anchored" data-anchor-id="exhausting-a-file">“Exhausting” a file</h3>
+<div id="d0d55d10-6df0-4adb-b6e5-42468ce645f1" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>my_file <span class="op">=</span> <span class="bu">open</span>(filepath)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_file.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ATATCGCGAA
+</code></pre>
+</div>
+</div>
+<div id="2d139d4a-7f55-4cef-a607-2ffb2c59a3bf" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_file.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<p>No output is displayed because the file object has already been read through.</p>
+<p>The file must be read in again to start from the beginning.</p>
+<p>Storing the output into a variable (<code>file_contents</code>) allows us to use the file data without worry about this.</p>
+<div id="812b8349-f17f-4d36-a343-9c61e75004d3" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (file_contents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ATATCGCGAA
+</code></pre>
+</div>
+</div>
+</section>
+<section id="working-with-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-the-file">Working with the file</h3>
+<div id="99566b0f-212d-4410-8a05-13131243a3c6" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dna_length <span class="op">=</span> <span class="bu">len</span>(file_contents)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sequence is '</span> <span class="op">+</span> file_contents <span class="op">+</span> <span class="st">' and the length is '</span> <span class="op">+</span> <span class="bu">str</span>(dna_length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sequence is ATATCGCGAA
+ and the length is 11</code></pre>
+</div>
+</div>
+<p>Output looks strange and the length is incorrect due to a hidden newline (<code>'\n'</code>) character</p>
+<p>The file we read in is actually 2 lines with the second line being blank</p>
+</section>
+<section id="stripping" class="level3">
+<h3 class="anchored" data-anchor-id="stripping">Stripping</h3>
+<div id="9f4ff2fe-2394-42e7-b752-400ce320980e" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>my_dna_strip <span class="op">=</span> file_contents.strip(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sequence is '</span> <span class="op">+</span> my_dna_strip <span class="op">+</span> <span class="st">' and the length is '</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(my_dna_strip)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sequence is ATATCGCGAA and the length is 10</code></pre>
+</div>
+</div>
+<p><code>.strip()</code> removes any leading or trailing instances of the given character</p>
+<div id="043fc222-fbb6-4745-a0ed-ac56858acf8f" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>new_dna <span class="op">=</span> my_dna_strip.strip(<span class="st">'A'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_dna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TATCGCG</code></pre>
+</div>
+</div>
+</section>
+<section id="closing-files" class="level3">
+<h3 class="anchored" data-anchor-id="closing-files">Closing files</h3>
+<p>It’s good programming practice to close files once you have read from them. There are limits by your OS on how many files can be kept open.</p>
+<div id="ec912244-394f-420a-a221-22c6b4cf379c" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>my_file2 <span class="op">=</span> <span class="bu">open</span>(<span class="st">'three_seq.txt'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>file_contents2 <span class="op">=</span> my_file2.read()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>my_file2.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="context-management" class="level2">
+<h2 class="anchored" data-anchor-id="context-management">Context management</h2>
+<p>Writing code to close your file every time you open it is a pain. Fortunately, there is a clean way to deal with this. The Python <code>with</code> statement is known as a context manager, since it is responsible for the context in which the file is being manipulated. What this means, is that the file will automatically be closed once you exit the <code>with</code> statement.</p>
+<p>This is how it works:</p>
+<div id="cc6d60c6-e0ca-4622-9e9f-ac5c3c238510" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'three_seq.txt'</span>) <span class="im">as</span> file_handle:</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    file_contents2 <span class="op">=</span> file_handle.read()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7da94497-8768-4cc3-92c2-de84dc726a4e" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>file_contents2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>'ATCAGACGCGCAGAGGAGGCGGGGCCGCGGCTGGTTTCCTGCCGGGGGGCGGCTCTGGGCCGCCGAGTCCCCTCCTCCCGCCCCTGAGGAGGAGGAGCCGCCGCCACCCGCCGCGCCCGACACCCGGGAGGCCCCGCCAGCCCGCGGGAGAGGCCCAGCGGGAGTCGCGGAACAGCAGGCCCGAGCCCACCGCGCCGGGCCCCGGACGCCGCGCGGAAAAG\nCTGCTCCGGAGTGACGCGGGCCCGGGCGCGACGGTCTCGGCGGCGGCGGCGGCGGCGACAGAGCGAGCGCGGCGCGGGGCCACC\nAGAAGGAGGGCGTGGTAATATGAAGTCAGTTCCGGTTGGTGTAAAACCCCCGGGGCGGCGGCGAACTGGCTTTAGATGCTTCTGGGTCGCGGTGTGCTAAGCGAGGAGTCCGAGTGTGTGAGCTTGAGAGCCGCGCGCTAGAGCGACCCGGCGAGGG'</code></pre>
+</div>
+</div>
+</section>
+<section id="reading-many-lines" class="level2">
+<h2 class="anchored" data-anchor-id="reading-many-lines">Reading many lines</h2>
+<p>Oftentimes the text file we are using will be organized line by line. In this case, rather than reading the whole thing at once, it makes sense to read each line into a different element of a list.</p>
+<div id="e742e5e1-41ff-4aa0-9766-abf9a7894ccb" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'three_seq.txt'</span>) <span class="im">as</span> handle:</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    seqs <span class="op">=</span> handle.read()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    seq_list <span class="op">=</span> seqs.splitlines()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ca0ab802-e74a-4839-a001-4d9c20abddde" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seq_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['ATCAGACGCGCAGAGGAGGCGGGGCCGCGGCTGGTTTCCTGCCGGGGGGCGGCTCTGGGCCGCCGAGTCCCCTCCTCCCGCCCCTGAGGAGGAGGAGCCGCCGCCACCCGCCGCGCCCGACACCCGGGAGGCCCCGCCAGCCCGCGGGAGAGGCCCAGCGGGAGTCGCGGAACAGCAGGCCCGAGCCCACCGCGCCGGGCCCCGGACGCCGCGCGGAAAAG', 'CTGCTCCGGAGTGACGCGGGCCCGGGCGCGACGGTCTCGGCGGCGGCGGCGGCGGCGACAGAGCGAGCGCGGCGCGGGGCCACC', 'AGAAGGAGGGCGTGGTAATATGAAGTCAGTTCCGGTTGGTGTAAAACCCCCGGGGCGGCGGCGAACTGGCTTTAGATGCTTCTGGGTCGCGGTGTGCTAAGCGAGGAGTCCGAGTGTGTGAGCTTGAGAGCCGCGCGCTAGAGCGACCCGGCGAGGG']</code></pre>
+</div>
+</div>
+<p>You can also chain the commands to fit on a single line:</p>
+<div id="13071486-c0e5-4dd1-8297-a183c258478c" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'three_seq.txt'</span>) <span class="im">as</span> handle:</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    seq_list2 <span class="op">=</span> handle.read().splitlines()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f8b43c80-a10f-4f0a-ae1a-747375b8f528" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seq_list2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['ATCAGACGCGCAGAGGAGGCGGGGCCGCGGCTGGTTTCCTGCCGGGGGGCGGCTCTGGGCCGCCGAGTCCCCTCCTCCCGCCCCTGAGGAGGAGGAGCCGCCGCCACCCGCCGCGCCCGACACCCGGGAGGCCCCGCCAGCCCGCGGGAGAGGCCCAGCGGGAGTCGCGGAACAGCAGGCCCGAGCCCACCGCGCCGGGCCCCGGACGCCGCGCGGAAAAG', 'CTGCTCCGGAGTGACGCGGGCCCGGGCGCGACGGTCTCGGCGGCGGCGGCGGCGGCGACAGAGCGAGCGCGGCGCGGGGCCACC', 'AGAAGGAGGGCGTGGTAATATGAAGTCAGTTCCGGTTGGTGTAAAACCCCCGGGGCGGCGGCGAACTGGCTTTAGATGCTTCTGGGTCGCGGTGTGCTAAGCGAGGAGTCCGAGTGTGTGAGCTTGAGAGCCGCGCGCTAGAGCGACCCGGCGAGGG']</code></pre>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>How would you check that <code>seq_list</code> and <code>seq_list2</code> are identical?</p>
+<div id="93e1401c-41a4-4571-9852-0734d3a6da42" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Write a function to read a text file into a list of lines. Test your code using the examples below.</p>
+<div id="5c376360-f5af-43ec-a402-8d0e0ba7bd15" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># feel free to change your function name to something more descriptive!</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> file_reader(path):</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="92366da5-95c0-446a-9744-3e8da5da2bcc" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>file_reader(<span class="st">'dna.txt'</span>)[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">/tmp/ipykernel_29734/1649332137.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>file_reader<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'dna.txt'</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-red-fg">TypeError</span>: 'NoneType' object is not subscriptable</pre>
+</div>
+</div>
+</div>
+<div id="c66f53e4-fcb9-4fe8-9a11-78bc2431f851" class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>my_file_test <span class="op">=</span> file_reader(<span class="st">'dna.txt'</span>)[<span class="dv">0</span>]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> my_file_test <span class="op">==</span> <span class="st">'ATATCGCGAA'</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>seq_list_test <span class="op">=</span> file_reader(<span class="st">'three_seq.txt'</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> seq_list_test <span class="op">==</span> seq_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="manipulating-strings" class="level1">
+<h1>Manipulating strings</h1>
+<p>There are a few useful things we can do with strings.</p>
+<p>First, we can find and replace text using the <code>replace()</code> function. This can be useful for stripping file extensions:</p>
+<div id="15631705-1ad4-4d88-a94b-190a7ce4c034" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">'some_file.txt'</span>.replace(<span class="st">'.txt'</span>, <span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>'some_file'</code></pre>
+</div>
+</div>
+<p>The first argument to <code>replace()</code> is the pattern we are searching for in the string, and the second argument is what we want to replace it with.</p>
+<div id="8b8f283a-ad62-4c9d-9cfa-02b3e7638044" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">'this is a STRING'</span>.replace(<span class="st">'STRING'</span>, <span class="st">'pizza'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>'this is a pizza'</code></pre>
+</div>
+</div>
+<p>There are several other useful tools for working with strings. For example, <code>upper()</code> and <code>lower()</code> can be used to make all characters in a string upper- or lower-case. <code>swapcase()</code> switches all upper- and lower-case letters.</p>
+<div id="41f4036e-c471-4d6b-ab5f-b439e5724ca3" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'lower2upper'</span>.upper())</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'UPPER2LOWER'</span>.lower())</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'cAmElCaSe'</span>.swapcase())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>LOWER2UPPER
+upper2lower
+CaMeLcAsE</code></pre>
+</div>
+</div>
+<p>Strings can be concatenated using the addition operator:</p>
+<div id="028010ee-6525-4ea9-8696-f5e26449a862" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">'str'</span> <span class="op">+</span> <span class="st">'ing'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>'string'</code></pre>
+</div>
+</div>
+<p>Variables can be inserted into strings by first converting them into strings and then concatenating them:</p>
+<div id="aba60173-49c0-47ed-a335-a96bb3b2ccf1" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>my_name <span class="op">=</span> <span class="st">'NAME'</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>my_age <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fails because my_age is not a string</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'My name is '</span> <span class="op">+</span> my_name <span class="op">+</span> <span class="st">' and my age is '</span> <span class="op">+</span> my_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">/tmp/ipykernel_29734/2057852267.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg ansi-bold">      2</span> my_age <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span>
+<span class="ansi-green-fg ansi-bold">      3</span> <span class="ansi-red-fg"># fails because my_age is not a string</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'My name is '</span> <span class="ansi-blue-fg">+</span> my_name <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">' and my age is '</span> <span class="ansi-blue-fg">+</span> my_age<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: can only concatenate str (not "NoneType") to str</pre>
+</div>
+</div>
+</div>
+<div id="153f5a36-9ce8-410f-b20b-4784a82ba98e" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'My name is '</span> <span class="op">+</span> my_name <span class="op">+</span> <span class="st">' and my age is '</span> <span class="op">+</span> <span class="bu">str</span>(my_age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>My name is NAME and my age is None</code></pre>
+</div>
+</div>
+<p>As of Python 3.6, the easiest way to format strings is using f-strings:</p>
+<div id="d93b1903-030f-4df2-87b0-32b4943a563a" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'My name is </span><span class="sc">{</span>my_name<span class="sc">}</span><span class="ss"> and my age is </span><span class="sc">{</span>my_age<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>My name is NAME and my age is None</code></pre>
+</div>
+</div>
+<p>Sometimes it is useful to check if a certain pattern is present within a string. Here is one way to do this:</p>
+<div id="161aee11-81f6-46b0-a4b1-f4468051c8d0" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'hi'</span> <span class="kw">in</span> <span class="st">'this is a test'</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'ahoy'</span> <span class="kw">in</span> <span class="st">'this is a test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True
+False</code></pre>
+</div>
+</div>
+<section id="exercises-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-1">Exercises</h2>
+<p>Convert all nucleotides in ‘dna.txt’ to lowercase.</p>
+<div id="7890e628-f781-473b-883b-fac88c643921" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use f-strings to append a poly-A tail to each sequence in ‘seq_list.txt’.</p>
+<div id="3fb3382f-934a-4fe8-90c9-26d9cc43bbc1" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="reading-multiple-files" class="level1">
+<h1>Reading multiple files</h1>
+<p>To go from reading a single file to reading multiple files, use a <code>for</code> loop.</p>
+<p>First, we need get all the file names in a directory. We can do this using the <code>os</code> library.</p>
+<div id="15104e3f-e933-4bcb-98a6-c94e57644129" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> <span class="st">'gene_sets'</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> os.listdir(data_dir)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>['.ipynb_checkpoints',
+ 'junk_files',
+ 'HALLMARK_G2M_CHECKPOINT.v7.5.1.grp',
+ 'HALLMARK_APOPTOSIS.v7.5.1.grp',
+ 'HALLMARK_PI3K_AKT_MTOR_SIGNALING.v7.5.1.grp',
+ 'HALLMARK_TNFA_SIGNALING_VIA_NFKB.v7.5.1.grp',
+ 'HALLMARK_INFLAMMATORY_RESPONSE.v7.5.1.grp']</code></pre>
+</div>
+</div>
+<p>We want to read the hallmark gene sets, however there is also a folder of ‘junk’ files that we do not want to read. This often occurs if you use a program that stores temporary files–for example, Excel.</p>
+<p>We will filter only the files with the extension we want.</p>
+<div id="d21442eb-aac3-4c72-8122-fe1eafd0fcc7" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gene_set_files <span class="op">=</span> []</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'.grp'</span> <span class="kw">in</span> <span class="bu">file</span>:</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        gene_set_files.append(<span class="bu">file</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="44912bdf-113a-4fb3-822b-14b610154c7e" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>gene_set_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>['HALLMARK_G2M_CHECKPOINT.v7.5.1.grp',
+ 'HALLMARK_APOPTOSIS.v7.5.1.grp',
+ 'HALLMARK_PI3K_AKT_MTOR_SIGNALING.v7.5.1.grp',
+ 'HALLMARK_TNFA_SIGNALING_VIA_NFKB.v7.5.1.grp',
+ 'HALLMARK_INFLAMMATORY_RESPONSE.v7.5.1.grp']</code></pre>
+</div>
+</div>
+<p>To do this, we had to initialize an empty list and use a nested <code>if</code> statement within a <code>for</code> loop to append to the list only under a certain condition–if a file name included the extension we want to read.</p>
+<p>This is a lot of boilerplate, however there is a better way: using list comprehensions.</p>
+<div id="27acefa5-220f-4553-b367-a20fb519b357" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>gene_set_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> files <span class="cf">if</span> (<span class="st">'.grp'</span> <span class="kw">in</span> f)]</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>gene_set_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>['HALLMARK_G2M_CHECKPOINT.v7.5.1.grp',
+ 'HALLMARK_APOPTOSIS.v7.5.1.grp',
+ 'HALLMARK_PI3K_AKT_MTOR_SIGNALING.v7.5.1.grp',
+ 'HALLMARK_TNFA_SIGNALING_VIA_NFKB.v7.5.1.grp',
+ 'HALLMARK_INFLAMMATORY_RESPONSE.v7.5.1.grp']</code></pre>
+</div>
+</div>
+<p>List comprehensions are just shorthand for a for loop that populates a list. You can use them to shorten straight-forward for loops, like the one above.</p>
+<p>Here are some more examples of list comprehensions:</p>
+<div id="70d0a7c8-69dd-43a1-98a1-f43a76883e35" class="cell" data-tags="[]" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string manipulation</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>[<span class="ss">f'This is a </span><span class="sc">{</span>string<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> string <span class="kw">in</span> [<span class="st">'mouse'</span>, <span class="st">'moose'</span>, <span class="st">'pipette'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>['This is a mouse', 'This is a moose', 'This is a pipette']</code></pre>
+</div>
+</div>
+<div id="b51b054d-ced5-487b-aacc-76a92741077b" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arithmetic</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> <span class="bu">sum</span>(numbers)<span class="op">/</span><span class="bu">len</span>(numbers)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>[number <span class="op">-</span> mean <span class="cf">for</span> number <span class="kw">in</span> numbers]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>[-2.0, -1.0, 0.0, 1.0, 2.0]</code></pre>
+</div>
+</div>
+<p>When in doubt, you can always write a list comprehension as a full <code>for</code> loop.</p>
+<p>Now, we will use a list comprehension to read all the gene sets into a list, using the <code>file_reader()</code> function that you wrote in the first section of the lesson.</p>
+<div id="7c82b06e-59ff-4eac-a1a0-16c5f8aeccd0" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>gene_sets <span class="op">=</span> [file_reader(<span class="ss">f'</span><span class="sc">{</span>data_dir<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">'</span>) <span class="cf">for</span> f <span class="kw">in</span> gene_set_files]</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_sets[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>None</code></pre>
+</div>
+</div>
+<p>Here is what the code might look like without using a list comprehension:</p>
+<div id="bc855fde-1e22-46f8-8c3a-a62f37bc2362" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>gene_sets <span class="op">=</span> []  <span class="co"># initialize empty list of output</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> gene_set_files:</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    fname <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>data_dir<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">'</span>  <span class="co"># f-string to get full path to file</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(fname) <span class="im">as</span> handle:</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> handle.read().splitlines()  <span class="co"># temporary variable containing text</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    gene_sets.append(tmp)  <span class="co"># add tmp to output list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The gene lists each contain the gene set name and a url as the first two elements. The rest of the list consists of genes in the set. We want to filter the lists to contain only the genes of interest. We can use a list comprehension to keep the 2nd through the last element of each gene list:</p>
+<div id="2856795c-75f6-4c0d-9f15-5a47f538e510" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>gene_set_names <span class="op">=</span> [gene_list[<span class="dv">0</span>] <span class="cf">for</span> gene_list <span class="kw">in</span> gene_sets]  <span class="co"># extract names</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>gene_sets <span class="op">=</span> [gene_list[<span class="dv">2</span>::] <span class="cf">for</span> gene_list <span class="kw">in</span> gene_sets]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5a1495b5-9ecd-488e-ab20-5111914affa7" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>gene_set_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>['HALLMARK_G2M_CHECKPOINT',
+ 'HALLMARK_APOPTOSIS',
+ 'HALLMARK_PI3K_AKT_MTOR_SIGNALING',
+ 'HALLMARK_TNFA_SIGNALING_VIA_NFKB',
+ 'HALLMARK_INFLAMMATORY_RESPONSE']</code></pre>
+</div>
+</div>
+<div id="a82cc5e8-77c2-4a37-9d3f-2765be7f8983" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_sets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[['ABL1', 'AMD1', 'ARID4A', 'ATF5', 'ATRX', 'AURKA', 'AURKB', 'BARD1', 'BCL3', 'BIRC5', 'BRCA2', 'BUB1', 'BUB3', 'CASP8AP2', 'CBX1', 'CCNA2', 'CCNB2', 'CCND1', 'CCNF', 'CCNT1', 'CDC20', 'CDC25A', 'CDC25B', 'CDC27', 'CDC45', 'CDC6', 'CDC7', 'CDK1', 'CDK4', 'CDKN1B', 'CDKN2C', 'CDKN3', 'CENPA', 'CENPE', 'CENPF', 'CHAF1A', 'CHEK1', 'CHMP1A', 'CKS1B', 'CKS2', 'CTCF', 'CUL1', 'CUL3', 'CUL4A', 'CUL5', 'DBF4', 'DDX39A', 'DKC1', 'DMD', 'DR1', 'DTYMK', 'E2F1', 'E2F2', 'E2F3', 'E2F4', 'EFNA5', 'EGF', 'ESPL1', 'EWSR1', 'EXO1', 'EZH2', 'FANCC', 'FBXO5', 'FOXN3', 'G3BP1', 'GINS2', 'GSPT1', 'H2AX', 'H2AZ1', 'H2AZ2', 'H2BC12', 'HIF1A', 'HIRA', 'HMGA1', 'HMGB3', 'HMGN2', 'HMMR', 'HNRNPD', 'HNRNPU', 'HOXC10', 'HSPA8', 'HUS1', 'ILF3', 'INCENP', 'JPT1', 'KATNA1', 'KIF11', 'KIF15', 'KIF20B', 'KIF22', 'KIF23', 'KIF2C', 'KIF4A', 'KIF5B', 'KMT5A', 'KNL1', 'KPNA2', 'KPNB1', 'LBR', 'LIG3', 'LMNB1', 'MAD2L1', 'MAP3K20', 'MAPK14', 'MARCKS', 'MCM2', 'MCM3', 'MCM5', 'MCM6', 'MEIS1', 'MEIS2', 'MKI67', 'MNAT1', 'MT2A', 'MTF2', 'MYBL2', 'MYC', 'NASP', 'NCL', 'NDC80', 'NEK2', 'NOLC1', 'NOTCH2', 'NSD2', 'NUMA1', 'NUP50', 'NUP98', 'NUSAP1', 'ODC1', 'ODF2', 'ORC5', 'ORC6', 'PAFAH1B1', 'PBK', 'PDS5B', 'PLK1', 'PLK4', 'PML', 'POLA2', 'POLE', 'POLQ', 'PRC1', 'PRIM2', 'PRMT5', 'PRPF4B', 'PTTG1', 'PTTG3P', 'PURA', 'RACGAP1', 'RAD21', 'RAD23B', 'RAD54L', 'RASAL2', 'RBL1', 'RBM14', 'RPA2', 'RPS6KA5', 'SAP30', 'SFPQ', 'SLC12A2', 'SLC38A1', 'SLC7A1', 'SLC7A5', 'SMAD3', 'SMARCC1', 'SMC1A', 'SMC2', 'SMC4', 'SNRPD1', 'SQLE', 'SRSF1', 'SRSF10', 'SRSF2', 'SS18', 'STAG1', 'STIL', 'STMN1', 'SUV39H1', 'SYNCRIP', 'TACC3', 'TENT4A', 'TFDP1', 'TGFB1', 'TLE3', 'TMPO', 'TNPO2', 'TOP1', 'TOP2A', 'TPX2', 'TRA2B', 'TRAIP', 'TROAP', 'TTK', 'UBE2C', 'UBE2S', 'UCK2', 'UPF1', 'WRN', 'XPO1', 'YTHDC1'], ['ADD1', 'AIFM3', 'ANKH', 'ANXA1', 'APP', 'ATF3', 'AVPR1A', 'BAX', 'BCAP31', 'BCL10', 'BCL2L1', 'BCL2L10', 'BCL2L11', 'BCL2L2', 'BGN', 'BID', 'BIK', 'BIRC3', 'BMF', 'BMP2', 'BNIP3L', 'BRCA1', 'BTG2', 'BTG3', 'CASP1', 'CASP2', 'CASP3', 'CASP4', 'CASP6', 'CASP7', 'CASP8', 'CASP9', 'CAV1', 'CCNA1', 'CCND1', 'CCND2', 'CD14', 'CD2', 'CD38', 'CD44', 'CD69', 'CDC25B', 'CDK2', 'CDKN1A', 'CDKN1B', 'CFLAR', 'CLU', 'CREBBP', 'CTH', 'CTNNB1', 'CYLD', 'DAP', 'DAP3', 'DCN', 'DDIT3', 'DFFA', 'DIABLO', 'DNAJA1', 'DNAJC3', 'DNM1L', 'DPYD', 'EBP', 'EGR3', 'EMP1', 'ENO2', 'ERBB2', 'ERBB3', 'EREG', 'ETF1', 'F2', 'F2R', 'FAS', 'FASLG', 'FDXR', 'FEZ1', 'GADD45A', 'GADD45B', 'GCH1', 'GNA15', 'GPX1', 'GPX3', 'GPX4', 'GSN', 'GSR', 'GSTM1', 'GUCY2D', 'H1-0', 'HGF', 'HMGB2', 'HMOX1', 'HSPB1', 'IER3', 'IFITM3', 'IFNB1', 'IFNGR1', 'IGF2R', 'IGFBP6', 'IL18', 'IL1A', 'IL1B', 'IL6', 'IRF1', 'ISG20', 'JUN', 'KRT18', 'LEF1', 'LGALS3', 'LMNA', 'LUM', 'MADD', 'MCL1', 'MGMT', 'MMP2', 'NEDD9', 'NEFH', 'PAK1', 'PDCD4', 'PDGFRB', 'PEA15', 'PLAT', 'PLCB2', 'PLPPR4', 'PMAIP1', 'PPP2R5B', 'PPP3R1', 'PPT1', 'PRF1', 'PSEN1', 'PSEN2', 'PTK2', 'RARA', 'RELA', 'RETSAT', 'RHOB', 'RHOT2', 'RNASEL', 'ROCK1', 'SAT1', 'SATB1', 'SC5D', 'SLC20A1', 'SMAD7', 'SOD1', 'SOD2', 'SPTAN1', 'SQSTM1', 'TAP1', 'TGFB2', 'TGFBR3', 'TIMP1', 'TIMP2', 'TIMP3', 'TNF', 'TNFRSF12A', 'TNFSF10', 'TOP2A', 'TSPO', 'TXNIP', 'VDAC2', 'WEE1', 'XIAP'], ['ACACA', 'ACTR2', 'ACTR3', 'ADCY2', 'AKT1', 'AKT1S1', 'AP2M1', 'ARF1', 'ARHGDIA', 'ARPC3', 'ATF1', 'CAB39', 'CAB39L', 'CALR', 'CAMK4', 'CDK1', 'CDK2', 'CDK4', 'CDKN1A', 'CDKN1B', 'CFL1', 'CLTC', 'CSNK2B', 'CXCR4', 'DAPP1', 'DDIT3', 'DUSP3', 'E2F1', 'ECSIT', 'EGFR', 'EIF4E', 'FASLG', 'FGF17', 'FGF22', 'FGF6', 'GNA14', 'GNGT1', 'GRB2', 'GRK2', 'GSK3B', 'HRAS', 'HSP90B1', 'IL2RG', 'IL4', 'IRAK4', 'ITPR2', 'LCK', 'MAP2K3', 'MAP2K6', 'MAP3K7', 'MAPK1', 'MAPK10', 'MAPK8', 'MAPK9', 'MAPKAP1', 'MKNK1', 'MKNK2', 'MYD88', 'NCK1', 'NFKBIB', 'NGF', 'NOD1', 'PAK4', 'PDK1', 'PFN1', 'PIK3R3', 'PIKFYVE', 'PIN1', 'PITX2', 'PLA2G12A', 'PLCB1', 'PLCG1', 'PPP1CA', 'PPP2R1B', 'PRKAA2', 'PRKAG1', 'PRKAR2A', 'PRKCB', 'PTEN', 'PTPN11', 'RAC1', 'RAF1', 'RALB', 'RIPK1', 'RIT1', 'RPS6KA1', 'RPS6KA3', 'RPTOR', 'SFN', 'SLA', 'SLC2A1', 'SMAD2', 'SQSTM1', 'STAT2', 'TBK1', 'THEM4', 'TIAM1', 'TNFRSF1A', 'TRAF2', 'TRIB3', 'TSC2', 'UBE2D3', 'UBE2N', 'VAV3', 'YWHAB'], ['ABCA1', 'ACKR3', 'AREG', 'ATF3', 'ATP2B1', 'B4GALT1', 'B4GALT5', 'BCL2A1', 'BCL3', 'BCL6', 'BHLHE40', 'BIRC2', 'BIRC3', 'BMP2', 'BTG1', 'BTG2', 'BTG3', 'CCL2', 'CCL20', 'CCL4', 'CCL5', 'CCN1', 'CCND1', 'CCNL1', 'CCRL2', 'CD44', 'CD69', 'CD80', 'CD83', 'CDKN1A', 'CEBPB', 'CEBPD', 'CFLAR', 'CLCF1', 'CSF1', 'CSF2', 'CXCL1', 'CXCL10', 'CXCL11', 'CXCL2', 'CXCL3', 'CXCL6', 'DDX58', 'DENND5A', 'DNAJB4', 'DRAM1', 'DUSP1', 'DUSP2', 'DUSP4', 'DUSP5', 'EDN1', 'EFNA1', 'EGR1', 'EGR2', 'EGR3', 'EHD1', 'EIF1', 'ETS2', 'F2RL1', 'F3', 'FJX1', 'FOS', 'FOSB', 'FOSL1', 'FOSL2', 'FUT4', 'G0S2', 'GADD45A', 'GADD45B', 'GCH1', 'GEM', 'GFPT2', 'GPR183', 'HBEGF', 'HES1', 'ICAM1', 'ICOSLG', 'ID2', 'IER2', 'IER3', 'IER5', 'IFIH1', 'IFIT2', 'IFNGR2', 'IL12B', 'IL15RA', 'IL18', 'IL1A', 'IL1B', 'IL23A', 'IL6', 'IL6ST', 'IL7R', 'INHBA', 'IRF1', 'IRS2', 'JAG1', 'JUN', 'JUNB', 'KDM6B', 'KLF10', 'KLF2', 'KLF4', 'KLF6', 'KLF9', 'KYNU', 'LAMB3', 'LDLR', 'LIF', 'LITAF', 'MAFF', 'MAP2K3', 'MAP3K8', 'MARCKS', 'MCL1', 'MSC', 'MXD1', 'MYC', 'NAMPT', 'NFAT5', 'NFE2L2', 'NFIL3', 'NFKB1', 'NFKB2', 'NFKBIA', 'NFKBIE', 'NINJ1', 'NR4A1', 'NR4A2', 'NR4A3', 'OLR1', 'PANX1', 'PDE4B', 'PDLIM5', 'PER1', 'PFKFB3', 'PHLDA1', 'PHLDA2', 'PLAU', 'PLAUR', 'PLEK', 'PLK2', 'PLPP3', 'PMEPA1', 'PNRC1', 'PPP1R15A', 'PTGER4', 'PTGS2', 'PTPRE', 'PTX3', 'RCAN1', 'REL', 'RELA', 'RELB', 'RHOB', 'RIPK2', 'RNF19B', 'SAT1', 'SDC4', 'SERPINB2', 'SERPINB8', 'SERPINE1', 'SGK1', 'SIK1', 'SLC16A6', 'SLC2A3', 'SLC2A6', 'SMAD3', 'SNN', 'SOCS3', 'SOD2', 'SPHK1', 'SPSB1', 'SQSTM1', 'STAT5A', 'TANK', 'TAP1', 'TGIF1', 'TIPARP', 'TLR2', 'TNC', 'TNF', 'TNFAIP2', 'TNFAIP3', 'TNFAIP6', 'TNFAIP8', 'TNFRSF9', 'TNFSF9', 'TNIP1', 'TNIP2', 'TRAF1', 'TRIB1', 'TRIP10', 'TSC22D1', 'TUBB2A', 'VEGFA', 'YRDC', 'ZBTB10', 'ZC3H12A', 'ZFP36'], ['ABCA1', 'ABI1', 'ACVR1B', 'ACVR2A', 'ADGRE1', 'ADM', 'ADORA2B', 'ADRM1', 'AHR', 'APLNR', 'AQP9', 'ATP2A2', 'ATP2B1', 'ATP2C1', 'AXL', 'BDKRB1', 'BEST1', 'BST2', 'BTG2', 'C3AR1', 'C5AR1', 'CALCRL', 'CCL17', 'CCL2', 'CCL20', 'CCL22', 'CCL24', 'CCL5', 'CCL7', 'CCR7', 'CCRL2', 'CD14', 'CD40', 'CD48', 'CD55', 'CD69', 'CD70', 'CD82', 'CDKN1A', 'CHST2', 'CLEC5A', 'CMKLR1', 'CSF1', 'CSF3', 'CSF3R', 'CX3CL1', 'CXCL10', 'CXCL11', 'CXCL6', 'CXCL8', 'CXCL9', 'CXCR6', 'CYBB', 'DCBLD2', 'EBI3', 'EDN1', 'EIF2AK2', 'EMP3', 'EREG', 'F3', 'FFAR2', 'FPR1', 'FZD5', 'GABBR1', 'GCH1', 'GNA15', 'GNAI3', 'GP1BA', 'GPC3', 'GPR132', 'GPR183', 'HAS2', 'HBEGF', 'HIF1A', 'HPN', 'HRH1', 'ICAM1', 'ICAM4', 'ICOSLG', 'IFITM1', 'IFNAR1', 'IFNGR2', 'IL10', 'IL10RA', 'IL12B', 'IL15', 'IL15RA', 'IL18', 'IL18R1', 'IL18RAP', 'IL1A', 'IL1B', 'IL1R1', 'IL2RB', 'IL4R', 'IL6', 'IL7R', 'INHBA', 'IRAK2', 'IRF1', 'IRF7', 'ITGA5', 'ITGB3', 'ITGB8', 'KCNA3', 'KCNJ2', 'KCNMB2', 'KIF1B', 'KLF6', 'LAMP3', 'LCK', 'LCP2', 'LDLR', 'LIF', 'LPAR1', 'LTA', 'LY6E', 'LYN', 'MARCO', 'MEFV', 'MEP1A', 'MET', 'MMP14', 'MSR1', 'MXD1', 'MYC', 'NAMPT', 'NDP', 'NFKB1', 'NFKBIA', 'NLRP3', 'NMI', 'NMUR1', 'NOD2', 'NPFFR2', 'OLR1', 'OPRK1', 'OSM', 'OSMR', 'P2RX4', 'P2RX7', 'P2RY2', 'PCDH7', 'PDE4B', 'PDPN', 'PIK3R5', 'PLAUR', 'PROK2', 'PSEN1', 'PTAFR', 'PTGER2', 'PTGER4', 'PTGIR', 'PTPRE', 'PVR', 'RAF1', 'RASGRP1', 'RELA', 'RGS1', 'RGS16', 'RHOG', 'RIPK2', 'RNF144B', 'ROS1', 'RTP4', 'SCARF1', 'SCN1B', 'SELE', 'SELENOS', 'SELL', 'SEMA4D', 'SERPINE1', 'SGMS2', 'SLAMF1', 'SLC11A2', 'SLC1A2', 'SLC28A2', 'SLC31A1', 'SLC31A2', 'SLC4A4', 'SLC7A1', 'SLC7A2', 'SPHK1', 'SRI', 'STAB1', 'TACR1', 'TACR3', 'TAPBP', 'TIMP1', 'TLR1', 'TLR2', 'TLR3', 'TNFAIP6', 'TNFRSF1B', 'TNFRSF9', 'TNFSF10', 'TNFSF15', 'TNFSF9', 'TPBG', 'VIP']]</code></pre>
+</div>
+</div>
+<section id="exercises-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-2">Exercises</h2>
+<p>Use string manipulation and a for loop or list comprehension to get rid of the version numbers and file extensions in <code>gene_set_files</code>. The output should be identical to <code>gene_set_names</code>.</p>
+<div id="22452807-df8e-49af-9104-cf41ecf2b1cb" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We don’t actually need to have ‘HALLMARK_’ before every gene set name. Use string manipulation and a for loop or list comprehension to remove it.</p>
+<div id="2c524a33-8baa-418d-a5ec-06eb492158a7" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="visualization-pulling-it-all-together" class="level1">
+<h1>Visualization: pulling it all together</h1>
+<p>Now that we’ve read the gene sets, we can use them to calculate how much a cell is expressing the genes in each set. Then, we can visualize the expression of these genes in different cell populations.</p>
+<p><em>Note: this section will use some packages and code that you have not encountered. That’s okay–you don’t have to understand all of it. The goal is just so you can see how you might use these files as part of a larger project.</em></p>
+<div id="acfcb672-b8b1-4c36-9ac9-1854df851d69" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scanpy <span class="im">as</span> sc</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> sc.datasets.pbmc3k_processed()</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> gene_set, gene_set_name <span class="kw">in</span> <span class="bu">zip</span>(gene_sets, gene_set_names):</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    sc.tl.score_genes(data, gene_set, score_name <span class="op">=</span> gene_set_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>WARNING: genes are not in var_names and ignored: ['BUB1', 'CASP8AP2', 'EFNA5', 'EGF', 'ESPL1', 'EXO1', 'H2AX', 'H2AZ1', 'H2AZ2', 'H2BC12', 'HOXC10', 'JPT1', 'KIF15', 'KIF4A', 'KMT5A', 'KNL1', 'MAP3K20', 'MEIS2', 'NSD2', 'POLQ', 'PTTG3P', 'RAD54L', 'RASAL2', 'STIL', 'TENT4A', 'TTK']
+WARNING: genes are not in var_names and ignored: ['AVPR1A', 'BCL2L10', 'BGN', 'BMP2', 'CCNA1', 'DCN', 'EGR3', 'ERBB3', 'F2', 'GUCY2D', 'H1-0', 'IFNB1', 'IL1A', 'LUM', 'MMP2', 'PLAT', 'PLPPR4', 'TGFB2', 'TIMP3']
+WARNING: genes are not in var_names and ignored: ['ADCY2', 'EGFR', 'FGF17', 'FGF22', 'FGF6', 'GNA14', 'GNGT1', 'GRK2', 'IL4', 'MAPK10', 'NGF', 'PITX2', 'PRKAA2', 'SFN']
+WARNING: genes are not in var_names and ignored: ['ACKR3', 'BMP2', 'CCN1', 'CD80', 'CSF2', 'CXCL1', 'CXCL11', 'CXCL6', 'EDN1', 'EFNA1', 'EGR3', 'F3', 'FJX1', 'GFPT2', 'IL12B', 'IL1A', 'INHBA', 'JAG1', 'LAMB3', 'LIF', 'OLR1', 'PLAU', 'PLPP3', 'SDC4', 'TNC', 'TNFAIP6', 'TNFSF9']
+WARNING: genes are not in var_names and ignored: ['ADGRE1', 'APLNR', 'BDKRB1', 'CCL17', 'CCL22', 'CCL24', 'CCL7', 'CLEC5A', 'CSF3', 'CX3CL1', 'CXCL11', 'CXCL6', 'CXCL8', 'EDN1', 'F3', 'FZD5', 'GPC3', 'HAS2', 'HPN', 'HRH1', 'IL12B', 'IL1A', 'IL1R1', 'INHBA', 'ITGB8', 'KCNJ2', 'KCNMB2', 'LIF', 'LPAR1', 'MEP1A', 'MET', 'MSR1', 'NDP', 'NPFFR2', 'OLR1', 'OPRK1', 'OSMR', 'PCDH7', 'PDPN', 'ROS1', 'SELE', 'SELENOS', 'SLC1A2', 'SLC28A2', 'SLC7A2', 'TACR1', 'TACR3', 'TNFAIP6', 'TNFSF15', 'TNFSF9', 'VIP']</code></pre>
+</div>
+</div>
+<div id="b43a4863-b2f6-4bc8-b077-82c75d9449f5" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>sc.tl.pca(data)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>sc.pl.pca(data, color <span class="op">=</span> [<span class="st">'louvain'</span>] <span class="op">+</span> gene_set_names, ncols <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>          vmin <span class="op">=</span> <span class="st">'p1.5'</span>, vmax <span class="op">=</span> <span class="st">'p97.5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson_4_student_files/figure-html/cell-50-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The gene sets were able to help us visualize what kinds of cellular processes are occurring in different immune cell types–for example, we find that NK and dendritic cells have the highest inflammatory responses, while CD4 T cells have the highest expression of G2M checkpoint genes.</p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../Lesson_4_FileIO";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Lesson_3_Abstraction_Functions/functions_student.html" class="pagination-link" aria-label="Lesson 3 - Abstraction, Functions, and Scope">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lesson 3 - Abstraction, Functions, and Scope</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html" class="pagination-link" aria-label="Lesson 5: Pandas as a dataframe API">
+        <span class="nav-page-text"><span class="chapter-title">Lesson 5: Pandas as a dataframe API</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
