@@ -1,0 +1,39 @@
+---
+title: "How to Learn to Code – Python Class"
+---
+
+# Welcome 👋
+
+This site hosts the **UNC How to Learn to Code** Python curriculum.  
+Read lessons here, run small code snippets live in your browser, *or* launch the full notebook in Google Colab with one click.
+
+---
+
+## Lessons
+
+| # | Topic | Website page | Open in Colab |
+|---|-------|--------------|---------------|
+| 0 | Introduction to Programming & Python | [Lesson 0](Lesson_0_Introduction/Lesson_0_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_0_Introduction/Lesson_0_Student_Version.ipynb> |
+| 1 | Operators and Data Types | [Lesson 1](Lesson_1_Basics/Lesson_1_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_1_Basics/Lesson_1_Student_Version.ipynb> |
+| 2 | Iterables, Modules & Libraries | [Lesson 2](Lesson_2_Control_Structs/Lesson_2_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_2_Control_Structs/Lesson_2_Student_Version.ipynb> |
+| 3 | Abstraction & Functions | [Lesson 3](Lesson_3_Abstraction_Functions/Lesson_3_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_3_Abstraction_Functions/Lesson_3_Student_Version.ipynb> |
+| 4 | File I/O & Pandas I | [Lesson 4](Lesson_4_FileIO/Lesson_4_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_4_FileIO/Lesson_4_Student_Version.ipynb> |
+| 5 | Pandas II | [Lesson 5](Lesson_5_Pandas_DataFrame/Lesson_5_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_5_Pandas_DataFrame/Lesson_5_Student_Version.ipynb> |
+| 6 | NumPy | [Lesson 6](Lesson_6_NumPy/Lesson_6_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_6_NumPy/Lesson_6_Student_Version.ipynb> |
+| 7 | Plotting | [Lesson 7](Lesson_7_Plotting/Lesson_7_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_7_Plotting/Lesson_7_Student_Version.ipynb> |
+| 8-a | Intro to scikit-learn | [Lesson 8a](Lesson_8a_Scikit_Learn/Lesson_8a_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_8a_Scikit_Learn/Lesson_8a_Student_Version.ipynb> |
+| 8-b | The Python Ecosystem | [Lesson 8b](Lesson_8b_Python_Ecosystem/Lesson_8b_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_8b_Python_Ecosystem/Lesson_8b_Student_Version.ipynb> |
+| 8-c | Scanpy for single-cell | [Lesson 8c](Lesson_8c_scanpy/Lesson_8c_Student_Version.ipynb) | <https://colab.research.google.com/github/How-to-Learn-to-Code/python-class/blob/main/Lesson_8c_scanpy/Lesson_8c_Student_Version.ipynb> |
+
+*(Rows link to the rendered lesson pages; the right-hand URL opens the same notebook in Colab.)*
+
+---
+
+## 5  Make a cell interactive (example)
+
+Inside any notebook, select the cell ➜ *Property Inspector ▸ Cell Metadata* and add:
+
+```json
+{
+  "quarto": { "engine": "pyodide", "autorun": false }
+}
