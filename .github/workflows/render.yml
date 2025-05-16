@@ -1,0 +1,38 @@
+name: Quarto Render & Deploy
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ===== Install Quarto CLI (>=1.6) =====
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.6.43"          # pin or use 'release'
+
+      # Ensure the APT-installed binary shadows any pip shim
+      - run: echo "PATH=/usr/bin:${PATH}" >> $GITHUB_ENV
+
+      # Install quarto-live extension each build (fast) 
+      - run: quarto add --no-prompt r-wasm/quarto-live
+
+      # (Optional) install python & deps if you execute notebooks
+      # - uses: actions/setup-python@v5
+      #   with: { python-version: '3.11' }
+      # - run: pip install -r requirements.txt
+
+      # ===== Render the site =====
+      - name: Render
+        run: quarto render
+
+      # ===== Deploy to gh-pages =====
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: docs

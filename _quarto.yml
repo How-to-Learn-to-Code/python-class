@@ -1,0 +1,29 @@
+project:
+  type: book    # Use book layout for left sidebar navigation
+  output-dir: docs    # Render site output to docs/ for GitHub Pages
+book:
+  title: "How to Learn to Code – Python for Data Science"
+  sidebar:
+    style: floating
+  chapters:                   # notebooks (ipynb) live inside lesson folders
+    - index.qmd
+    - Lesson_0_Introduction/Lesson_0_Student_Version.ipynb
+    - Lesson_1_Basics/Lesson_1_Student_Version.ipynb
+    - Lesson_2_Control_Structs/Lesson_2_Control_structs_student.ipynb
+    - Lesson_3_Abstraction_Functions/functions_student.ipynb
+    - Lesson_4_FileIO/Lesson_4_student.ipynb
+    - Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.ipynb
+    - Lesson_6_NumPy/Lesson_6_NumPy_Student_Version.ipynb
+    - Lesson_7_Plotting/plotting_student.ipynb
+    - Lesson_8a_Scikit_Learn/scikit_learn_student.ipynb
+    - Lesson_8b_Python_Ecosystem/Lesson_8b_Python_Ecosystem_teacher.ipynb
+    - Lesson_8c_scanpy/Lesson_8c_scanpy.ipynb
+
+format:
+  live-html:                  # enables Pyodide interactivity
+    theme: cosmo
+    toc: true
+    number-sections: false
+
+execute:                      # build-time execution off; keep nb outputs
+  enabled: false
