@@ -2,6 +2,12 @@ project:
   type: book    # Use book layout for left sidebar navigation
   output-dir: docs    # Render site output to docs/ for GitHub Pages
 
+book:
+  site-url: https://how-to-learn-to-code.github.io/python-class/
+  sidebar:
+      tools:
+        - icon: github
+          href: https://github.com/How-to-Learn-to-Code
   navbar:
     foreground: "black"
     background: "lightblue"
@@ -13,9 +19,6 @@ project:
       - icon: github
         href: https://github.com/How-to-Learn-to-Code
         aria-label: GitHub
-
-
-book:
   title: "How to Learn to Code – Python for Data Science"
   sidebar:
     style: floating
