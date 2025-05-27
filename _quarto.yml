@@ -2,6 +2,9 @@ project:
   type: book    # Use book layout for left sidebar navigation
   output-dir: docs    # Render site output to docs/ for GitHub Pages
 
+extensions:
+  - r-wasm/quarto-live    # ← register the live extension
+
 book:
   site-url: https://how-to-learn-to-code.github.io/python-class/
   sidebar:
@@ -44,5 +47,9 @@ format:
     toc: true
     number-sections: false
 
-execute:                      # build-time execution off; keep nb outputs
-  enabled: false
+execute: 
+  freeze: auto
+  cache: true
+  warning: false
+  message: false
+  error: true
