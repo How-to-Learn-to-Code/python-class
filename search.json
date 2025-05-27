@@ -24,7 +24,7 @@
     "href": "index.html#try-an-interactive-pyodide-cell",
     "title": "How to Learn to Code – Python for Data Science",
     "section": "Try an interactive Pyodide cell",
-    "text": "Try an interactive Pyodide cell\nBelow is a small Python snippet running in your browser via Pyodide. Click Run Code to execute it:",
+    "text": "Try an interactive Pyodide cell\nBelow is a small Python snippet running in your browser via Pyodide. Click Run Code to execute it:\n\nsum([10, 20, 30, 40, 50])\n\n150",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>How to Learn to Code – Python Class</span>"
     ]
