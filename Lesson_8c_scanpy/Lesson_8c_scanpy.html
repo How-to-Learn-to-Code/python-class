@@ -1180,20 +1180,16 @@ data/pbmc3k_filtere 100%[===================&gt;]   7.27M  --.-KB/s    in 0.07s
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>adata <span class="op">=</span> adata[:, adata.var.highly_variable]</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>sc.pp.regress_out(adata, [<span class="st">'total_counts'</span>, <span class="st">'pct_counts_mt'</span>])</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>sc.pp.scale(adata, max_value<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/usr/local/lib/python3.10/dist-packages/scanpy/preprocessing/_normalization.py:170: UserWarning: Received a view of an AnnData. Making a copy.
-  view_to_actual(adata)</code></pre>
-</div>
 </div>
 </section>
 <section id="scanpy---pca-and-umap-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="scanpy---pca-and-umap-clustering">scanpy - PCA and UMAP clustering</h2>
 <p>PCA stands for principal component analysis. principal components (PCs) are axes capturing variation in your data. They are often used to reduce the dimensionality of your dataset and can be used in machine learning/regression models. See <a href="https://towardsdatascience.com/a-step-by-step-introduction-to-pca-c0d78e26a0dd">A Step-By-Step Introduction to PCA</a> for a more detailed overview. Let’s calculate the PCs and visualize the first two PCs highlighting CST3 expression.</p>
 <div id="cell-23" class="cell" data-outputid="90762dcd-620a-4f28-8397-ee7a1eaa7795">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look at pcs to see how many pcs to use in neighborhood graph construction</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sc.tl.pca(adata, svd_solver<span class="op">=</span><span class="st">'arpack'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pl ie plot just the first two principal components</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sc.pl.pca(adata, color<span class="op">=</span><span class="st">'CST3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look at pcs to see how many pcs to use in neighborhood graph construction</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sc.tl.pca(adata, svd_solver<span class="op">=</span><span class="st">'arpack'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pl ie plot just the first two principal components</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sc.pl.pca(adata, color<span class="op">=</span><span class="st">'CST3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1205,8 +1201,8 @@ data/pbmc3k_filtere 100%[===================&gt;]   7.27M  --.-KB/s    in 0.07s
 <p>In the figure above, each dot is a cell plotted against the first two PCs. The color of the dot is correlated with CST3 expression. It looks like there are three or four different clusters just based on these PCs and CST3 expression level.</p>
 <p>Now, let’s create an elbow plot which will plot variance captured vs each PC. This gives us an idea of which PCs to use in clustering (those that capture the most variance).</p>
 <div id="cell-25" class="cell" data-outputid="46daf2c5-e969-45b6-bbc8-20d7e540fae0">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is a logarithmic scale of variance ratio</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sc.pl.pca_variance_ratio(adata, log<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is a logarithmic scale of variance ratio</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sc.pl.pca_variance_ratio(adata, log<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1229,19 +1225,19 @@ data/pbmc3k_filtere 100%[===================&gt;]   7.27M  --.-KB/s    in 0.07s
 <li><a href="https://joss.theoj.org/papers/10.21105/joss.00861">McInnes et al.&nbsp;(2018)</a></li>
 </ul>
 <div id="cell-27" class="cell" data-outputid="498efcf0-08a6-4a94-c0df-0d69f6ab7ea3">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate neighborhood graph pp = preprocessing using the first 40 PCs</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sc.pp.neighbors(adata, n_neighbors<span class="op">=</span><span class="dv">10</span>, n_pcs<span class="op">=</span><span class="dv">40</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># initial clustering...this part isn't in the official demo but I think they forgot this part</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sc.tl.leiden(adata)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># remedy disconnected clusters...</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>sc.tl.paga(adata) <span class="co"># maps "coarse-grained connectivity structures of complex manifolds", tl = toolkit, paga = partition-based graph abstraction</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sc.pl.paga(adata, plot<span class="op">=</span><span class="va">False</span>)  <span class="co"># compute the course grained layout, pl = plot</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>sc.tl.umap(adata, init_pos<span class="op">=</span><span class="st">'paga'</span>) <span class="co"># embed in umap</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># embedding of neighborhood graph using UMAP</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>sc.tl.umap(adata)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(adata, color<span class="op">=</span>[<span class="st">'CST3'</span>, <span class="st">'NKG7'</span>, <span class="st">'PPBP'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate neighborhood graph pp = preprocessing using the first 40 PCs</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sc.pp.neighbors(adata, n_neighbors<span class="op">=</span><span class="dv">10</span>, n_pcs<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># initial clustering...this part isn't in the official demo but I think they forgot this part</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>sc.tl.leiden(adata)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># remedy disconnected clusters...</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>sc.tl.paga(adata) <span class="co"># maps "coarse-grained connectivity structures of complex manifolds", tl = toolkit, paga = partition-based graph abstraction</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sc.pl.paga(adata, plot<span class="op">=</span><span class="va">False</span>)  <span class="co"># compute the course grained layout, pl = plot</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>sc.tl.umap(adata, init_pos<span class="op">=</span><span class="st">'paga'</span>) <span class="co"># embed in umap</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># embedding of neighborhood graph using UMAP</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>sc.tl.umap(adata)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(adata, color<span class="op">=</span>[<span class="st">'CST3'</span>, <span class="st">'NKG7'</span>, <span class="st">'PPBP'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1257,16 +1253,12 @@ data/pbmc3k_filtere 100%[===================&gt;]   7.27M  --.-KB/s    in 0.07s
 <li><a href="https://www.nature.com/articles/s41598-019-41695-z">Traag et al.&nbsp;(2018)</a></li>
 </ul>
 <div id="cell-29" class="cell" data-outputid="d1f5df8d-ea1c-4e60-a22f-0718fdfe3b36">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sc.tl.leiden(adata)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(adata, color<span class="op">=</span>[<span class="st">'leiden'</span>, <span class="st">'CST3'</span>, <span class="st">'NKG7'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/usr/local/lib/python3.10/dist-packages/scanpy/plotting/_tools/scatterplots.py:392: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap' will be ignored
-  cax = scatter(</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sc.tl.leiden(adata)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(adata, color<span class="op">=</span>[<span class="st">'leiden'</span>, <span class="st">'CST3'</span>, <span class="st">'NKG7'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lesson_8c_scanpy_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="Lesson_8c_scanpy_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1277,12 +1269,12 @@ data/pbmc3k_filtere 100%[===================&gt;]   7.27M  --.-KB/s    in 0.07s
 <p>In-class exercise 1: From the <a href="#anndata">AnnData</a> section…instead of creating a <code>csr_matrix</code> can we create a pandas dataframe instead to look at the data more easily?</p>
 <p>Answer:</p>
 <div id="cell-31" class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(np.random.poisson(<span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">2000</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(np.random.poisson(<span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">2000</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In-class exercise 2: Find the UMAP mappings for cell 5 in the <code>adata</code> object.</p>
 <p>Answer:</p>
 <div id="cell-33" class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>adata.obsm[<span class="st">"X_umap"</span>][<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>adata.obsm[<span class="st">"X_umap"</span>][<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

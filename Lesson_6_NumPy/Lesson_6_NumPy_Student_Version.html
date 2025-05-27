@@ -396,30 +396,26 @@ The slowest run took 14.49 times longer than the fastest. This could mean that a
 <div class="cell-output cell-output-stdout">
 <pre><code>[[0, 1, 1], [2, 3]]</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/marshall/.local/lib/python3.6/site-packages/ipykernel_launcher.py:3: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-  This is separate from the ipykernel package so we can avoid doing imports until</code></pre>
-</div>
 </div>
 <p>Now that we know what data works best in a <code>numpy.array</code>, we can look into how to build these arrays. In the first example we will look at how to make a (2,3,4) matrix that is filled with 0s for simplicity. In this case we use the built in <code>shape</code> attribute of the array to check its dimensions.</p>
 <div id="cell-10" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># can make an array of any size filled with </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.zeros((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># just outputs 0s for the shape that you tell it</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> np.array([[[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]], [[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]]])</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>a2 <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>a2.resize((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># resize changes the shape of the original array, this can be called on any array</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check that the shapes are equivalent</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a0 shape ='</span>,a0.shape,<span class="st">', a1 shape ='</span>, a1.shape,<span class="st">', a2 shape ='</span>, a2.shape,<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check on the dimensions of the above arrays</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'the above arrays have dimension'</span>, a0.ndim, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># this how the resize works with respect to rows/columns in that it starts by filling rows</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange creates an array with 12 numbers from 0-11</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>a3 <span class="op">=</span> np.arange(<span class="dv">12</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>a3.resize((<span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># can make an array of any size filled with </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.zeros((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># just outputs 0s for the shape that you tell it</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> np.array([[[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]], [[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]]])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>a2 <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>a2.resize((<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="co"># resize changes the shape of the original array, this can be called on any array</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check that the shapes are equivalent</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a0 shape ='</span>,a0.shape,<span class="st">', a1 shape ='</span>, a1.shape,<span class="st">', a2 shape ='</span>, a2.shape,<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check on the dimensions of the above arrays</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'the above arrays have dimension'</span>, a0.ndim, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># this how the resize works with respect to rows/columns in that it starts by filling rows</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange creates an array with 12 numbers from 0-11</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>a3 <span class="op">=</span> np.arange(<span class="dv">12</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>a3.resize((<span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>a0 shape = (2, 3, 4) , a1 shape = (2, 3, 4) , a2 shape = (2, 3, 4) 
 
@@ -432,52 +428,52 @@ the above arrays have dimension 3
 </div>
 <p>At some point it might also be helpful to sort data within an array, find specific instances of things within an array, delete rows or columns, or add data. This can all be done using NumPy’s built in functions as well. In the following example we will try to use NumPy to manipulate a data set in a way that would be potentially be useful for your own data. We can also run some simple statistics for fun!</p>
 <div id="cell-12" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate a 5x30 array full or of random numbers</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.random.randn(<span class="dv">5</span>, <span class="dv">300</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pretend that one of the data points was unfilled, or a NaN</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>a0[<span class="dv">3</span>][<span class="dv">5</span>] <span class="op">=</span> np.nan</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to be able to find that nan</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># np.isnan sets all instances of nan to true within the array, everything else is false</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># np.where generates a tuple of arrays that show the indices of where the trues are located</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># the tuple that np.where generates will always have the same dimension as the array queried</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>where_nan <span class="op">=</span> np.where(np.isnan(a0))</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we are using NaN in this example but you could use any generic conditional to check</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>where_negative <span class="op">=</span> np.where(a0 <span class="op">&lt;</span> <span class="fl">0.</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># here is a way you could print out the ordered pairs of where the nans were located</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(where_nan[<span class="dv">0</span>])):</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'the location of the NaN is'</span>,(where_nan[<span class="dv">0</span>][i],where_nan[<span class="dv">1</span>][i]),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># since the NaN would mess up our data we want to delete the row it is located in</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>row_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">0</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we could do the same thing if we wanted the column gone instead</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>col_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">1</span>)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># we could also replace the nan with a 0 if we knew what that value should be </span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># the tilde (~) flips the boolean values since np.where replaces false not true</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># unlike the previous np.where usage, this outputs our original array with replacements</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># instead of a tuple. This has to do with the arguments fed into the function. </span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># The NumPy documentation is wonderful and should be consulted regularly.</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>replace_nan <span class="op">=</span> np.where(<span class="op">~</span>np.isnan(a0), a0, <span class="fl">0.</span>)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># let's plot some of the data we generated</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># first we import the plotting package</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install matplotlib</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co"># we then want to plot the distribution of the 2nd and 4th rows</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co"># we can take extract the rows using standard indexing</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co"># we then have to take the transpose of the data so that the plt.hist function will read the data correctly</span></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>hist <span class="op">=</span> plt.hist(np.transpose(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]]), [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">"$2^</span><span class="sc">{nd}</span><span class="st">$ row"</span>,<span class="st">"$4^</span><span class="sc">{th}</span><span class="st">$ row"</span>])</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co"># we can output the mean and variance as well to see if it matches the expected 0,1</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.average(replace_nan[[<span class="dv">1</span> ,<span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> np.var(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>]</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'row'</span>, rows[i], <span class="st">'mean ='</span>,mean[i], <span class="st">'and variance ='</span>, variance[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate a 5x30 array full or of random numbers</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>a0 <span class="op">=</span> np.random.randn(<span class="dv">5</span>, <span class="dv">300</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pretend that one of the data points was unfilled, or a NaN</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>a0[<span class="dv">3</span>][<span class="dv">5</span>] <span class="op">=</span> np.nan</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to be able to find that nan</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># np.isnan sets all instances of nan to true within the array, everything else is false</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># np.where generates a tuple of arrays that show the indices of where the trues are located</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># the tuple that np.where generates will always have the same dimension as the array queried</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>where_nan <span class="op">=</span> np.where(np.isnan(a0))</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we are using NaN in this example but you could use any generic conditional to check</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>where_negative <span class="op">=</span> np.where(a0 <span class="op">&lt;</span> <span class="fl">0.</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># here is a way you could print out the ordered pairs of where the nans were located</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(where_nan[<span class="dv">0</span>])):</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'the location of the NaN is'</span>,(where_nan[<span class="dv">0</span>][i],where_nan[<span class="dv">1</span>][i]),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># since the NaN would mess up our data we want to delete the row it is located in</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>row_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">0</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we could do the same thing if we wanted the column gone instead</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>col_delete <span class="op">=</span> np.delete(a0, where_nan[<span class="dv">0</span>], <span class="dv">1</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># we could also replace the nan with a 0 if we knew what that value should be </span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># the tilde (~) flips the boolean values since np.where replaces false not true</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># unlike the previous np.where usage, this outputs our original array with replacements</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># instead of a tuple. This has to do with the arguments fed into the function. </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># The NumPy documentation is wonderful and should be consulted regularly.</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>replace_nan <span class="op">=</span> np.where(<span class="op">~</span>np.isnan(a0), a0, <span class="fl">0.</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># let's plot some of the data we generated</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># first we import the plotting package</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install matplotlib</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co"># we then want to plot the distribution of the 2nd and 4th rows</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co"># we can take extract the rows using standard indexing</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># we then have to take the transpose of the data so that the plt.hist function will read the data correctly</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>hist <span class="op">=</span> plt.hist(np.transpose(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]]), [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">"$2^</span><span class="sc">{nd}</span><span class="st">$ row"</span>,<span class="st">"$4^</span><span class="sc">{th}</span><span class="st">$ row"</span>])</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># we can output the mean and variance as well to see if it matches the expected 0,1</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.average(replace_nan[[<span class="dv">1</span> ,<span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> np.var(replace_nan[[<span class="dv">1</span>, <span class="dv">3</span>]], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'row'</span>, rows[i], <span class="st">'mean ='</span>,mean[i], <span class="st">'and variance ='</span>, variance[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>the location of the NaN is (3, 5) 
 
@@ -497,20 +493,20 @@ row 4 mean = -0.10027662190124971 and variance = 0.8912458143138923</code></pre>
 <h1>In class exercise</h1>
 <p>In this exercise we will walk through some of the stuff we have covered previously and introduce some new helper functions that should be useful for most people. In general we will have an “expected” response curve, we will generate some data with noise, and then we will compare the noisy data to the expected response. We are going to pretend that we are doing some sampling every 0.01s between 0.0s and 1.0s, and this will be our independent variable space, or our time domain. We will start with generating the independent variable space using two different methods, using <code>np.arange</code> and <code>np.linspace</code>. They are both useful, but sometimes one is better than the other depending on the context. **For the exercise there will be a ’‘’statement’’’. The quotations and the statement should be correct answer to make the code run.</p>
 <div id="cell-15" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we will start with generating an array that goes from 0-1 with a step size of 0.01</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace, as well as np.arange, but the work in slightly different ways</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace always includes the start and stop values, but the step size is variable</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in all cases replace the '''comment''' with the appropriate answer</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>t_linspace <span class="op">=</span> np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="st">'''number of time steps here'''</span>) </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange always includes the start value with the specified step value, but may not include the </span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># wanted last step</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>t_arange <span class="op">=</span> np.arange(<span class="fl">0.</span>, <span class="st">'''end of range value'''</span>, <span class="fl">0.01</span>)  </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the outputs are correct</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The step size is'</span>, t_linspace[<span class="dv">1</span>] <span class="op">-</span> t_linspace[<span class="dv">0</span>]) <span class="co"># uses np.linspace output</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The final step is at'</span>, t_arange[<span class="op">-</span><span class="dv">1</span>])   <span class="co"># uses np.arange output</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> t_linspace <span class="co"># specify t for later use now that we have checked both</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we will start with generating an array that goes from 0-1 with a step size of 0.01</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace, as well as np.arange, but the work in slightly different ways</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># np.linspace always includes the start and stop values, but the step size is variable</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in all cases replace the '''comment''' with the appropriate answer</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>t_linspace <span class="op">=</span> np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="st">'''number of time steps here'''</span>) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># np.arange always includes the start value with the specified step value, but may not include the </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># wanted last step</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>t_arange <span class="op">=</span> np.arange(<span class="fl">0.</span>, <span class="st">'''end of range value'''</span>, <span class="fl">0.01</span>)  </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the outputs are correct</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The step size is'</span>, t_linspace[<span class="dv">1</span>] <span class="op">-</span> t_linspace[<span class="dv">0</span>]) <span class="co"># uses np.linspace output</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The final step is at'</span>, t_arange[<span class="op">-</span><span class="dv">1</span>])   <span class="co"># uses np.arange output</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> t_linspace <span class="co"># specify t for later use now that we have checked both</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The step size is 0.01
 The final step is at 1.0</code></pre>
@@ -519,15 +515,15 @@ The final step is at 1.0</code></pre>
 <p>Now that we have generated our independent variable space, we can specify what our expected response function should look like. In our case we would like to generate the following curve that we can pretend is expected position, <em>y</em>, given a time value, <em>t</em>, from our time domain.</p>
 <p><span class="math inline">\(y = 0.5 e^{t^2} + 1.5\)</span></p>
 <div id="cell-17" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is fairly straight forward as you can use generic python syntax for everything but the exponential</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the only numpy specific function you might need is np.exp for the exponential</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>expected_response <span class="op">=</span> <span class="st">'''appropriate response function'''</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot expected curve</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'expected response curve'</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is fairly straight forward as you can use generic python syntax for everything but the exponential</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the only numpy specific function you might need is np.exp for the exponential</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>expected_response <span class="op">=</span> <span class="st">'''appropriate response function'''</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot expected curve</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'expected response curve'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -539,29 +535,29 @@ The final step is at 1.0</code></pre>
 <p>Now that we have our expected value we can simulate noise in our data. We will do this through introducing random values such that the average should replicate our data. Below we have <em>N</em> represent the normal distribution. The <code>np.random.randn</code> function is N(0,1), and the transformation to the correct Normal distribution space is included below since this is not a statistics course. We will generate 50 samples of the same length as our <em>t</em> vector.</p>
 <p><span class="math inline">\(t_{rand} = t * N_{mult}(\mu = 1, \sigma^2 = 0.001) + N_{add}(\mu = 0, \sigma^2 = 0.005)\)</span></p>
 <div id="cell-19" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the two random arrays of shape 50 x length of the time domain</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mult_rand <span class="op">=</span> np.sqrt(<span class="fl">0.001</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span> <span class="op">+</span> <span class="fl">1.</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>add_rand <span class="op">=</span> np.sqrt(<span class="fl">0.005</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add noise to the t variable, this will come directly from the equation above</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># it's a linear transformation of a*t + b, but using the appropriate NumPy syntax</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>t_rand <span class="op">=</span> <span class="st">'''appropriate linear function'''</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># use the same syntax as before to process the randomized time data</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be a direct copy from what you have in the previous code snippet</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>random_response <span class="op">=</span> <span class="st">'''same response function as before but acted on t_rand'''</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># find the min, max, and average response at each time step</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> np.<span class="bu">max</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)  </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> np.<span class="bu">min</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> np.mean(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this plots the output generated above as </span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Generated Mean'</span>, <span class="st">'Min/Max Range'</span>], loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the two random arrays of shape 50 x length of the time domain</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mult_rand <span class="op">=</span> np.sqrt(<span class="fl">0.001</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span> <span class="op">+</span> <span class="fl">1.</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>add_rand <span class="op">=</span> np.sqrt(<span class="fl">0.005</span>) <span class="op">*</span> <span class="st">'''random Numpy function of correct dimension'''</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add noise to the t variable, this will come directly from the equation above</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># it's a linear transformation of a*t + b, but using the appropriate NumPy syntax</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>t_rand <span class="op">=</span> <span class="st">'''appropriate linear function'''</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># use the same syntax as before to process the randomized time data</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be a direct copy from what you have in the previous code snippet</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>random_response <span class="op">=</span> <span class="st">'''same response function as before but acted on t_rand'''</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># find the min, max, and average response at each time step</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> np.<span class="bu">max</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)  </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> np.<span class="bu">min</span>(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> np.mean(random_response, axis <span class="op">=</span> <span class="st">'''appropirate index that represents the row axis'''</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this plots the output generated above as </span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Generated Mean'</span>, <span class="st">'Min/Max Range'</span>], loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -572,53 +568,53 @@ The final step is at 1.0</code></pre>
 </div>
 <p>Let’s finally do some procesing so we can finalize our data for output! We can pretend that the 8th and 23rd sample ranges were done by a trainee that had set the sample frequency to be a little too slow. We are also limited by our instruments in that they are unreliable when the position is greater than 3.25 so we will remove any samples that reached more than 3.25 at any time in the experiment. <strong>Side note:</strong> this is not a real example, and data should only be excluded when appropriate.</p>
 <div id="cell-21" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the 8th and 23rd sample rows from the data</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.delete(random_response, [<span class="st">'''8th row index'''</span>, <span class="st">'''23rd row index'''</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># store the number of samples left over after removing the bad trainee data</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be equal to the number of rows left over in the data</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.shape[<span class="st">'''row index'''</span>]</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the bad trainee data is'</span>, number_of_samples)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to find where the remaining data exceeds 3.25, and then delete those rows</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># we will then re calculate the number of samples to get an idea for how many samples were removed by this filter</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>too_big_indices <span class="op">=</span> np.<span class="st">'''find things function'''</span>(<span class="st">'''data set that excludes the bad data'''</span> <span class="op">&gt;</span> <span class="st">'''appropriate upper bound'''</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.<span class="st">'''remove stuff function'''</span>(exclude_data, <span class="st">'''tuple that we can find the correct rows from'''</span>[<span class="dv">0</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.<span class="st">'''correct statement that will only give us the number of rows'''</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the data &gt; 3.25 is'</span>, number_of_samples)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># this replots the data to show the results</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># any large peaks should be gone now</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Filtered Mean'</span>, <span class="st">'Min/Max Range'</span>],loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co"># in this final step we will at the time domain on top of rest of the data set </span></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># this will allow us to save the data in one large array rather than an array for the time</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># and an array for the pre-filtered data</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="co"># a subtlety of NumPy is that ranges have dimension 1, while our response has two dimensions</span></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># in order for the append function to work we have to make our time domain two dimensional</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co"># which is just 1 x number of time points</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co"># we use reshape here instead of resize because resize will change the original t data</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co"># while reshape will just output a new array of the correct shape</span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>t_vec <span class="op">=</span> t.reshape([<span class="st">'''new two dimensional shape of t'''</span>]) </span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can use append to add the sampled data to the end of the time domain</span></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.append(<span class="st">'''right t data set'''</span>,<span class="st">'''full response data'''</span>, axis <span class="op">=</span> <span class="st">'''row index'''</span>)</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="co"># this step we realize it might be nice to include the expected response in the output as well</span></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="co"># so it does not have to be generated again later</span></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.insert(<span class="st">'''finalized data'''</span>, <span class="st">'''index that we want to insert the expected data before'''</span>, <span class="st">'''expected data'''</span>, axis <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="co"># so the rows should look like 1: time, 2: expected response, 3-52: sampled data</span></span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="co"># step just checks that our final data has the correct shape, 52 x number of time steps</span></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'our final_data for output has shape'</span>, <span class="st">'''shape of the final data set'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the 8th and 23rd sample rows from the data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.delete(random_response, [<span class="st">'''8th row index'''</span>, <span class="st">'''23rd row index'''</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># store the number of samples left over after removing the bad trainee data</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># this should be equal to the number of rows left over in the data</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.shape[<span class="st">'''row index'''</span>]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the bad trainee data is'</span>, number_of_samples)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to find where the remaining data exceeds 3.25, and then delete those rows</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># we will then re calculate the number of samples to get an idea for how many samples were removed by this filter</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>too_big_indices <span class="op">=</span> np.<span class="st">'''find things function'''</span>(<span class="st">'''data set that excludes the bad data'''</span> <span class="op">&gt;</span> <span class="st">'''appropriate upper bound'''</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>exclude_data <span class="op">=</span> np.<span class="st">'''remove stuff function'''</span>(exclude_data, <span class="st">'''tuple that we can find the correct rows from'''</span>[<span class="dv">0</span>], axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>number_of_samples <span class="op">=</span> exclude_data.<span class="st">'''correct statement that will only give us the number of rows'''</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of samples left after removing the data &gt; 3.25 is'</span>, number_of_samples)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># this replots the data to show the results</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># any large peaks should be gone now</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>r_max <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>r_min <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>r_avg <span class="op">=</span> <span class="st">'''steal from before but with the processed data'''</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(t, expected_response, <span class="st">'k--'</span>, t, r_avg, <span class="st">'r'</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.fill_between(t, r_min, r_max, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Expected'</span>, <span class="st">'Filtered Mean'</span>, <span class="st">'Min/Max Range'</span>],loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time'</span>)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position'</span>)<span class="op">;</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># in this final step we will at the time domain on top of rest of the data set </span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co"># this will allow us to save the data in one large array rather than an array for the time</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># and an array for the pre-filtered data</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># a subtlety of NumPy is that ranges have dimension 1, while our response has two dimensions</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># in order for the append function to work we have to make our time domain two dimensional</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># which is just 1 x number of time points</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co"># we use reshape here instead of resize because resize will change the original t data</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># while reshape will just output a new array of the correct shape</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>t_vec <span class="op">=</span> t.reshape([<span class="st">'''new two dimensional shape of t'''</span>]) </span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can use append to add the sampled data to the end of the time domain</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.append(<span class="st">'''right t data set'''</span>,<span class="st">'''full response data'''</span>, axis <span class="op">=</span> <span class="st">'''row index'''</span>)</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="co"># this step we realize it might be nice to include the expected response in the output as well</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="co"># so it does not have to be generated again later</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> np.insert(<span class="st">'''finalized data'''</span>, <span class="st">'''index that we want to insert the expected data before'''</span>, <span class="st">'''expected data'''</span>, axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="co"># so the rows should look like 1: time, 2: expected response, 3-52: sampled data</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co"># step just checks that our final data has the correct shape, 52 x number of time steps</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'our final_data for output has shape'</span>, <span class="st">'''shape of the final data set'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The number of samples left after removing the bad trainee data is 48
 The number of samples left after removing the data &gt; 3.25 is 36

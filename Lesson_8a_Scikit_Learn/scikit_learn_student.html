@@ -665,16 +665,6 @@ R squared:
 <pre><code>Mean accuracy: 
  1.0</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/nzrandolph/.miniconda3/envs/hlc/lib/python3.10/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(</code></pre>
-</div>
 </div>
 </section>
 <section id="k-nearest-neighbors" class="level3">
@@ -683,16 +673,16 @@ Please also refer to the documentation for alternative solver options:
 <section id="k-nearest-neighbors-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="k-nearest-neighbors-classifier">K-Nearest Neighbors Classifier</h4>
 <div id="cell-31" class="cell" data-execution_count="213">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the classifier</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>knn_clf <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_clf.predict(X_clf_tst)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_clf.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the classifier</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>knn_clf <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_clf.predict(X_clf_tst)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_clf.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean accuracy: 
  1.00</code></pre>
@@ -702,19 +692,19 @@ Please also refer to the documentation for alternative solver options:
 <section id="k-nearest-neighbors-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="k-nearest-neighbors-regressor">K-Nearest Neighbors Regressor</h4>
 <div id="cell-33" class="cell" data-execution_count="214">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the regressor</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>knn_reg <span class="op">=</span> KNeighborsRegressor(n_neighbors<span class="op">=</span><span class="dv">5</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_reg.predict(X_reg_tst)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean squared error</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the regressor</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>knn_reg <span class="op">=</span> KNeighborsRegressor(n_neighbors<span class="op">=</span><span class="dv">5</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_reg.predict(X_reg_tst)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean squared error</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean squared error: 
  3371.64
@@ -730,21 +720,21 @@ R squared:
 <section id="support-vector-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="support-vector-classifier">Support Vector Classifier</h4>
 <div id="cell-37" class="cell" data-execution_count="215">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with linear kernel</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>svc_1 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with RBF kernel</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>svc_2 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svc_1.predict(X_clf_tst)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svc_2.predict(X_clf_tst)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_1.score(X_clf_tst, y_clf_tst))</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_2.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with linear kernel</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>svc_1 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with RBF kernel</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>svc_2 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svc_1.predict(X_clf_tst)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svc_2.predict(X_clf_tst)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_1.score(X_clf_tst, y_clf_tst))</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_2.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean accuracy (linear): 
  1.00
@@ -756,26 +746,26 @@ Mean accuracy (rbf):
 <section id="support-vector-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="support-vector-regressor">Support Vector Regressor</h4>
 <div id="cell-39" class="cell" data-execution_count="216">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with linear kernel</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>svr_1 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with RBF kernel</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>svr_2 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svr_1.predict(X_reg_tst)</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svr_2.predict(X_reg_tst)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_1))</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_2))</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination, R^2</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_1.score(X_reg_tst, y_reg_tst))</span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_2.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with linear kernel</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>svr_1 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with RBF kernel</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>svr_2 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svr_1.predict(X_reg_tst)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svr_2.predict(X_reg_tst)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_1))</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_2))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination, R^2</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_1.score(X_reg_tst, y_reg_tst))</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_2.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean squared error (linear): 
  5282.97
@@ -795,17 +785,17 @@ R squared (rbf):
 <section id="random-forest-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-classifier">Random Forest Classifier</h4>
 <div id="cell-43" class="cell" data-execution_count="217">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>rf_clf <span class="op">=</span> RandomForestClassifier().fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_clf.predict(X_clf_tst)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy metric</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> accuracy_score(y_clf_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>rf_clf <span class="op">=</span> RandomForestClassifier().fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_clf.predict(X_clf_tst)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy metric</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> accuracy_score(y_clf_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean accuracy: 
  0.97</code></pre>
@@ -815,19 +805,19 @@ R squared (rbf):
 <section id="random-forest-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-regressor">Random Forest Regressor</h4>
 <div id="cell-45" class="cell" data-execution_count="218">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>rf_reg <span class="op">=</span> RandomForestRegressor().fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_reg.predict(X_reg_tst)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> rf_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>rf_reg <span class="op">=</span> RandomForestRegressor().fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_reg.predict(X_reg_tst)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> rf_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean squared error: 
  3128.73
