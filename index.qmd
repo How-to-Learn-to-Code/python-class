@@ -29,11 +29,13 @@ Read lessons here, run small code snippets live in your browser, *or* launch the
 
 ---
 
-## 5  Make a cell interactive (example)
+## 5  Try an interactive Pyodide cell
 
-Inside any notebook, select the cell ➜ *Property Inspector ▸ Cell Metadata* and add:
+Below is a small Python snippet running **in your browser** via Pyodide. Click **Run Code** to execute it:
 
-```json
-{
-  "quarto": { "engine": "pyodide", "autorun": false }
-}
+```{pyodide}
+#| autorun: false
+#| echo: true
+#| engine: pyodide
+
+sum([10, 20, 30, 40, 50])
