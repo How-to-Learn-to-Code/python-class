@@ -20,9 +20,9 @@ jobs:
       - run: quarto add --no-prompt r-wasm/quarto-live
        # ── NEW: install Python & Jupyter for notebook support ──
       - name: Setup Python for Quarto
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
       - name: Install Jupyter dependencies
         run: |
