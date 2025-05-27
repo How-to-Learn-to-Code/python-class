@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -134,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  <a href="./Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lesson 1 – Basic Introduction to Programming in Python</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome 👋</a>
   <ul class="collapse">
   <li><a href="#lessons" id="toc-lessons" class="nav-link" data-scroll-target="#lessons">Lessons</a></li>
-  <li><a href="#try-an-interactive-pyodide-cell" id="toc-try-an-interactive-pyodide-cell" class="nav-link" data-scroll-target="#try-an-interactive-pyodide-cell">5 Try an interactive Pyodide cell</a></li>
+  <li><a href="#try-an-interactive-pyodide-cell" id="toc-try-an-interactive-pyodide-cell" class="nav-link" data-scroll-target="#try-an-interactive-pyodide-cell">Try an interactive Pyodide cell</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -311,10 +345,11 @@ Read lessons here, run small code snippets live in your browser, <em>or</em> lau
 <hr>
 </section>
 <section id="try-an-interactive-pyodide-cell" class="level2">
-<h2 class="anchored" data-anchor-id="try-an-interactive-pyodide-cell">5 Try an interactive Pyodide cell</h2>
+<h2 class="anchored" data-anchor-id="try-an-interactive-pyodide-cell">Try an interactive Pyodide cell</h2>
 <p>Below is a small Python snippet running <strong>in your browser</strong> via Pyodide. Click <strong>Run Code</strong> to execute it:</p>
-<p>#| autorun: false #| echo: true #| engine: pyodide</p>
-<p>sum([10, 20, 30, 40, 50])</p>
+<div id="9eefc4fb" class="cell" data-autorun="false" data-engine="pyodide">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>([<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 <script type="ojs-module-contents">
