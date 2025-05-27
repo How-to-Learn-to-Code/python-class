@@ -195,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome 👋</a>
   <ul class="collapse">
   <li><a href="#lessons" id="toc-lessons" class="nav-link" data-scroll-target="#lessons">Lessons</a></li>
-  <li><a href="#make-a-cell-interactive-example" id="toc-make-a-cell-interactive-example" class="nav-link" data-scroll-target="#make-a-cell-interactive-example">5 Make a cell interactive (example)</a></li>
+  <li><a href="#try-an-interactive-pyodide-cell" id="toc-try-an-interactive-pyodide-cell" class="nav-link" data-scroll-target="#try-an-interactive-pyodide-cell">5 Try an interactive Pyodide cell</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -310,10 +310,11 @@ Read lessons here, run small code snippets live in your browser, <em>or</em> lau
 <p><em>(Rows link to the rendered lesson pages; the right-hand URL opens the same notebook in Colab.)</em></p>
 <hr>
 </section>
-<section id="make-a-cell-interactive-example" class="level2">
-<h2 class="anchored" data-anchor-id="make-a-cell-interactive-example">5 Make a cell interactive (example)</h2>
-<p>Inside any notebook, select the cell ➜ <em>Property Inspector ▸ Cell Metadata</em> and add:</p>
-<p>```json { “quarto”: { “engine”: “pyodide”, “autorun”: false } }</p>
+<section id="try-an-interactive-pyodide-cell" class="level2">
+<h2 class="anchored" data-anchor-id="try-an-interactive-pyodide-cell">5 Try an interactive Pyodide cell</h2>
+<p>Below is a small Python snippet running <strong>in your browser</strong> via Pyodide. Click <strong>Run Code</strong> to execute it:</p>
+<p>#| autorun: false #| echo: true #| engine: pyodide</p>
+<p>sum([10, 20, 30, 40, 50])</p>
 
 
 <script type="ojs-module-contents">

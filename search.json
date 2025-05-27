@@ -20,11 +20,11 @@
     ]
   },
   {
-    "objectID": "index.html#make-a-cell-interactive-example",
-    "href": "index.html#make-a-cell-interactive-example",
+    "objectID": "index.html#try-an-interactive-pyodide-cell",
+    "href": "index.html#try-an-interactive-pyodide-cell",
     "title": "How to Learn to Code – Python for Data Science",
-    "section": "5 Make a cell interactive (example)",
-    "text": "5 Make a cell interactive (example)\nInside any notebook, select the cell ➜ Property Inspector ▸ Cell Metadata and add:\n```json { “quarto”: { “engine”: “pyodide”, “autorun”: false } }",
+    "section": "5 Try an interactive Pyodide cell",
+    "text": "5 Try an interactive Pyodide cell\nBelow is a small Python snippet running in your browser via Pyodide. Click Run Code to execute it:\n#| autorun: false #| echo: true #| engine: pyodide\nsum([10, 20, 30, 40, 50])",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>How to Learn to Code – Python Class</span>"
     ]
