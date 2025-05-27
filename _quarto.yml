@@ -48,5 +48,5 @@ format:
     number-sections: false
 
 execute:
-  enabled: true
+  enabled: false
   cache: true       # or false if you don’t want caching
