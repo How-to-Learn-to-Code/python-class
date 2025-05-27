@@ -285,47 +285,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="what-is-matplotlib">What is matplotlib?</h3>
 <p>Matplotlib is a Python library used for visualizing data. The website: https://matplotlib.org/stable/users/index has a helpful user guide that contains documentation, information on how to get started (including package installation), an overview of plot types included in the library, and tutorials. If you are stuck or need help figuring out how to make the plot you have in mind, this website is a great place to start.</p>
 <p>Most of the functions that people use from the matplotlib library are in the <code>pyplot</code> submodule and to make it easier to access those functions, it is usually imported as <code>plt</code>.</p>
-<div id="later-camera" class="cell">
+<div id="a5a2555c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To start plotting, first let’s create a vector containing values from 0 to 100:</p>
-<div id="instant-equality" class="cell">
+<div id="f1fe645e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="shaped-geneva" class="cell">
+<div id="429ba883" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x) <span class="co">#use plot to plot our values</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.show() <span class="co">#to show the plot in the notebook</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>It assumed our single data list to be the y-values and in the absence of an x-values list, [0, 1, 2, 3, … 100] was used instead</p>
-<div id="cooked-organ" class="cell">
+<div id="40902842" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="noticed-weekly" class="cell">
+<div id="d336f1b9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Now we are passing in two lists to <code>plt.plot</code>, which explicitly sets the x-values</p>
 <p>NOTE: when you pass in two lists to <code>plt.plot</code>, their lengths must match. Here, our lists both contain 100 values</p>
-<div id="monetary-telling" class="cell">
+<div id="ca45ed95" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y2 <span class="op">=</span> np.arange(<span class="dv">2</span>, <span class="dv">3</span>, <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="enhanced-karaoke" class="cell">
+<div id="663e81ad" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y1)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y2)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>You can plot multiple curves on the same plot, but they have to be all the same length</p>
 <p>Right now, it’s hard to tell by glancing which line belongs to which data. We can add labels and show a legend to make it easier to tell them apart</p>
-<div id="daily-narrow" class="cell">
+<div id="e2138273" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y1, label<span class="op">=</span><span class="st">"plot 1"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y2, label<span class="op">=</span><span class="st">"plot 2"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>We can also add labels to the axes and a title</p>
-<div id="empty-fourth" class="cell">
+<div id="8b0ff241" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y1, label<span class="op">=</span><span class="st">"plot 1"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y2, label<span class="op">=</span><span class="st">"plot 2"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x axis"</span>)</span>
@@ -333,9 +361,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"This is a plot of two datasets"</span>)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>You can also change the line type (using <code>linestyle</code>) and color (using <code>color</code>)</p>
-<div id="sharp-lunch" class="cell">
+<div id="72ac5d09" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y1, linestyle<span class="op">=</span><span class="st">":"</span>, label<span class="op">=</span><span class="st">"line 1"</span>) <span class="co">#include linestyle to change the appearance of the line</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y2, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"line 2"</span>) <span class="co">#include color to change the line's color</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x axis"</span>)</span>
@@ -343,9 +378,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"This is a plot of two datasets"</span>)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>You can change the scaling of either axis by using either <code>xlim</code> or <code>ylim</code></p>
-<div id="designing-separation" class="cell">
+<div id="ebdd8a17" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y1, linestyle<span class="op">=</span><span class="st">":"</span>, label<span class="op">=</span><span class="st">"line 1"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y2, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"line 2"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">60</span>) <span class="co">#sets the lower and upper bound of the x axis</span></span>
@@ -355,13 +397,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"This is a plot of two datasets"</span>)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>You can see that this is the same plot as above, except it’s more zoomed in because we changed the axes</p>
 </section>
 </section>
 <section id="other-types-of-plots-in-matplotlib" class="level2">
 <h2 class="anchored" data-anchor-id="other-types-of-plots-in-matplotlib">Other types of plots in matplotlib</h2>
-<div id="freelance-architecture" class="cell">
+<div id="ab6494d9" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
@@ -370,16 +419,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y axis"</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Scatter plot"</span>)</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="compressed-diameter" class="cell">
+</div>
+</div>
+<div id="d85e46f5" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.boxplot(data)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y axis"</span>)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Boxplot"</span>)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="ideal-connection" class="cell">
+</div>
+</div>
+<div id="a88a1aa3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple boxplots</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
@@ -390,8 +453,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y axis"</span>)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Boxplots for two datasets"</span>)</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="residential-intent" class="cell">
+</div>
+</div>
+<div id="af3dd6a1" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.random.rand(<span class="dv">100</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.hist(data, bins<span class="op">=</span><span class="dv">10</span>, facecolor<span class="op">=</span><span class="st">'green'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
@@ -400,6 +470,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y axis"</span>)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Histogram"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="plotting-multiple-graphs-in-one-figure" class="level1">
@@ -407,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In matplotlib, there is a distinction between a “figure” and something called an “axes” object (see image below). The figure contains your plots and can be made up of more than one plot. Each plot is inside of the axes object. In all examples so far we’ve only had one plot so there was only one axes object inside of each figure. Think of the figure like a sheet of paper. We can draw multiple plots inside of boxes on the paper. The boxes represent the axes object. <img src="matplotlib_figure.png" class="img-fluid" alt="Representation of the figure structure in matplotlib"></p>
 <p>Figure from: https://towardsdatascience.com/what-are-the-plt-and-ax-in-matplotlib-exactly-d2cf4bf164a9</p>
 <p>In order to create a figure with multiple subplots dynamically, meaning you create the data for each plot at the same time you’re plotting, you can use a <code>for</code> loop:</p>
-<div id="drawn-malaysia" class="cell">
+<div id="3a65c9f1" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>num_rows <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
@@ -425,9 +502,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#code adapted from above towardsdatascience link</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>The above example used iterative plotting to create and plot multiple plots in a <code>for</code> loop. However, if you have a set of plots already made that you want to include, you can use a different command called <code>subplot</code>. The format is <code>plt.subplot(number of rows, number of columns, plot number)</code></p>
-<div id="cleared-banking" class="cell">
+<div id="e41e01c3" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">12</span>)) <span class="co">#to specify how big the figure should be in order to make it readable</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.rand(<span class="dv">50</span>)</span>
@@ -450,17 +534,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Histogram"</span>)</span>
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plotting_student_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="in-class-exercise" class="level1">
 <h1>In class exercise</h1>
-<div id="respective-demographic" class="cell">
+<div id="812086e0" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install wget</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> wget</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Collecting wget
+  Downloading wget-3.2.zip (10 kB)
+  Installing build dependencies ... - \ done
+  Getting requirements to build wheel ... - done
+  Preparing metadata (pyproject.toml) ... - done
+Building wheels for collected packages: wget
+  Building wheel for wget (pyproject.toml) ... - done
+  Created wheel for wget: filename=wget-3.2-py3-none-any.whl size=9685 sha256=e09fb5c31cf4498e757cd0716f766914c49f876bc0e1ddc3b5be902dfeabef13
+  Stored in directory: /home/runner/.cache/pip/wheels/8a/b8/04/0c88fb22489b0c049bee4e977c5689c7fe597d6c4b0e7d0b6a
+Successfully built wget
+Installing collected packages: wget
+Successfully installed wget-3.2</code></pre>
 </div>
-<div id="native-stadium" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#If running in colab, need to get the IRIS.csv file from github</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>wget.download(<span class="st">'https://raw.githubusercontent.com/How-to-Learn-to-Code/python-class/master/Lesson_7_Plotting/IRIS.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3621d8fb" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#If running in colab, need to get the IRIS.csv file from github</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>wget.download(<span class="st">'https://raw.githubusercontent.com/How-to-Learn-to-Code/python-class/master/Lesson_7_Plotting/IRIS.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>'IRIS (1).csv'</code></pre>
+</div>
 </div>
 <p>Read in the IRIS.csv dataset from the file you just downloaded</p>
 <p>Dataset from: https://www.kaggle.com/datasets/arshid/iris-flower-dataset</p>

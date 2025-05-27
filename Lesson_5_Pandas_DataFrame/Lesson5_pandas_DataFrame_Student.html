@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -105,6 +105,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -273,13 +276,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>Students will gain a better understanding of how to use pandas for manipulating data frames</p>
 <p>Specific coding skills learned: - Subsetting data frames - Joining data frames together - Other useful pandas functions (incuding groupby, statistics, and conditional subsetting)</p>
-<div id="cell-3" class="cell">
+<div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pandas </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install matplotlib </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install numpy </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Collecting pandas
+  Downloading pandas-2.2.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (89 kB)
+Collecting numpy&gt;=1.26.0 (from pandas)
+  Downloading numpy-2.2.6-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Collecting pytz&gt;=2020.1 (from pandas)
+  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata&gt;=2022.7 (from pandas)
+  Downloading tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+Downloading pandas-2.2.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/12.7 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.7/12.7 MB 78.5 MB/s eta 0:00:00
+Downloading numpy-2.2.6-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/16.5 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 185.8 MB/s eta 0:00:00
+Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Downloading tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+Installing collected packages: pytz, tzdata, numpy, pandas
+   ━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1/4 [tzdata]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 2/4 [numpy]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ 3/4 [pandas]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4/4 [pandas]
+Successfully installed numpy-2.2.6 pandas-2.2.3 pytz-2025.2 tzdata-2025.2
+Note: you may need to restart the kernel to use updated packages.
+Collecting matplotlib
+  Downloading matplotlib-3.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Collecting contourpy&gt;=1.0.1 (from matplotlib)
+  Downloading contourpy-1.3.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+Collecting cycler&gt;=0.10 (from matplotlib)
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools&gt;=4.22.0 (from matplotlib)
+  Downloading fonttools-4.58.0-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (104 kB)
+Collecting kiwisolver&gt;=1.3.1 (from matplotlib)
+  Downloading kiwisolver-1.4.8-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.2 kB)
+Requirement already satisfied: numpy&gt;=1.23 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (2.2.6)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (25.0)
+Collecting pillow&gt;=8 (from matplotlib)
+  Downloading pillow-11.2.1-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (8.9 kB)
+Collecting pyparsing&gt;=2.3.1 (from matplotlib)
+  Downloading pyparsing-3.2.3-py3-none-any.whl.metadata (5.0 kB)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (2.9.0.post0)
+Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.17.0)
+Downloading matplotlib-3.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/8.6 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.6/8.6 MB 52.5 MB/s eta 0:00:00
+Downloading contourpy-1.3.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (322 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.58.0-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/4.9 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 132.0 MB/s eta 0:00:00
+Downloading kiwisolver-1.4.8-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/1.5 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 134.1 MB/s eta 0:00:00
+Downloading pillow-11.2.1-cp313-cp313-manylinux_2_28_x86_64.whl (4.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/4.6 MB ? eta -:--:--   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 140.4 MB/s eta 0:00:00
+Downloading pyparsing-3.2.3-py3-none-any.whl (111 kB)
+Installing collected packages: pyparsing, pillow, kiwisolver, fonttools, cycler, contourpy, matplotlib
+   ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1/7 [pillow]   ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1/7 [pillow]   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 3/7 [fonttools]   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 3/7 [fonttools]   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 3/7 [fonttools]   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 3/7 [fonttools]   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 3/7 [fonttools]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ 6/7 [matplotlib]   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7/7 [matplotlib]
+Successfully installed contourpy-1.3.2 cycler-0.12.1 fonttools-4.58.0 kiwisolver-1.4.8 matplotlib-3.10.3 pillow-11.2.1 pyparsing-3.2.3
+Note: you may need to restart the kernel to use updated packages.
+Requirement already satisfied: numpy in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (2.2.6)
+Note: you may need to restart the kernel to use updated packages.</code></pre>
+</div>
 </div>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
@@ -287,10 +347,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is useful in terms of allowing us to visualize our data, but most users will want to utilize the data for their own research purposes. Therefore, users will find it helpful to use pandas as an application programming interface (or API), which is basically a set of functions that allow users access to the features of the data.</p>
 <p>For this class, we are going to be using daily weather history data from multiple U.S. cities from July 2014 - June 2015 (downloaded from FiveThirtyEight’s public repository of data found here: https://github.com/fivethirtyeight/data/tree/master/us-weather-history).</p>
 <p>The first set of data we are going to read in is from Philadelphia.</p>
-<div id="cell-5" class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KPHL.csv</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>philly_weather <span class="op">=</span> pd.read_csv(<span class="st">'KPHL.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>philly_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KPHL.csv</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>philly_weather <span class="op">=</span> pd.read_csv(<span class="st">'KPHL.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>philly_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2025-05-27 23:15:49--  https://raw.githubusercontent.com/fivethirtyeight/data/master/us-weather-history/KPHL.csv
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 20560 (20K) [text/plain]
+Saving to: ‘KPHL.csv’
+
+KPHL.csv              0%[                    ]       0  --.-KB/s               KPHL.csv            100%[===================&gt;]  20.08K  --.-KB/s    in 0s      
+
+2025-05-27 23:15:49 (105 MB/s) - ‘KPHL.csv’ saved [20560/20560]
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>75</td>
+<td>96</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>103</td>
+<td>1965</td>
+<td>1901</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>83</td>
+<td>74</td>
+<td>92</td>
+<td>68</td>
+<td>87</td>
+<td>54</td>
+<td>104</td>
+<td>1957</td>
+<td>1966</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>73</td>
+<td>68</td>
+<td>78</td>
+<td>68</td>
+<td>87</td>
+<td>52</td>
+<td>103</td>
+<td>1986</td>
+<td>1966</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>74</td>
+<td>64</td>
+<td>83</td>
+<td>69</td>
+<td>87</td>
+<td>55</td>
+<td>100</td>
+<td>1963</td>
+<td>1999</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 </section>
 <section id="subsetting-data-frames" class="level3">
@@ -304,23 +495,353 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h5 class="anchored" data-anchor-id="answer-you-can-subset-the-data-frame-to-only-contain-the-columns-you-need">Answer: You can subset the data frame to only contain the columns you need</h5>
 <p>In pandas, one of the ways you can select certain subsets of the data is to specify them by the row and/or column names.</p>
 <p>To select a particular column (for example, the actual preciptation for each day) , you use square brackets [] along with the column name of the column of interest in quotation marks. Alternatively, this is known as “slicing”, since you are taking a slice of the original data frame.</p>
-<div id="cell-9" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>philly_weather[<span class="st">"actual_precipitation"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>philly_weather[<span class="st">"actual_precipitation"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>date
+2014-7-1     0.00
+2014-7-2     0.21
+2014-7-3     0.09
+2014-7-4     0.04
+2014-7-5     0.00
+             ... 
+2015-6-26    0.00
+2015-6-27    1.34
+2015-6-28    0.22
+2015-6-29    0.00
+2015-6-30    1.50
+Name: actual_precipitation, Length: 365, dtype: float64</code></pre>
+</div>
 </div>
 <p>In order to get both columns of precipitation data, we need to use double brackets, then within the brackets we list the columns of interest with a comma between them, as shown below.</p>
-<div id="cell-11" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>philly_weather[[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>philly_weather[[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>2.77</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>1.34</td>
+<td>0.10</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>0.22</td>
+<td>0.11</td>
+<td>2.48</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>1.50</td>
+<td>0.12</td>
+<td>1.56</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
+</div>
+</div>
 </div>
 <p>Another way of selecting these columns is to add to the end of our data frame object “.loc” (which looks for the names of the columns by labels). Since our matrix is rows by columns, the “:” symbol tells the computer that we want all of the rows, but only the columns with specific labels.</p>
-<div id="cell-13" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[:,[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-13" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[:,[<span class="st">"actual_precipitation"</span>,<span class="st">"average_precipitation"</span>,<span class="st">"record_precipitation"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>2.77</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>1.34</td>
+<td>0.10</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>0.22</td>
+<td>0.11</td>
+<td>2.48</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>1.50</td>
+<td>0.12</td>
+<td>1.56</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
+</div>
+</div>
 </div>
 <p>Likewise, we can do the same for the rows, only placing the “:” after the comma (in the columns position), and selecting the rows by label before the comma, as shown below.</p>
-<div id="cell-15" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-15" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.0</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div id="cell-16" class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>,<span class="st">"2014-7-2"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>philly_weather.loc[[<span class="st">"2014-7-1"</span>,<span class="st">"2014-7-2"</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>75</td>
+<td>96</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>103</td>
+<td>1965</td>
+<td>1901</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>While this is not too difficult if we only need a handful of rows and/or columns, this could become time-consuming if we want to get a series of rows and/or columns.</p>
 </section>
@@ -332,15 +853,272 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A little earlier in the lesson, we used “.loc” to select rows and columns by their label. To do this by their index, we can instead use “.iloc” to select the row and/or column index value(s).</p>
 <p>Given that the “actual_precipitation” and “average_precipitation” columns represent the 9th through 11th rows respectively, this is how we subset the data to obtain the values in these columns .</p>
 <p>(note: the first piece of code means “select the data from the 9th column up to, but not including, the 12th column”).</p>
-<div id="cell-20" class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-20" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>2.77</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>1.34</td>
+<td>0.10</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>0.22</td>
+<td>0.11</td>
+<td>2.48</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>1.50</td>
+<td>0.12</td>
+<td>1.56</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
 </div>
-<div id="cell-21" class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[<span class="dv">0</span>:<span class="dv">2</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[<span class="dv">0</span>:<span class="dv">2</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>75</td>
+<td>96</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>103</td>
+<td>1965</td>
+<td>1901</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>If the numbers are not in a sequence (ex: columns 0, 5, and 7), you can get the subset of the data like this</p>
-<div id="cell-23" class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,[<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">7</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>philly_weather.iloc[:,[<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">7</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>52</td>
+<td>1988</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>52</td>
+<td>1965</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>83</td>
+<td>54</td>
+<td>1957</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>73</td>
+<td>52</td>
+<td>1986</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>74</td>
+<td>55</td>
+<td>1963</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>76</td>
+<td>51</td>
+<td>1960</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>67</td>
+<td>50</td>
+<td>1965</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>73</td>
+<td>54</td>
+<td>1961</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>72</td>
+<td>52</td>
+<td>1888</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>77</td>
+<td>52</td>
+<td>1988</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -348,72 +1126,1129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="joining-data-frames">Joining Data Frames</h3>
 <p>Of course, we might not only be interested in the data from one city. Imagine that we want to do side-by-side comparisons of the average precipitation in Seattle vs.&nbsp;Philadelphia.</p>
 <p>Let’s first read in the weather pattern data for Seattle as well.</p>
-<div id="cell-25" class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KSEA.csv</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>seattle_weather <span class="op">=</span> pd.read_csv(<span class="st">'KSEA.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>seattle_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-25" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>fivethirtyeight<span class="op">/</span>data<span class="op">/</span>master<span class="op">/</span>us<span class="op">-</span>weather<span class="op">-</span>history<span class="op">/</span>KSEA.csv</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>seattle_weather <span class="op">=</span> pd.read_csv(<span class="st">'KSEA.csv'</span>,index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>seattle_weather.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2025-05-27 23:15:49--  https://raw.githubusercontent.com/fivethirtyeight/data/master/us-weather-history/KSEA.csv
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 20603 (20K) [text/plain]
+Saving to: ‘KSEA.csv’
+
+KSEA.csv              0%[                    ]       0  --.-KB/s               KSEA.csv            100%[===================&gt;]  20.12K  --.-KB/s    in 0s      
+
+2025-05-27 23:15:49 (97.1 MB/s) - ‘KSEA.csv’ saved [20603/20603]
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>77</td>
+<td>60</td>
+<td>94</td>
+<td>54</td>
+<td>73</td>
+<td>45</td>
+<td>94</td>
+<td>1948</td>
+<td>2014</td>
+<td>0.0</td>
+<td>0.03</td>
+<td>0.75</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>70</td>
+<td>58</td>
+<td>81</td>
+<td>54</td>
+<td>73</td>
+<td>43</td>
+<td>93</td>
+<td>1954</td>
+<td>2015</td>
+<td>0.0</td>
+<td>0.03</td>
+<td>0.50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>64</td>
+<td>57</td>
+<td>71</td>
+<td>54</td>
+<td>74</td>
+<td>44</td>
+<td>92</td>
+<td>1954</td>
+<td>2015</td>
+<td>0.0</td>
+<td>0.03</td>
+<td>0.47</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>66</td>
+<td>57</td>
+<td>75</td>
+<td>54</td>
+<td>74</td>
+<td>43</td>
+<td>92</td>
+<td>1949</td>
+<td>2015</td>
+<td>0.0</td>
+<td>0.03</td>
+<td>0.57</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>66</td>
+<td>56</td>
+<td>76</td>
+<td>55</td>
+<td>74</td>
+<td>47</td>
+<td>91</td>
+<td>1951</td>
+<td>1958</td>
+<td>0.0</td>
+<td>0.03</td>
+<td>0.64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Using what we learned earlier, we can subset our data to only look at the columns dealing with precipitation:</p>
-<div id="cell-27" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip <span class="op">=</span> philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip <span class="op">=</span> seattle_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip <span class="op">=</span> philly_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip <span class="op">=</span> seattle_weather.iloc[:,<span class="dv">9</span>:<span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Rather than having to flip between both data frames, we can instead combine them into one separate data frame using the function “join”.</p>
 <p>There are four different ways that we can join our data, which we will go through below: “left”, “right”, “inner”, and “outer”</p>
 <p>For the sake of an example, let us sort our data such that Philadelphia’s precipitation data is sorted by the lowest to highest record precipitation, while Seattle’s precipitation data is sorted from the highest to lowest record precipitation.</p>
-<div id="cell-29" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered <span class="op">=</span> philly_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-29" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered <span class="op">=</span> philly_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-4-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>0.85</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-13</td>
+<td>0.02</td>
+<td>0.10</td>
+<td>0.90</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-2-25</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.90</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-3-9</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>0.94</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-11-30</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>0.96</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-8-13</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>5.21</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-8</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>5.53</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-8-3</td>
+<td>0.23</td>
+<td>0.12</td>
+<td>5.63</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-16</td>
+<td>0.20</td>
+<td>0.13</td>
+<td>6.63</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-28</td>
+<td>0.23</td>
+<td>0.14</td>
+<td>8.02</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
 </div>
-<div id="cell-30" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered <span class="op">=</span> seattle_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="cell-30" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered <span class="op">=</span> seattle_weather_precip.sort_values(by<span class="op">=</span>[<span class="st">"record_precipitation"</span>], axis<span class="op">=</span><span class="dv">0</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>seattle_weather_precip_reordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-10-20</td>
+<td>0.46</td>
+<td>0.12</td>
+<td>5.02</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-12-3</td>
+<td>0.00</td>
+<td>0.20</td>
+<td>3.77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-11-20</td>
+<td>0.14</td>
+<td>0.23</td>
+<td>3.41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-11-6</td>
+<td>0.16</td>
+<td>0.21</td>
+<td>3.29</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-2-8</td>
+<td>0.14</td>
+<td>0.13</td>
+<td>3.06</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-11</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-28</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-29</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-8-8</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.13</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-15</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 3 columns</p>
+</div>
+</div>
 </div>
 <p>A left join indicates that we preserve the order of the data frame is getting another data frame joined to it (in this case, the Philadelphia precipitation data). Since the suffix names are the same for both dataframes, we use lsuffix and rsuffix to specify which columns came from which dataframe.</p>
 <p>(Note: ‘left’ is the default setting)</p>
-<div id="cell-32" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'left'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-32" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'left'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">average_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">record_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">actual_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">average_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">record_precipitation_seattle</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-4-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>0.85</td>
+<td>0.00</td>
+<td>0.07</td>
+<td>1.06</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-13</td>
+<td>0.02</td>
+<td>0.10</td>
+<td>0.90</td>
+<td>0.30</td>
+<td>0.10</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-2-25</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.90</td>
+<td>0.16</td>
+<td>0.13</td>
+<td>0.98</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-3-9</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>0.94</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>1.47</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-11-30</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>0.96</td>
+<td>0.00</td>
+<td>0.22</td>
+<td>1.50</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-8-13</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>5.21</td>
+<td>0.85</td>
+<td>0.03</td>
+<td>0.85</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-8</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>5.53</td>
+<td>0.00</td>
+<td>0.08</td>
+<td>1.16</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-8-3</td>
+<td>0.23</td>
+<td>0.12</td>
+<td>5.63</td>
+<td>0.00</td>
+<td>0.01</td>
+<td>0.47</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-16</td>
+<td>0.20</td>
+<td>0.13</td>
+<td>6.63</td>
+<td>0.00</td>
+<td>0.05</td>
+<td>0.76</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-28</td>
+<td>0.23</td>
+<td>0.14</td>
+<td>8.02</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.22</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 6 columns</p>
+</div>
+</div>
 </div>
 <p>Likewise, a right join indicates that we preserve the order of the data frame that is being joined to the first data frame (in this case, the Seattle precipitation data).</p>
-<div id="cell-34" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'right'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-34" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'right'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">average_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">record_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">actual_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">average_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">record_precipitation_seattle</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-10-20</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>2.72</td>
+<td>0.46</td>
+<td>0.12</td>
+<td>5.02</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-12-3</td>
+<td>0.11</td>
+<td>0.12</td>
+<td>1.60</td>
+<td>0.00</td>
+<td>0.20</td>
+<td>3.77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-11-20</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>2.59</td>
+<td>0.14</td>
+<td>0.23</td>
+<td>3.41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-11-6</td>
+<td>0.52</td>
+<td>0.09</td>
+<td>1.41</td>
+<td>0.16</td>
+<td>0.21</td>
+<td>3.29</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-2-8</td>
+<td>0.00</td>
+<td>0.09</td>
+<td>1.15</td>
+<td>0.14</td>
+<td>0.13</td>
+<td>3.06</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-11</td>
+<td>0.00</td>
+<td>0.14</td>
+<td>1.92</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-28</td>
+<td>0.23</td>
+<td>0.14</td>
+<td>8.02</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-29</td>
+<td>0.00</td>
+<td>0.14</td>
+<td>3.53</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-8-8</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.40</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.13</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-15</td>
+<td>0.81</td>
+<td>0.15</td>
+<td>2.96</td>
+<td>0.00</td>
+<td>0.02</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 6 columns</p>
+</div>
+</div>
 </div>
 <p>If we want to order the dates lexographically, we can change the how parameter to ‘outer’ (or the union of the datasets).</p>
-<div id="cell-36" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'outer'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-36" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip_reordered.join(seattle_weather_precip_reordered, how <span class="op">=</span><span class="st">'outer'</span>, lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">average_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">record_precipitation_philly</th>
+<th data-quarto-table-cell-role="th">actual_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">average_precipitation_seattle</th>
+<th data-quarto-table-cell-role="th">record_precipitation_seattle</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-10-1</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>3.00</td>
+<td>0.00</td>
+<td>0.07</td>
+<td>0.56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-10</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>2.10</td>
+<td>0.01</td>
+<td>0.09</td>
+<td>1.02</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-10-11</td>
+<td>0.48</td>
+<td>0.10</td>
+<td>2.04</td>
+<td>0.29</td>
+<td>0.09</td>
+<td>0.89</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-10-12</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>1.62</td>
+<td>0.00</td>
+<td>0.09</td>
+<td>0.70</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-10-13</td>
+<td>0.02</td>
+<td>0.10</td>
+<td>0.90</td>
+<td>0.30</td>
+<td>0.10</td>
+<td>0.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-5</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>2.31</td>
+<td>0.00</td>
+<td>0.06</td>
+<td>0.63</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-6</td>
+<td>0.05</td>
+<td>0.12</td>
+<td>1.95</td>
+<td>0.00</td>
+<td>0.06</td>
+<td>1.54</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-7</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>3.50</td>
+<td>0.00</td>
+<td>0.06</td>
+<td>0.81</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-8</td>
+<td>0.88</td>
+<td>0.12</td>
+<td>2.00</td>
+<td>0.00</td>
+<td>0.07</td>
+<td>0.81</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-9</td>
+<td>0.02</td>
+<td>0.12</td>
+<td>2.03</td>
+<td>0.00</td>
+<td>0.06</td>
+<td>0.72</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 6 columns</p>
+</div>
+</div>
 </div>
 <p>When we combine these datasets together, we can easily compare data from both data frames, for example plotting the record precipitation in Seattle vs.&nbsp;Philadelphia</p>
-<div id="cell-38" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>all_precipitation <span class="op">=</span> philly_weather_precip.join(seattle_weather_precip,lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-38" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>all_precipitation <span class="op">=</span> philly_weather_precip.join(seattle_weather_precip,lsuffix <span class="op">=</span> <span class="st">'_philly'</span>, rsuffix <span class="op">=</span> <span class="st">'_seattle'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>all_precipitation.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson5_pandas_DataFrame_Student_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Let us pretend that we want to add information about each month (stored in the months object)</p>
-<div id="cell-40" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.Series([<span class="st">'July'</span>, <span class="st">'August'</span>,<span class="st">'September'</span>,<span class="st">'October'</span>,<span class="st">'November'</span>,<span class="st">'December'</span>,<span class="st">'January'</span>,<span class="st">'February'</span>,<span class="st">'March'</span>,<span class="st">'April'</span>,<span class="st">'May'</span>,<span class="st">'June'</span>])</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> months.repeat([<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">28</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>])</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.DataFrame(months, columns <span class="op">=</span> [<span class="st">'months'</span>])</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>months.index <span class="op">=</span> all_precipitation.index</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>months.index.name <span class="op">=</span> <span class="st">'date'</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>months</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-40" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.Series([<span class="st">'July'</span>, <span class="st">'August'</span>,<span class="st">'September'</span>,<span class="st">'October'</span>,<span class="st">'November'</span>,<span class="st">'December'</span>,<span class="st">'January'</span>,<span class="st">'February'</span>,<span class="st">'March'</span>,<span class="st">'April'</span>,<span class="st">'May'</span>,<span class="st">'June'</span>])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> months.repeat([<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">31</span>,<span class="dv">28</span>,<span class="dv">31</span>,<span class="dv">30</span>,<span class="dv">31</span>,<span class="dv">30</span>])</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.DataFrame(months, columns <span class="op">=</span> [<span class="st">'months'</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>months.index <span class="op">=</span> all_precipitation.index</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>months.index.name <span class="op">=</span> <span class="st">'date'</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>months</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">months</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>July</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>July</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>July</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>July</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>July</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>June</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>June</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>June</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>June</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>June</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 1 columns</p>
+</div>
+</div>
 </div>
 <p>Now, let us say that in addition to the rainfall data, we also started to collect information about the average dewpoint on each day for the first three months in Philadelphia. However, due to statewide budget cuts scientists could not afford to gather data for the rest of the year.</p>
-<div id="cell-42" class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> np.random.randint(<span class="dv">40</span>,<span class="dv">70</span>,size<span class="op">=</span><span class="dv">92</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> pd.DataFrame(dewpoint, columns<span class="op">=</span>[<span class="st">'dewpoint'</span>])</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>dewpoint.index <span class="op">=</span> all_precipitation.index[<span class="dv">0</span>:<span class="dv">92</span>]</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dewpoint.index.name <span class="op">=</span> <span class="st">'date'</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dewpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-42" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> np.random.randint(<span class="dv">40</span>,<span class="dv">70</span>,size<span class="op">=</span><span class="dv">92</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dewpoint <span class="op">=</span> pd.DataFrame(dewpoint, columns<span class="op">=</span>[<span class="st">'dewpoint'</span>])</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>dewpoint.index <span class="op">=</span> all_precipitation.index[<span class="dv">0</span>:<span class="dv">92</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>dewpoint.index.name <span class="op">=</span> <span class="st">'date'</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>dewpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dewpoint</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-26</td>
+<td>41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-27</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-28</td>
+<td>43</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-29</td>
+<td>67</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-30</td>
+<td>46</td>
+</tr>
+</tbody>
+</table>
+
+<p>92 rows × 1 columns</p>
+</div>
+</div>
 </div>
 <p>As done previously, we can join the datasets together, but you will notice below that all of the dates where there was no dewpoint recorded are labeled ‘NaN’ (“Not a number”, or undefined, data points).</p>
-<div id="cell-44" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-44" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+<th data-quarto-table-cell-role="th">dewpoint</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+<td>56.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+<td>42.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+<td>58.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+<td>42.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+<td>58.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>2.77</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>1.34</td>
+<td>0.10</td>
+<td>3.27</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>0.22</td>
+<td>0.11</td>
+<td>2.48</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.62</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>1.50</td>
+<td>0.12</td>
+<td>1.56</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 4 columns</p>
+</div>
+</div>
 </div>
 <p>What if you only want to keep the values where dewpoints are recorded? To do this, you can use join with the how parameter set to ‘inner’ (or intersection of the data), as shown below.</p>
-<div id="cell-46" class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint, how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-46" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>philly_weather_precip.join(dewpoint, how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+<th data-quarto-table-cell-role="th">dewpoint</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+<td>56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-26</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>2.79</td>
+<td>41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-27</td>
+<td>0.00</td>
+<td>0.14</td>
+<td>1.85</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-28</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>3.22</td>
+<td>43</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-29</td>
+<td>0.00</td>
+<td>0.14</td>
+<td>1.87</td>
+<td>67</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-30</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>2.41</td>
+<td>46</td>
+</tr>
+</tbody>
+</table>
+
+<p>92 rows × 4 columns</p>
+</div>
+</div>
 </div>
 </section>
 <section id="other-useful-pandas-functions-conditional-subsetting" class="level3">
@@ -423,42 +2258,840 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To do this, we can do something called conditional subsetting.</p>
 <p>Remember in lesson 1 when we learned about comparisons, such as “greater than” ( &gt; ), “lesser than” ( &lt; ), “equals” (==)? We can subset our data this way as well.</p>
 <p>To pick the rows where the max temperature was greater than 90, we can subset the data as follows</p>
-<div id="cell-49" class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_max_temp"</span>] <span class="op">&gt;</span> <span class="dv">90</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-49" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_max_temp"</span>] <span class="op">&gt;</span> <span class="dv">90</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>75</td>
+<td>96</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>103</td>
+<td>1965</td>
+<td>1901</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>83</td>
+<td>74</td>
+<td>92</td>
+<td>68</td>
+<td>87</td>
+<td>54</td>
+<td>104</td>
+<td>1957</td>
+<td>1966</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-7</td>
+<td>84</td>
+<td>74</td>
+<td>93</td>
+<td>69</td>
+<td>87</td>
+<td>55</td>
+<td>103</td>
+<td>1968</td>
+<td>2010</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>2.97</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-8</td>
+<td>84</td>
+<td>72</td>
+<td>95</td>
+<td>69</td>
+<td>87</td>
+<td>53</td>
+<td>100</td>
+<td>1960</td>
+<td>1993</td>
+<td>0.17</td>
+<td>0.14</td>
+<td>2.28</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-13</td>
+<td>82</td>
+<td>72</td>
+<td>91</td>
+<td>69</td>
+<td>87</td>
+<td>57</td>
+<td>98</td>
+<td>1998</td>
+<td>1994</td>
+<td>0.05</td>
+<td>0.14</td>
+<td>2.80</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-15</td>
+<td>82</td>
+<td>73</td>
+<td>91</td>
+<td>70</td>
+<td>87</td>
+<td>56</td>
+<td>103</td>
+<td>1940</td>
+<td>1995</td>
+<td>0.81</td>
+<td>0.15</td>
+<td>2.96</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-23</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>70</td>
+<td>87</td>
+<td>58</td>
+<td>101</td>
+<td>1950</td>
+<td>2011</td>
+<td>0.05</td>
+<td>0.14</td>
+<td>3.05</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-27</td>
+<td>81</td>
+<td>70</td>
+<td>91</td>
+<td>70</td>
+<td>87</td>
+<td>53</td>
+<td>100</td>
+<td>1962</td>
+<td>1940</td>
+<td>1.25</td>
+<td>0.15</td>
+<td>2.16</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-8-31</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>66</td>
+<td>83</td>
+<td>45</td>
+<td>101</td>
+<td>1965</td>
+<td>1953</td>
+<td>1.11</td>
+<td>0.10</td>
+<td>3.41</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-9-2</td>
+<td>84</td>
+<td>74</td>
+<td>93</td>
+<td>65</td>
+<td>83</td>
+<td>47</td>
+<td>100</td>
+<td>1963</td>
+<td>1953</td>
+<td>0.18</td>
+<td>0.12</td>
+<td>1.89</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-9-6</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>64</td>
+<td>81</td>
+<td>48</td>
+<td>95</td>
+<td>1962</td>
+<td>1983</td>
+<td>0.01</td>
+<td>0.11</td>
+<td>2.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-5-31</td>
+<td>81</td>
+<td>70</td>
+<td>92</td>
+<td>59</td>
+<td>78</td>
+<td>42</td>
+<td>97</td>
+<td>1965</td>
+<td>1991</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.65</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-11</td>
+<td>81</td>
+<td>70</td>
+<td>92</td>
+<td>63</td>
+<td>82</td>
+<td>44</td>
+<td>95</td>
+<td>1972</td>
+<td>1986</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>2.04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-12</td>
+<td>85</td>
+<td>75</td>
+<td>95</td>
+<td>63</td>
+<td>82</td>
+<td>48</td>
+<td>95</td>
+<td>1979</td>
+<td>1947</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>3.05</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-16</td>
+<td>83</td>
+<td>74</td>
+<td>91</td>
+<td>64</td>
+<td>83</td>
+<td>49</td>
+<td>100</td>
+<td>1963</td>
+<td>1991</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>3.30</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-21</td>
+<td>82</td>
+<td>73</td>
+<td>91</td>
+<td>66</td>
+<td>84</td>
+<td>48</td>
+<td>99</td>
+<td>1968</td>
+<td>1923</td>
+<td>0.30</td>
+<td>0.11</td>
+<td>1.62</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-22</td>
+<td>82</td>
+<td>73</td>
+<td>91</td>
+<td>66</td>
+<td>85</td>
+<td>48</td>
+<td>100</td>
+<td>1963</td>
+<td>1988</td>
+<td>0.00</td>
+<td>0.11</td>
+<td>2.47</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-23</td>
+<td>83</td>
+<td>70</td>
+<td>95</td>
+<td>66</td>
+<td>85</td>
+<td>47</td>
+<td>97</td>
+<td>1963</td>
+<td>1888</td>
+<td>0.55</td>
+<td>0.11</td>
+<td>2.12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>As another example, what if we wanted to get all the days where it did not rain?</p>
-<div id="cell-51" class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_precipitation"</span>] <span class="op">==</span> <span class="fl">0.00</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-51" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>philly_weather[philly_weather[<span class="st">"actual_precipitation"</span>] <span class="op">==</span> <span class="fl">0.00</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.0</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>74</td>
+<td>64</td>
+<td>83</td>
+<td>69</td>
+<td>87</td>
+<td>55</td>
+<td>100</td>
+<td>1963</td>
+<td>1999</td>
+<td>0.0</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-6</td>
+<td>75</td>
+<td>64</td>
+<td>86</td>
+<td>69</td>
+<td>87</td>
+<td>52</td>
+<td>102</td>
+<td>1960</td>
+<td>2010</td>
+<td>0.0</td>
+<td>0.13</td>
+<td>1.36</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-7</td>
+<td>84</td>
+<td>74</td>
+<td>93</td>
+<td>69</td>
+<td>87</td>
+<td>55</td>
+<td>103</td>
+<td>1968</td>
+<td>2010</td>
+<td>0.0</td>
+<td>0.13</td>
+<td>2.97</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-9</td>
+<td>80</td>
+<td>71</td>
+<td>89</td>
+<td>69</td>
+<td>87</td>
+<td>53</td>
+<td>103</td>
+<td>1963</td>
+<td>1936</td>
+<td>0.0</td>
+<td>0.15</td>
+<td>1.79</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-17</td>
+<td>78</td>
+<td>69</td>
+<td>86</td>
+<td>64</td>
+<td>83</td>
+<td>44</td>
+<td>98</td>
+<td>1964</td>
+<td>1957</td>
+<td>0.0</td>
+<td>0.10</td>
+<td>2.41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-22</td>
+<td>82</td>
+<td>73</td>
+<td>91</td>
+<td>66</td>
+<td>85</td>
+<td>48</td>
+<td>100</td>
+<td>1963</td>
+<td>1988</td>
+<td>0.0</td>
+<td>0.11</td>
+<td>2.47</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-24</td>
+<td>77</td>
+<td>69</td>
+<td>85</td>
+<td>66</td>
+<td>85</td>
+<td>52</td>
+<td>99</td>
+<td>1947</td>
+<td>1923</td>
+<td>0.0</td>
+<td>0.11</td>
+<td>2.61</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>76</td>
+<td>68</td>
+<td>84</td>
+<td>67</td>
+<td>85</td>
+<td>51</td>
+<td>100</td>
+<td>1960</td>
+<td>1952</td>
+<td>0.0</td>
+<td>0.12</td>
+<td>2.77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>72</td>
+<td>63</td>
+<td>81</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1888</td>
+<td>1934</td>
+<td>0.0</td>
+<td>0.12</td>
+<td>4.62</td>
+</tr>
+</tbody>
+</table>
+
+<p>243 rows × 12 columns</p>
+</div>
+</div>
 </div>
 <p>What if we want to omit years where the high occurred that year? (Hint: remember the boolean operators AND (&amp;) and OR (|)</p>
 <p>Answer:</p>
-<div id="cell-53" class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>philly_weather[(philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2014</span>) <span class="op">&amp;</span> (philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2015</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-53" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>philly_weather[(philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2014</span>) <span class="op">&amp;</span> (philly_weather[<span class="st">"record_max_temp_year"</span>] <span class="op">!=</span> <span class="dv">2015</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">actual_mean_temp</th>
+<th data-quarto-table-cell-role="th">actual_min_temp</th>
+<th data-quarto-table-cell-role="th">actual_max_temp</th>
+<th data-quarto-table-cell-role="th">average_min_temp</th>
+<th data-quarto-table-cell-role="th">average_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp</th>
+<th data-quarto-table-cell-role="th">record_max_temp</th>
+<th data-quarto-table-cell-role="th">record_min_temp_year</th>
+<th data-quarto-table-cell-role="th">record_max_temp_year</th>
+<th data-quarto-table-cell-role="th">actual_precipitation</th>
+<th data-quarto-table-cell-role="th">average_precipitation</th>
+<th data-quarto-table-cell-role="th">record_precipitation</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-1</td>
+<td>83</td>
+<td>72</td>
+<td>93</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1988</td>
+<td>1901</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>1.04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-2</td>
+<td>86</td>
+<td>75</td>
+<td>96</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>103</td>
+<td>1965</td>
+<td>1901</td>
+<td>0.21</td>
+<td>0.13</td>
+<td>1.73</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-3</td>
+<td>83</td>
+<td>74</td>
+<td>92</td>
+<td>68</td>
+<td>87</td>
+<td>54</td>
+<td>104</td>
+<td>1957</td>
+<td>1966</td>
+<td>0.09</td>
+<td>0.12</td>
+<td>3.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2014-7-4</td>
+<td>73</td>
+<td>68</td>
+<td>78</td>
+<td>68</td>
+<td>87</td>
+<td>52</td>
+<td>103</td>
+<td>1986</td>
+<td>1966</td>
+<td>0.04</td>
+<td>0.13</td>
+<td>2.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2014-7-5</td>
+<td>74</td>
+<td>64</td>
+<td>83</td>
+<td>69</td>
+<td>87</td>
+<td>55</td>
+<td>100</td>
+<td>1963</td>
+<td>1999</td>
+<td>0.00</td>
+<td>0.13</td>
+<td>4.38</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-26</td>
+<td>76</td>
+<td>68</td>
+<td>84</td>
+<td>67</td>
+<td>85</td>
+<td>51</td>
+<td>100</td>
+<td>1960</td>
+<td>1952</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>2.77</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-27</td>
+<td>67</td>
+<td>63</td>
+<td>71</td>
+<td>67</td>
+<td>86</td>
+<td>50</td>
+<td>97</td>
+<td>1965</td>
+<td>1963</td>
+<td>1.34</td>
+<td>0.10</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-28</td>
+<td>73</td>
+<td>66</td>
+<td>79</td>
+<td>67</td>
+<td>86</td>
+<td>54</td>
+<td>97</td>
+<td>1961</td>
+<td>1963</td>
+<td>0.22</td>
+<td>0.11</td>
+<td>2.48</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2015-6-29</td>
+<td>72</td>
+<td>63</td>
+<td>81</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>102</td>
+<td>1888</td>
+<td>1934</td>
+<td>0.00</td>
+<td>0.12</td>
+<td>4.62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2015-6-30</td>
+<td>77</td>
+<td>67</td>
+<td>86</td>
+<td>68</td>
+<td>86</td>
+<td>52</td>
+<td>100</td>
+<td>1988</td>
+<td>1964</td>
+<td>1.50</td>
+<td>0.12</td>
+<td>1.56</td>
+</tr>
+</tbody>
+</table>
+
+<p>364 rows × 12 columns</p>
+</div>
+</div>
 </div>
 </section>
 <section id="other-useful-pandas-functions-groupby" class="level3">
 <h3 class="anchored" data-anchor-id="other-useful-pandas-functions-groupby">Other useful pandas functions: groupby</h3>
 <p>Let us go back to to the all_precip_wmonths object, when we added information about which month each day was in for the combined Philly and Seattle precipitation data. One neat thing we can do is to group data based on certain column values (such as months), as shown below.</p>
-<div id="cell-55" class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-55" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[26]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>.groupby([<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">months</span><span class="ansi-yellow-fg">"</span>])
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 <p>We can do functions such as mean, min, and max for each month, rather than every day.</p>
-<div id="cell-57" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-57" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[27]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>.groupby([<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">months</span><span class="ansi-yellow-fg">"</span>]).mean()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
 </div>
-<div id="cell-58" class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).<span class="bu">min</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-59" class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">'months'</span>]).<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-58" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">"months"</span>]).<span class="bu">min</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[28]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>.groupby([<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">months</span><span class="ansi-yellow-fg">"</span>]).min()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
+</div>
+<div id="cell-59" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths.groupby([<span class="st">'months'</span>]).<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[29]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>.groupby([<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">months</span><span class="ansi-yellow-fg">'</span>]).max()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 <p>Remember when we plotted the record precipitation in Philadelphia vs.&nbsp;Seattle? What if we instead plotted the mean month-to-month instead of daily?</p>
-<div id="cell-61" class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mean_months_precip <span class="op">=</span> all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> plt.gca()</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-61" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mean_months_precip <span class="op">=</span> all_precip_wmonths.groupby([<span class="st">"months"</span>]).mean()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> plt.gca()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_philly'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'purple'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>mean_months_precip.plot(kind<span class="op">=</span><span class="st">'line'</span>,y<span class="op">=</span><span class="st">'record_precipitation_seattle'</span>,ax<span class="op">=</span>ax2, color <span class="op">=</span> <span class="st">'green'</span>,figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[30]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> mean_months_precip = <span class="ansi-yellow-bg">all_precip_wmonths</span>.groupby([<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">months</span><span class="ansi-yellow-fg">"</span>]).mean()
+<span class="ansi-green-fg">      2</span> ax2 = plt.gca()
+<span class="ansi-green-fg">      3</span> mean_months_precip.plot(kind=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">line</span><span class="ansi-yellow-fg">'</span>,y=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">record_precipitation_philly</span><span class="ansi-yellow-fg">'</span>,ax=ax2, color = <span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">purple</span><span class="ansi-yellow-fg">'</span>,figsize=(<span class="ansi-green-fg">12</span>,<span class="ansi-green-fg">5</span>))
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 <p>From this graph, we can see that months where the record precipitation was on average the highest in Philadelphia (such as August and July) are the lowest precipitation times in Seattle!</p>
 </section>
@@ -466,20 +3099,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="other-useful-pandas-functions-statistics">Other useful pandas functions: statistics</h3>
 <p>Lastly, we can perform statistics on our data as a whole. We have already gone through how certain mathematical functions such as min, max, or mean can be calculated on different groups, but this can also be done to columns of the data frame as well.</p>
 <p>For example, we can get the mean value of the actual precipitation in Seattle and Philadelphia, as shown below:</p>
-<div id="cell-64" class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_seattle"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-64" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_seattle"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[31]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_seattle</span><span class="ansi-yellow-fg">"</span>].mean()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
 </div>
-<div id="cell-65" class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_philly"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="cell-65" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[<span class="st">"actual_precipitation_philly"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[32]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_philly</span><span class="ansi-yellow-fg">"</span>].mean()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 <p>As you can see, on average the daily precipitation in Philadelphia is only 0.02 inches greater than Seattle.</p>
 <p>If you wanted to look at both at the same time, we follow the same rules that we did in label-based subsetting:</p>
-<div id="cell-68" class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-68" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[33]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>[[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_seattle</span><span class="ansi-yellow-fg">"</span>,<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_philly</span><span class="ansi-yellow-fg">"</span>]].mean()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 <p>In general, if you wanted to look at multiple statistics at once, you can call the function ‘describe’, as shown below:</p>
-<div id="cell-70" class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-70" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>all_precip_wmonths[[<span class="st">"actual_precipitation_seattle"</span>,<span class="st">"actual_precipitation_philly"</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[34]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">all_precip_wmonths</span>[[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_seattle</span><span class="ansi-yellow-fg">"</span>,<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">actual_precipitation_philly</span><span class="ansi-yellow-fg">"</span>]].describe()
+
+<span class="ansi-red-fg">NameError</span>: name 'all_precip_wmonths' is not defined</pre>
+</div>
+</div>
 </div>
 </section>
 </section>

@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Lists are changeable (mutable) – You can change a list in-place, add new items, and delete or update existing items.</li>
 </ul>
 <p>Let’s create a list containing five different genes. In Python, a list is created by placing elements inside square brackets <code>[]</code>, separated by commas.</p>
-<div id="cell-4" class="cell" data-execution_count="44">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gene_list <span class="op">=</span> [<span class="st">'EGFR'</span>, <span class="st">'KRAS'</span>, <span class="st">'MYC'</span>, <span class="st">'RB'</span>, <span class="st">'TP53'</span>]</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -330,21 +330,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>Let’s try to access the second gene in our <code>gene_list</code>.</p>
-<div id="cell-9" class="cell" data-execution_count="45">
+<div id="cell-9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gene_list[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>'KRAS'</code></pre>
 </div>
 </div>
 <p>Python also has ‘negative indices’ which can be very convinient when we want to access last i-th item. Last item in the list can be accessed with index of -1. Let’s try to access the second to last item in <code>gene_list</code>.</p>
-<div id="cell-11" class="cell" data-execution_count="46">
+<div id="cell-11" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gene_list[<span class="op">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'RB'</code></pre>
 </div>
 </div>
 <p>We can also access a <em>range</em> of items in al list using the slicing operator <code>:</code>. Let’s try to access the first three items in <code>gene_list</code>. Note that the start index is <em>inclusive</em>, but end index is <em>exclusive</em>. We will see later when this can be useful.</p>
-<div id="cell-13" class="cell" data-execution_count="52">
+<div id="cell-13" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first three items</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_list[<span class="dv">0</span>:<span class="dv">3</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># beginning index (0) can be ommitteed</span></span>
@@ -355,31 +355,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>What should we do if we want to access the last three items?</p>
-<div id="cell-15" class="cell" data-execution_count="53">
+<div id="cell-15" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># last three items</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="list-methods" class="level4">
 <h4 class="anchored" data-anchor-id="list-methods">List methods</h4>
 <p>Now, we are interested in a new cancer gene, PTEN, and want to add this to our gene list. How should we do this? There are a few ways to do this, and one way is using a list method called, <em>append</em>.</p>
-<div id="cell-18" class="cell" data-execution_count="60">
+<div id="cell-18" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gene_list.append(<span class="st">'PTEN'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gene_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="60">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>['EGFR', 'KRAS', 'MYC', 'RB', 'TP53', 'PTEN']</code></pre>
 </div>
 </div>
 <p>Oop, we were supposed add BRAF instead of PTEN! What should we do? Since lists are <em>mutable</em>, we can repalce PTEN with BRAF.</p>
-<div id="cell-20" class="cell" data-execution_count="61">
+<div id="cell-20" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gene_list[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="61">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>'PTEN'</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="63">
+<div id="cell-21" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gene_list[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="st">'BRAF'</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gene_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="63">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>['EGFR', 'KRAS', 'MYC', 'RB', 'TP53', 'BRAF']</code></pre>
 </div>
 </div>
@@ -400,11 +400,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tuples" class="level3">
 <h3 class="anchored" data-anchor-id="tuples">Tuples</h3>
 <p>Tuples are ordered collection of values. Tuples are similar to lists with one major difference. They are are <em>immutable</em>, meaning that we cannot change, add, or remove items after they are created. We an create a tuple by placing comma-seperated values inside <code>()</code>.</p>
-<div id="cell-24" class="cell" data-execution_count="56">
+<div id="cell-24" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gene_tuple <span class="op">=</span> (<span class="st">'EGFR'</span>, <span class="st">'KRAS'</span>, <span class="st">'MYC'</span>, <span class="st">'RB'</span>, <span class="st">'TP53'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Similarly to lists, we can use indexing and slicing to access items</p>
-<div id="cell-26" class="cell" data-execution_count="58">
+<div id="cell-26" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_tuple[<span class="dv">2</span>])  <span class="co"># access third item</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gene_tuple[<span class="op">-</span><span class="dv">2</span>:])  <span class="co"># access last two items</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -413,14 +413,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Can we replace KRAS with NRAS for tuples?</p>
-<div id="cell-28" class="cell" data-execution_count="64">
+<div id="cell-28" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gene_tuple[<span class="dv">1</span>] <span class="op">=</span> <span class="st">'NRAS'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-64-d296efa189c8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>gene_tuple<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">'NRAS'</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">gene_tuple</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">1</span><span class="ansi-yellow-bg">]</span> = <span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">NRAS</span><span class="ansi-yellow-fg">'</span>
 
 <span class="ansi-red-fg">TypeError</span>: 'tuple' object does not support item assignment</pre>
 </div>
@@ -446,11 +446,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Sets can be created by placing items comma-seperated values inside <code>{}</code></p>
 <p>We have upregulated genes in tumor tissues compared to normal tissues from two patients. We would like to know if there is a shared upregulated genes.</p>
-<div id="cell-32" class="cell" data-execution_count="65">
+<div id="cell-32" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>patient1 <span class="op">=</span> {<span class="st">'ABCC1'</span>, <span class="st">'BRCA1'</span>, <span class="st">'BRCA2'</span>, <span class="st">'HER2'</span>}</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>patient2 <span class="op">=</span> {<span class="st">'BRCA1'</span>, <span class="st">'HER2'</span>, <span class="st">'ERCC1'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="67">
+<div id="cell-33" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set intersection</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(patient1.intersection(patient2))  <span class="co"># use intersection method</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(patient1 <span class="op">&amp;</span> patient2)  <span class="co"># use &amp; operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -466,23 +466,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note that you can use only immutable objects (like strings) for the keys of a dictionary but you can use either immutable or mutable objects for the values of the dictionary.</p>
 <p>Pairs of keys and values are specified in a dictionary by using the notation <code>d = {key1 : value1, key2 : value2 }</code>. Notice that the key-value pairs are separated by a colon and the pairs are separated themselves by commas and all this is enclosed in a pair of curly braces.</p>
 <p>The following example of a dictionary might be useful if you wanted to keep track of ages of patients in a clinical trial.</p>
-<div id="cell-35" class="cell">
+<div id="cell-35" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>agesDict <span class="op">=</span> {<span class="st">'Karen P.'</span> : <span class="dv">53</span>, <span class="st">'Jessica M.'</span>: <span class="dv">47</span>, <span class="st">'David G.'</span> : <span class="dv">45</span>, <span class="st">'Susan K.'</span> : <span class="dv">57</span>, <span class="st">'Eric O.'</span> : <span class="dv">50</span>}</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(agesDict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Karen P.': 53, 'Jessica M.': 47, 'David G.': 45, 'Susan K.': 57, 'Eric O.': 50}</code></pre>
+</div>
 </div>
 <p>We can access a person’s age (value) using his/her name (key). Let’s find out Eric O.’s age.</p>
-<div id="cell-37" class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>agesDict[<span class="st">'Eric O.'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="69">
+<div id="cell-37" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>agesDict[<span class="st">'Eric O.'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>50</code></pre>
 </div>
 </div>
 <p>A new patient is enrolled into the clinical trial. Her name is Hannah H. and her age is 39. We can add a new item to the dictoary.</p>
-<div id="cell-39" class="cell" data-execution_count="70">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>agesDict[<span class="st">'Hannah H.'</span>] <span class="op">=</span> <span class="dv">39</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-39" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>agesDict[<span class="st">'Hannah H.'</span>] <span class="op">=</span> <span class="dv">39</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="71">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(agesDict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-40" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(agesDict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'Karen P.': 53, 'Jessica M.': 47, 'David G.': 45, 'Susan K.': 57, 'Eric O.': 50, 'Hannah H.': 39}</code></pre>
 </div>
@@ -498,45 +501,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Make a list containing the following numbers 1, 4, 25, 7, 9, 12, 15, 16, and 21. Name the list <code>num_list</code></li>
 </ol>
-<div id="cell-44" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-44" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Find the following information about the list you made in Q1: length, minimum, and maximum. You may need to google to find functions that can help you.</li>
 </ol>
-<div id="cell-46" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># length</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>9</code></pre>
+<div id="cell-46" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># length</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-47" class="cell" data-execution_count="32">
+<div id="cell-47" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># minimum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>1</code></pre>
 </div>
-</div>
-<div id="cell-48" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>25</code></pre>
-</div>
+<div id="cell-48" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Make a dictionary that describes the price of five medications. Name the dictionary <code>med_dict</code> &gt;* Lisinopril: 23.07 &gt;* Gabapentin: 86.27 &gt;* Sildenafil: 169.94 &gt;* Amoxicillin: 17.76 &gt;* Prednisone: 13.81</li>
 </ol>
-<div id="cell-50" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-50" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="4" type="1">
 <li>Use <code>med_dict</code> to calculate how much it will cost if a patien tis treated with Lisinopril and Prednisone.</li>
 </ol>
-<div id="cell-52" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
-<pre><code>36.88</code></pre>
-</div>
+<div id="cell-52" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -546,12 +537,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="ifelse-statment">If…else statment</h3>
 <p>Decision making is required when we want to execute a code only if a certain condition is satisfied.</p>
 <p>The <code>if…elif…else</code> statement is used in Python for decision making. We can use these statments to execute a block of code only when the condition is true. The <code>if…elif…else</code> statement follows this syntax. Note, <code>elif</code> is abbreviation for else if.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> condition1:</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    statment1</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> condition2:</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    statement2</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    statement3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> condition1:</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    statment1</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> condition2:</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    statement2</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    statement3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.learnbyexample.org/wp-content/uploads/python/Python-elif-Statement-Syntax.png" class="img-fluid figure-img"></p>
@@ -559,14 +550,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>Let’s think of a dose-finding clinical trial. We first treat three patients with dose x. iIf no patients shows toxic side effects, we increase the dose. If one patient shows toxicity, we treat another three patients to learn more. If more than one patients show toxicity, we stop at that dose. Let’s make this into python code. You can change the value of <code>n_toxic</code> to see how the script works.</p>
-<div id="cell-57" class="cell" data-execution_count="75">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>n_toxic <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n_toxic <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"increase dose"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> n_toxic <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"treat another three patients"</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"stop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-57" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>n_toxic <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n_toxic <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"increase dose"</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> n_toxic <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"treat another three patients"</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"stop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stop</code></pre>
 </div>
@@ -578,11 +569,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="while-loop" class="level4">
 <h4 class="anchored" data-anchor-id="while-loop">While loop</h4>
 <p>A while loop is used when you want to perform a task indefinitely, until a particular condition is met. For instance, we want to enroll new patients to a clinical trial until we have 30 patients.</p>
-<div id="cell-59" class="cell" data-execution_count="82">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>n_patients <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n_patients <span class="op">&lt;=</span> <span class="dv">30</span>:</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"enrolled patient"</span>, n_patients)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    n_patients <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-59" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>n_patients <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n_patients <span class="op">&lt;=</span> <span class="dv">30</span>:</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"enrolled patient"</span>, n_patients)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    n_patients <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>enrolled patient 1
 enrolled patient 2
@@ -622,12 +613,12 @@ enrolled patient 30</code></pre>
 <section id="for-loop" class="level3">
 <h3 class="anchored" data-anchor-id="for-loop">for loop</h3>
 <p>For loops are used for iterating over a sequence of objects i.e.&nbsp;go through each item in a sequence. Iterable of items include lists, tuples, dictonaries, sets, and strings. For loop has the following syntax:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var <span class="kw">in</span> iterable:</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    statement</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var <span class="kw">in</span> iterable:</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    statement</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s look at an example of a for loop.</p>
-<div id="cell-62" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]:</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-62" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]:</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 2
@@ -637,9 +628,9 @@ enrolled patient 30</code></pre>
 </div>
 </div>
 <p>We can also use the <code>range</code> function to do the same thing. <code>range</code> function takes three parameters: start(default 0), end, and steps (default 1). Like slicing, the start is inclusive but the end is exclusive.</p>
-<div id="cell-64" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">6</span>):</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-64" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">6</span>):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0
 1
@@ -649,10 +640,10 @@ enrolled patient 30</code></pre>
 5</code></pre>
 </div>
 </div>
-<div id="cell-65" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 can be omitted.</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-65" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 can be omitted.</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0
 1
@@ -666,14 +657,14 @@ enrolled patient 30</code></pre>
 <section id="exercise-part-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-part-2">Exercise Part 2</h3>
 <p>Before going into exercise, we need to learn a handy operation <code>+=</code>.</p>
-<div id="cell-68" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> a <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-68" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> a <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>is equivalent to</p>
-<div id="cell-70" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-70" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>The most exciting part about control flows is that they can be <em>nested</em> to make more complex algorithms. Let’s look at the complementary DNA sequences that we discussed in lesson 1. Solve this problem using <code>for</code> and <code>if</code>.</li>
@@ -681,21 +672,21 @@ enrolled patient 30</code></pre>
 <blockquote class="blockquote">
 <p>Create two new variables, comp_oligo1 and comp_oligo2, that are the complementary DNA sequences of oligo1 and oligo2 (hint: A &lt;-&gt; T and G &lt;-&gt; C)</p>
 </blockquote>
-<div id="cell-72" class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>oligo1 <span class="op">=</span> <span class="st">'GCGCTCAAT'</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>oligo2 <span class="op">=</span> <span class="st">'TACTAGGCA'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-72" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>oligo1 <span class="op">=</span> <span class="st">'GCGCTCAAT'</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>oligo2 <span class="op">=</span> <span class="st">'TACTAGGCA'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-73" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># backbone</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>comp_oligo1 <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> nuc <span class="kw">in</span> oligo1:</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nuc <span class="op">==</span> <span class="co">#something:</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        comp_oligo1 <span class="op">+=</span> <span class="co">#something</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-73" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># backbone</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>comp_oligo1 <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> nuc <span class="kw">in</span> oligo1:</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nuc <span class="op">==</span> <span class="co">#something:</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        comp_oligo1 <span class="op">+=</span> <span class="co">#something</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
-<pre><span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">"&lt;ipython-input-2-3a5720451dff&gt;"</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">3</span>
-<span class="ansi-red-fg">    if nuc == #something</span>
+<pre>  <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[32]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-red-fg">    </span><span class="ansi-red-fg">if nuc == #something:</span>
               ^
 <span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
 </pre>
@@ -705,15 +696,9 @@ enrolled patient 30</code></pre>
 <ol start="2" type="1">
 <li>Let’s go back to the dose-finding clinical trials. We have a list of doses that we want to test. <code>dose_list = [1, 2, 3, 5, 8, 13]</code>. We want to increase the dose until we hit the maximal tolerated dose (MTD). For simplicity, we will increase dose when there is less than two patients out of three patients with toxicity and stop otherwise. The last dose before at least two patients have toxicity is declared MTD. We will look into the future and assume that we know how many patients will have toxicity at each dose <code>tox_list = [0, 0, 1, 1, 2, 2]</code>. Find the MTD using <code>while</code>.</li>
 </ol>
-<div id="cell-75" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>dose_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>]</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>tox_list <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-76" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>5</code></pre>
-</div>
+<div id="cell-75" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>dose_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>]</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>tox_list <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hopefully, you can see how importing data from and exporting data to csv or other delimiter separated files will be helpful for research. Now it’s time to practice your skills with built-in data structures and data frames!</p>
 </section>

@@ -314,7 +314,7 @@ window.Quarto = {
 <section id="introduction-to-machine-learning" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-to-machine-learning">Introduction to Machine Learning</h2>
 <p>Before we dive into various ML techniques and applying them to actual data, let’s first introduce some datasets that we’ll be using throughout this lesson and some basic ML notions. Datasets can come in various forms and shapes, and the same data can typically be applied to many different learning algorithms. Fortunately, scikit-learn has a few standard datasets built in that we’ll be using: the <code>iris</code> dataset, the <code>digits</code> dataset, and the <code>diabetes</code> dataset. Let’s examine the <code>iris</code> dataset briefly to introduce some basic concepts.</p>
-<div id="cell-3" class="cell" data-execution_count="202">
+<div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the iris dataset</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
@@ -326,15 +326,18 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the target variables</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(iris.target), iris.target.shape)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iris.target_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'numpy.ndarray'&gt; (150, 4)
-[[5.1 3.5 1.4 0.2]
- [4.9 3.  1.4 0.2]
- [4.7 3.2 1.3 0.2]
- [4.6 3.1 1.5 0.2]
- [5.  3.6 1.4 0.2]]
-&lt;class 'numpy.ndarray'&gt; (150,)
-['setosa' 'versicolor' 'virginica']</code></pre>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># Load the iris dataset</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> datasets
+<span class="ansi-green-fg">      3</span> iris = datasets.load_iris()
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># Look at the features</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 <p>The datasets in scikit-learn are dictionary-like objects that contain the data and some metadata. The data itself is stored in the <code>.data</code> attribute, and as seen above, the <code>iris</code> data is stored as a numpy array of size (150, 4). This corresponds to 150 plants and 4 measurements per plant, forming the “design matrix” that is typically of the size <code>(n_samples, n_features)</code>. The 150 samples correspond to 150 plants that span 3 different iris species: setosa, versicolor, virginica. These species define our <strong>target variables</strong> and are also stored in a numpy array of size (150,). Values in this array are integers (0, 1, or 2) corresponding to the species of the plant. <strong>Features</strong> are attributes or predictors of a sample that are assumed to be predictive for a specific task. For example, the 4 features of the <code>iris</code> dataset correspond to sepal length (cm), sepal width (cm), petal length (cm), and petal width (cm). A physical visualization of these features can be seen below:</p>
@@ -345,57 +348,62 @@ window.Quarto = {
 </figure>
 </div>
 <p>We can also visualize the distributions of the data and pair-wise scatterplots. (Which features might be the most predictive of iris species? Which might be the least predictive?)</p>
-<div id="cell-5" class="cell" data-execution_count="203">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pair_plot(data, labels, feature_names, label_names, size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>)):</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get shape info of data</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(data.shape) <span class="op">==</span> <span class="dv">2</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    n_samples <span class="op">=</span> data.shape[<span class="dv">0</span>]</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    n_feats <span class="op">=</span> data.shape[<span class="dv">1</span>]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Separate data and labels based on classes</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    unique_ys <span class="op">=</span> np.unique(labels)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    X_sep, y_sep <span class="op">=</span> [], []</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> unique_y <span class="kw">in</span> unique_ys:</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> [data[i, :] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples) <span class="cf">if</span> labels[i] <span class="op">==</span> unique_y]</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        X_sep.append(np.stack(X))</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> [labels[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples) <span class="cf">if</span> labels[i] <span class="op">==</span> unique_y]</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        y_sep.append(np.stack(y))</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the pair components</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>size)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_feats):</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_feats):</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on diagonal, then plot a histogram</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> j:</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                plt.subplot(n_feats, n_feats, n_feats<span class="op">*</span>i<span class="op">+</span>j<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                plt.hist([X[:,j] <span class="cf">for</span> X <span class="kw">in</span> X_sep])</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If off diagonal, then plot a scatter plot</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                plt.subplot(n_feats, n_feats, n_feats<span class="op">*</span>i<span class="op">+</span>j<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> X <span class="kw">in</span> X_sep:</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                    plt.scatter(X[:, j], X[:, i])</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on left most column, add ylabel</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> j <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                plt.ylabel(feature_names[i])</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on bottom most row, add xlabel</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> n_feats<span class="op">-</span><span class="dv">1</span>:</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>                plt.xlabel(feature_names[j])</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add legend and show</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    fig.legend([label_name <span class="cf">for</span> label_name <span class="kw">in</span> label_names], loc<span class="op">=</span><span class="st">'center right'</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>pair_plot(iris.data, iris.target, iris.feature_names, iris.target_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="scikit_learn_student_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pair_plot(data, labels, feature_names, label_names, size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>)):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get shape info of data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(data.shape) <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    n_samples <span class="op">=</span> data.shape[<span class="dv">0</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    n_feats <span class="op">=</span> data.shape[<span class="dv">1</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Separate data and labels based on classes</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    unique_ys <span class="op">=</span> np.unique(labels)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    X_sep, y_sep <span class="op">=</span> [], []</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> unique_y <span class="kw">in</span> unique_ys:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> [data[i, :] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples) <span class="cf">if</span> labels[i] <span class="op">==</span> unique_y]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        X_sep.append(np.stack(X))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> [labels[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples) <span class="cf">if</span> labels[i] <span class="op">==</span> unique_y]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        y_sep.append(np.stack(y))</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the pair components</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>size)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_feats):</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_feats):</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on diagonal, then plot a histogram</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> j:</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                plt.subplot(n_feats, n_feats, n_feats<span class="op">*</span>i<span class="op">+</span>j<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                plt.hist([X[:,j] <span class="cf">for</span> X <span class="kw">in</span> X_sep])</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If off diagonal, then plot a scatter plot</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                plt.subplot(n_feats, n_feats, n_feats<span class="op">*</span>i<span class="op">+</span>j<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> X <span class="kw">in</span> X_sep:</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                    plt.scatter(X[:, j], X[:, i])</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on left most column, add ylabel</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> j <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                plt.ylabel(feature_names[i])</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If on bottom most row, add xlabel</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> n_feats<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>                plt.xlabel(feature_names[j])</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add legend and show</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    fig.legend([label_name <span class="cf">for</span> label_name <span class="kw">in</span> label_names], loc<span class="op">=</span><span class="st">'center right'</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>pair_plot(iris.data, iris.target, iris.feature_names, iris.target_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 45</span>
+<span class="ansi-green-fg">     42</span>     fig.legend([label_name <span style="font-weight:bold;color:rgb(0,135,0)">for</span> label_name <span style="font-weight:bold;color:rgb(175,0,255)">in</span> label_names], loc=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">center right</span><span class="ansi-yellow-fg">'</span>)
+<span class="ansi-green-fg">     43</span>     plt.show()
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">45</span> pair_plot(<span class="ansi-yellow-bg">iris</span>.data, iris.target, iris.feature_names, iris.target_names)
+
+<span class="ansi-red-fg">NameError</span>: name 'iris' is not defined</pre>
 </div>
 </div>
 </div>
@@ -404,21 +412,29 @@ window.Quarto = {
 <p>Another category of ML problems is <strong>unsupervised learning</strong>. Here, the task is a little less defined and more ambiguous. In theory, the idea is to learn about some patterns and/or structure within the data without the use of a specific target variable. For example, imagine we were just given <code>iris.data</code> and there were no <code>iris.target</code>. We can then use an unsupervised learning approach, such as clustering, to try to figure out if there is any structure to our data. Clustering, for instance, attempts to form groups of examples that are grouped based on similarity, wherein more similar examples are grouped together and dissimilar examples are in separate groups.</p>
 <p>Note that a ML technique or algorithm <u>does not</u> have to cleanly fit into one of these categories. There are many examples of methods that combine supervised and unsupervised learning as well as regression and classification.</p>
 <p>The goal of ML is learn some properties of a dataset and apply these learned properties to unseen or new data. In this mindset, we want to learn something about the data we have that is generalizable to future data. In order to approximate how well our model or technique is performing, it is standard to create a <strong>training set</strong> and a <strong>testing set</strong>. The training set is the data that the model or ML technique actually sees and can learn from. The testing set is then used to see how well the learned properties correspond to real unseen data. Scikit-learn has a convenient utility function to do just this:</p>
-<div id="cell-7" class="cell" data-execution_count="204">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get our features and targets</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> iris.data, iris.target</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Shuffle and split our dataset with 25% of it going to the testing set</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine the shapes of the split dataset</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_train.shape, X_test.shape)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape, y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(112, 4) (38, 4)
-(112,) (38,)</code></pre>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get our features and targets</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> iris.data, iris.target</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Shuffle and split our dataset with 25% of it going to the testing set</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine the shapes of the split dataset</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_train.shape, X_test.shape)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape, y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">model_selection</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> train_test_split
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic;color:rgb(95,135,135)"># Get our features and targets</span>
+<span class="ansi-green-fg">      4</span> X, y = iris.data, iris.target
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -430,37 +446,41 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="standardscaler">StandardScaler</h3>
 <p>Standardization is a typical requirement for many ML techniques as they assume the data looks standard normally distributed. While the true distribution is commonly not Gaussian, we often ignore this and just center the data by subtracting the mean for each feature and scaling them by their standard deviation. This can be easily accomplished with the <code>StandardScaler</code>.</p>
 <p>The <code>StandardScaler</code> must be “fit” to data using the <code>.fit()</code> method. This method will compute the mean and standard deviation of the input data and store these within the <code>StandardScaler</code> object. These values can then be used to transform the input data and any other data with the <code>.transform()</code> method. (Should we create two different <code>StandardScaler</code> and scale the training and testing set separately? Why or why not?)</p>
-<div id="cell-10" class="cell" data-execution_count="205">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create some fake training data</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> np.array([[<span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">2.</span>],</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                    [<span class="fl">2.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                    [<span class="fl">0.</span>,  <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>]])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Original data mean:'</span>, X_train.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Original data std dev:'</span>, X_train.std(axis<span class="op">=</span><span class="dv">0</span>))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the StandardScaler and fit to the data</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> preprocessing.StandardScaler().fit(X_train)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># View the stored scaling values</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean: '</span>, scaler.mean_)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Std. dev: '</span>, scaler.scale_)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the same transformation to other data</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.transform(X_train)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the result</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scaled data mean:'</span>, X_scaled.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scaled data std dev:'</span>, X_scaled.std(axis<span class="op">=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Original data mean: [1.         0.         0.33333333]
-Original data std dev: [0.81649658 0.81649658 1.24721913]
-Mean:  [1.         0.         0.33333333]
-Std. dev:  [0.81649658 0.81649658 1.24721913]
-Scaled data mean: [0. 0. 0.]
-Scaled data std dev: [1. 1. 1.]</code></pre>
+<div id="cell-10" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create some fake training data</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> np.array([[<span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">2.</span>],</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    [<span class="fl">2.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                    [<span class="fl">0.</span>,  <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>]])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Original data mean:'</span>, X_train.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Original data std dev:'</span>, X_train.std(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the StandardScaler and fit to the data</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> preprocessing.StandardScaler().fit(X_train)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># View the stored scaling values</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean: '</span>, scaler.mean_)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Std. dev: '</span>, scaler.scale_)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the same transformation to other data</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.transform(X_train)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the result</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scaled data mean:'</span>, X_scaled.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scaled data std dev:'</span>, X_scaled.std(axis<span class="op">=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> preprocessing
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">numpy</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">as</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">np</span>
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create some fake training data</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -468,55 +488,52 @@ Scaled data std dev: [1. 1. 1.]</code></pre>
 <h3 class="anchored" data-anchor-id="normalization">Normalization</h3>
 <p>Normalization another common technique and involves scaling individual samples to have unit norm. This is useful for techniques that utilize a quadratic form or applying kernels to quantify similarity between pairs of samples and normalization is a base assumption for certain techniques.</p>
 <p>The <code>Normalizer</code> can be used to easily transform samples based on various norms including the <span class="math inline">\(\ell_{1}\)</span> , <span class="math inline">\(\ell_{2}\)</span>, and max norms. When creating the <code>Normalizer</code>, it does not need the <code>.fit()</code> method (though it can be used, this method doesn’t do anything because the class is stateless). The <code>.transform()</code> method can then be used to normalize any data. (Should we create two different <code>Normalizer</code> and normalize the training and testing set separately? Why or why not?)</p>
-<div id="cell-12" class="cell" data-execution_count="206">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create some fake training data</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> [[<span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">2.</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           [<span class="fl">2.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           [<span class="fl">0.</span>,  <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>]]</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create l2 Normalizer (fit does nothing)</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>normalizer_l2_fit <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l2'</span>).fit(X_train)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>normalizer_l2 <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l2'</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform based on l2 norm</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>X_norm1 <span class="op">=</span> normalizer_l2_fit.transform(X_train)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>X_norm2 <span class="op">=</span> normalizer_l2.transform(X_train)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'L2 Normalized:'</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_norm1)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_norm2)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Can also create l1 and max norm Normalizer</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>normalizer_l1 <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l1'</span>)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>normalizer_max <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'max'</span>)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform based on l1 and max norms</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>X_l1 <span class="op">=</span> normalizer_l1.transform(X_train)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'L1 Normalized:'</span>)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_l1)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>X_max <span class="op">=</span> normalizer_max.transform(X_train)</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Max Normalized:'</span>)</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>L2 Normalized:
-[[ 0.40824829 -0.40824829  0.81649658]
- [ 1.          0.          0.        ]
- [ 0.          0.70710678 -0.70710678]]
-[[ 0.40824829 -0.40824829  0.81649658]
- [ 1.          0.          0.        ]
- [ 0.          0.70710678 -0.70710678]]
+<div id="cell-12" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create some fake training data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> [[<span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">2.</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>           [<span class="fl">2.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           [<span class="fl">0.</span>,  <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>]]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create l2 Normalizer (fit does nothing)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>normalizer_l2_fit <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l2'</span>).fit(X_train)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>normalizer_l2 <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l2'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform based on l2 norm</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>X_norm1 <span class="op">=</span> normalizer_l2_fit.transform(X_train)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>X_norm2 <span class="op">=</span> normalizer_l2.transform(X_train)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'L2 Normalized:'</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_norm1)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_norm2)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Can also create l1 and max norm Normalizer</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>normalizer_l1 <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'l1'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>normalizer_max <span class="op">=</span> preprocessing.Normalizer(norm<span class="op">=</span><span class="st">'max'</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform based on l1 and max norms</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>X_l1 <span class="op">=</span> normalizer_l1.transform(X_train)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'L1 Normalized:'</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_l1)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>X_max <span class="op">=</span> normalizer_max.transform(X_train)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Max Normalized:'</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[5]</span><span class="ansi-green-fg">, line 7</span>
+<span class="ansi-green-fg">      2</span> X_train = [[<span class="ansi-green-fg">1.</span>, -<span class="ansi-green-fg">1.</span>,  <span class="ansi-green-fg">2.</span>],
+<span class="ansi-green-fg">      3</span>            [<span class="ansi-green-fg">2.</span>,  <span class="ansi-green-fg">0.</span>,  <span class="ansi-green-fg">0.</span>],
+<span class="ansi-green-fg">      4</span>            [<span class="ansi-green-fg">0.</span>,  <span class="ansi-green-fg">1.</span>, -<span class="ansi-green-fg">1.</span>]]
+<span class="ansi-green-fg">      6</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create l2 Normalizer (fit does nothing)</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">7</span> normalizer_l2_fit = <span class="ansi-yellow-bg">preprocessing</span>.Normalizer(norm=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">l2</span><span class="ansi-yellow-fg">'</span>).fit(X_train)
+<span class="ansi-green-fg">      8</span> normalizer_l2 = preprocessing.Normalizer(norm=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">l2</span><span class="ansi-yellow-fg">'</span>)
+<span class="ansi-green-fg">     10</span> <span style="font-style:italic;color:rgb(95,135,135)"># Transform based on l2 norm</span>
 
-L1 Normalized:
-[[ 0.25 -0.25  0.5 ]
- [ 1.    0.    0.  ]
- [ 0.    0.5  -0.5 ]]
-
-Max Normalized:
-[[ 0.5 -0.5  1. ]
- [ 1.   0.   0. ]
- [ 0.   1.  -1. ]]</code></pre>
+<span class="ansi-red-fg">NameError</span>: name 'preprocessing' is not defined</pre>
+</div>
 </div>
 </div>
 </section>
@@ -524,28 +541,35 @@ Max Normalized:
 <h3 class="anchored" data-anchor-id="ordinalencoder">OrdinalEncoder</h3>
 <p>Commonly some features are not continuous or even quantitative values, but rather categorical. For example, a person could be from [“North Carolina”, “South Carolina”, “Georgia”, “Virginia”, “Florida”, etc.]. These features can be conveniently transformed to a new feature of integers from 0 to n_categories-1. (Why can’t we just use the original categorical features?)</p>
 <p>The <code>OrdinalEncoder</code> can be used to efficiently transform any input categorical features. Like the other <code>preprocessors</code>, we use the <code>.fit()</code> and <code>.transform()</code> methods to do the transformation. There is additional methods to perform the inverse transformation.</p>
-<div id="cell-14" class="cell" data-execution_count="207">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake training data</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="dv">1</span>], [<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Female'</span>, <span class="dv">2</span>]]</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create encoder</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View the encoding categories</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Categories:'</span>, encoder.categories_)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform new data</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>X_encoded <span class="op">=</span> encoder.transform([[<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Male'</span>, <span class="dv">1</span>]])</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Encoded data:'</span>, X_encoded)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform inverse transformation</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Inverse transformation:'</span>, encoder.inverse_transform([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Categories: [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
-Encoded data: [[0. 2.]
- [1. 0.]]
-Inverse transformation: [['Male' 1]
- ['Female' 2]]</code></pre>
+<div id="cell-14" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake training data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="dv">1</span>], [<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Female'</span>, <span class="dv">2</span>]]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create encoder</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View the encoding categories</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Categories:'</span>, encoder.categories_)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform new data</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>X_encoded <span class="op">=</span> encoder.transform([[<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Male'</span>, <span class="dv">1</span>]])</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Encoded data:'</span>, X_encoded)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform inverse transformation</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Inverse transformation:'</span>, encoder.inverse_transform([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      2</span> X = [[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Male</span><span class="ansi-yellow-fg">'</span>, <span class="ansi-green-fg">1</span>], [<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Female</span><span class="ansi-yellow-fg">'</span>, <span class="ansi-green-fg">3</span>], [<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Female</span><span class="ansi-yellow-fg">'</span>, <span class="ansi-green-fg">2</span>]]
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create encoder</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> encoder = <span class="ansi-yellow-bg">preprocessing</span>.OrdinalEncoder().fit(X)
+<span class="ansi-green-fg">      7</span> <span style="font-style:italic;color:rgb(95,135,135)"># View the encoding categories</span>
+<span class="ansi-green-fg">      8</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Categories:</span><span class="ansi-yellow-fg">'</span>, encoder.categories_)
+
+<span class="ansi-red-fg">NameError</span>: name 'preprocessing' is not defined</pre>
+</div>
 </div>
 </div>
 </section>
@@ -553,54 +577,66 @@ Inverse transformation: [['Male' 1]
 <h3 class="anchored" data-anchor-id="k-bins-discretization">K-Bins Discretization</h3>
 <p>Discretization is a common technique where by continuous values are binned or partitioned into discrete values. One-hot encoded discretized features, for example, can make some models more expressive.</p>
 <p>The <code>KBinsDiscretizer</code> can be used to easily discretize features into <span class="math inline">\(k\)</span> bins. The actual encoding of the features can be set as a parameter and as default is one-hot encoding. (Here we also show ‘ordinal’ encoding). Like the other <code>preprocessors</code>, the <code>KBinsDiscretizer</code> can be <code>.fit()</code> and then can use <code>.transform()</code> to discretize features. Note that when using one-hot encoding, the output will be stored in a sparse matrix representation.</p>
-<div id="cell-16" class="cell" data-execution_count="208">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake data</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">3.</span>, <span class="fl">5.</span>],</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.</span>, <span class="fl">6.</span>]])</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># One hot encoding</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>one_hot_binner <span class="op">=</span> preprocessing.KBinsDiscretizer(n_bins<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>]).fit(X)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>X_one_hot <span class="op">=</span> one_hot_binner.transform(X)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'One hot encoding:'</span>, X_one_hot)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinal encoding</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ordinal_binner <span class="op">=</span> preprocessing.KBinsDiscretizer(n_bins<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>], encode<span class="op">=</span><span class="st">'ordinal'</span>).fit(X)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>X_ordinal <span class="op">=</span> ordinal_binner.transform(X)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ordinal encoding:'</span>, X_ordinal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>One hot encoding:   (0, 0)  1.0
-  (0, 3)    1.0
-  (1, 2)    1.0
-  (1, 4)    1.0
-Ordinal encoding: [[0. 0.]
- [2. 1.]]</code></pre>
+<div id="cell-16" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">3.</span>, <span class="fl">5.</span>],</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.</span>, <span class="fl">6.</span>]])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># One hot encoding</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>one_hot_binner <span class="op">=</span> preprocessing.KBinsDiscretizer(n_bins<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>]).fit(X)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>X_one_hot <span class="op">=</span> one_hot_binner.transform(X)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'One hot encoding:'</span>, X_one_hot)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinal encoding</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ordinal_binner <span class="op">=</span> preprocessing.KBinsDiscretizer(n_bins<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>], encode<span class="op">=</span><span class="st">'ordinal'</span>).fit(X)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>X_ordinal <span class="op">=</span> ordinal_binner.transform(X)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ordinal encoding:'</span>, X_ordinal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 6</span>
+<span class="ansi-green-fg">      2</span> X = np.array([[-<span class="ansi-green-fg">3.</span>, <span class="ansi-green-fg">5.</span>],
+<span class="ansi-green-fg">      3</span>               [ <span class="ansi-green-fg">0.</span>, <span class="ansi-green-fg">6.</span>]])
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># One hot encoding</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span> one_hot_binner = <span class="ansi-yellow-bg">preprocessing</span>.KBinsDiscretizer(n_bins=[<span class="ansi-green-fg">3</span>, <span class="ansi-green-fg">2</span>]).fit(X)
+<span class="ansi-green-fg">      7</span> X_one_hot = one_hot_binner.transform(X)
+<span class="ansi-green-fg">      8</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">One hot encoding:</span><span class="ansi-yellow-fg">'</span>, X_one_hot)
+
+<span class="ansi-red-fg">NameError</span>: name 'preprocessing' is not defined</pre>
+</div>
 </div>
 </div>
 </section>
 <section id="polynomial-features" class="level3">
 <h3 class="anchored" data-anchor-id="polynomial-features">Polynomial Features</h3>
 <p>Often, higher order and interaction terms of the features can be useful for many ML techniques. These can be easily acquired via <code>PolynomialFeatures</code>. In the example below, features of a sample <span class="math inline">\((X_{1}, X_{2})\)</span> are transformed to <span class="math inline">\((1, X_{1}, X_{2}, X_{1}^{2}, X_{1}X_{2}, X_{2}^{2})\)</span>.</p>
-<div id="cell-18" class="cell" data-execution_count="209">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake data</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.arange(<span class="dv">6</span>).reshape(<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create PolynomialFeatures</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>poly <span class="op">=</span> PolynomialFeatures(<span class="dv">2</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the features</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>X_poly <span class="op">=</span> poly.fit_transform(X)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[0 1]
- [2 3]
- [4 5]]
-[[ 1.  0.  1.  0.  0.  1.]
- [ 1.  2.  3.  4.  6.  9.]
- [ 1.  4.  5. 16. 20. 25.]]</code></pre>
+<div id="cell-18" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create fake data</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.arange(<span class="dv">6</span>).reshape(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create PolynomialFeatures</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>poly <span class="op">=</span> PolynomialFeatures(<span class="dv">2</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the features</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>X_poly <span class="op">=</span> poly.fit_transform(X)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">numpy</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">as</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">np</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">preprocessing</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> PolynomialFeatures
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create fake data</span>
+<span class="ansi-green-fg">      5</span> X = np.arange(<span class="ansi-green-fg">6</span>).reshape(<span class="ansi-green-fg">3</span>, <span class="ansi-green-fg">2</span>)
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -608,72 +644,88 @@ Ordinal encoding: [[0. 0.]
 <section id="machine-learning-algorithms" class="level2">
 <h2 class="anchored" data-anchor-id="machine-learning-algorithms">Machine Learning Algorithms</h2>
 <p>Let’s dive into some common machine learning algorithms, specifically linear regression, logistic regression, k-nearest neighbors, support vector machines, and random forests. Before we get started, let’s load some datasets. We’ll be using the <code>iris</code> dataset that we introduced earlier for various classification tasks. For regression tasks, we’ll be using the <code>diabetes</code> dataset. For both these datasets, we’ll use a training/testing split of 75%/25%.</p>
-<div id="cell-21" class="cell" data-execution_count="210">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct training and testing sets for iris dataset</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>X_clf, y_clf <span class="op">=</span> iris.data, iris.target</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>X_clf_trn, X_clf_tst, y_clf_trn, y_clf_tst <span class="op">=</span> train_test_split(X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct training and testing sets for diabetes dataset</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> datasets.load_diabetes()</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>X_reg, y_reg <span class="op">=</span> diabetes.data, diabetes.target</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>X_reg_trn, X_reg_tst, y_reg_trn, y_reg_tst <span class="op">=</span> train_test_split(X_reg, y_reg, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-21" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct training and testing sets for iris dataset</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>X_clf, y_clf <span class="op">=</span> iris.data, iris.target</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>X_clf_trn, X_clf_tst, y_clf_trn, y_clf_tst <span class="op">=</span> train_test_split(X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct training and testing sets for diabetes dataset</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> datasets.load_diabetes()</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>X_reg, y_reg <span class="op">=</span> diabetes.data, diabetes.target</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>X_reg_trn, X_reg_tst, y_reg_trn, y_reg_tst <span class="op">=</span> train_test_split(X_reg, y_reg, test_size<span class="op">=</span><span class="fl">0.25</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[9]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> datasets
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">model_selection</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> train_test_split
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Construct training and testing sets for iris dataset</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
+</div>
 </div>
 <section id="linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="linear-regression">Linear Regression</h3>
 <p>Linear regression is a classic machine learning algorithm that fits a linear combination of the features to a continuous value. As the name says, this technique is for regression problems, and as such, we’ll be applying it to the <code>diabetes</code> dataset. The basic form of linear regression attempts to find good coefficient values for a model of the form: <span class="math display">\[ y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \dots + \beta_{p} X_{p} + \varepsilon,\]</span> where <span class="math inline">\(y\)</span> is the regression target, <span class="math inline">\(\beta_{i}\)</span> for <span class="math inline">\(i \in \{0 \dots p\}\)</span> are the regression coefficients, <span class="math inline">\(X_{i}\)</span> for <span class="math inline">\(i \in \{1 \dots p\}\)</span> are the features, and <span class="math inline">\(\varepsilon\)</span> is the irreducible error.</p>
-<div id="cell-24" class="cell" data-execution_count="211">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the regression</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>lin_reg <span class="op">=</span> LinearRegression().fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> lin_reg.predict(X_reg_tst)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination (R^2)</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> r2_score(y_reg_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean squared error: 
- 2424.09
-R squared: 
- 0.52</code></pre>
+<div id="cell-24" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the regression</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>lin_reg <span class="op">=</span> LinearRegression().fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> lin_reg.predict(X_reg_tst)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination (R^2)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> r2_score(y_reg_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[10]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">linear_model</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> LinearRegression
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">metrics</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> mean_squared_error, r2_score
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Perform the regression</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
 <section id="logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
 <p>Logistic regression is another classic machine learning algorithm that fits a linear combination of the features to a continuous value within the range of 0 and 1. However, unlike as the name suggests, this technique is used for classification problems, and as such, we’ll be applying it to the <code>iris</code> dataset. The basic form of logistic regression attempts to find good coefficient values for a model of the form: <span class="math display">\[ \frac{p(X)}{1-p(X)} = e^{\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \dots + \beta_{p} X_{p} + \varepsilon},\]</span> where <span class="math inline">\(p(X)\)</span> is the probability of <span class="math inline">\(X\)</span>, <span class="math inline">\(\beta_{i}\)</span> for <span class="math inline">\(i \in \{0 \dots p\}\)</span> are the regression coefficients, <span class="math inline">\(X_{i}\)</span> for <span class="math inline">\(i \in \{1 \dots p\}\)</span> are the features, and <span class="math inline">\(\varepsilon\)</span> is the irreducible error.</p>
-<div id="cell-27" class="cell" data-execution_count="212">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the logistic regression</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>log_reg <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">0</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> log_reg.predict(X_clf_tst)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st">'</span>, log_reg.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean accuracy: 
- 1.0</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/nzrandolph/.miniconda3/envs/hlc/lib/python3.10/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+<div id="cell-27" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the logistic regression</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>log_reg <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">0</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> log_reg.predict(X_clf_tst)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st">'</span>, log_reg.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">linear_model</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> LogisticRegression
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic;color:rgb(95,135,135)"># Perform the logistic regression</span>
+<span class="ansi-green-fg">      4</span> log_reg = LogisticRegression(random_state=<span class="ansi-green-fg">0</span>).fit(X_clf_trn, y_clf_trn)
 
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(</code></pre>
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -682,44 +734,58 @@ Please also refer to the documentation for alternative solver options:
 <p>K-nearest neighbors is a simple non-parametric machine learning algorithm. As suggested by the name, when the algorithm sees a new example, it then looks at the <span class="math inline">\(k\)</span> closest neighbors (based on some distance metric) to determine a value for the example. The determined value depends if the problem is a classification problem or a regression problem. For classification, the method takes a simple majority vote to assign a class. For regression, the method typically takes an average of the value of the <span class="math inline">\(k\)</span> neighbors.</p>
 <section id="k-nearest-neighbors-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="k-nearest-neighbors-classifier">K-Nearest Neighbors Classifier</h4>
-<div id="cell-31" class="cell" data-execution_count="213">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the classifier</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>knn_clf <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_clf.predict(X_clf_tst)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_clf.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean accuracy: 
- 1.00</code></pre>
+<div id="cell-31" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the classifier</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>knn_clf <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_clf.predict(X_clf_tst)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_clf.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[12]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">neighbors</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> KNeighborsClassifier
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic;color:rgb(95,135,135)"># Get the classifier</span>
+<span class="ansi-green-fg">      4</span> knn_clf = KNeighborsClassifier(n_neighbors=<span class="ansi-green-fg">3</span>).fit(X_clf_trn, y_clf_trn)
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
 <section id="k-nearest-neighbors-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="k-nearest-neighbors-regressor">K-Nearest Neighbors Regressor</h4>
-<div id="cell-33" class="cell" data-execution_count="214">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the regressor</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>knn_reg <span class="op">=</span> KNeighborsRegressor(n_neighbors<span class="op">=</span><span class="dv">5</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_reg.predict(X_reg_tst)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean squared error</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean squared error: 
- 3371.64
-R squared: 
- 0.33</code></pre>
+<div id="cell-33" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the regressor</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>knn_reg <span class="op">=</span> KNeighborsRegressor(n_neighbors<span class="op">=</span><span class="dv">5</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_reg.predict(X_reg_tst)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean squared error</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> knn_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">neighbors</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> KNeighborsRegressor
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">metrics</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> mean_squared_error
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Get the regressor</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -729,62 +795,70 @@ R squared:
 <p>Support vector machines are supervised learning models that were originally built for classification. For classification, it attempts to fit n_classes-1 hyperplanes between the n_classes classes while maximizing the width of the gap between classes. A regression version of the SVM was later proposed.</p>
 <section id="support-vector-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="support-vector-classifier">Support Vector Classifier</h4>
-<div id="cell-37" class="cell" data-execution_count="215">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with linear kernel</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>svc_1 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with RBF kernel</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>svc_2 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svc_1.predict(X_clf_tst)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svc_2.predict(X_clf_tst)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_1.score(X_clf_tst, y_clf_tst))</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_2.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean accuracy (linear): 
- 1.00
-Mean accuracy (rbf): 
- 0.95</code></pre>
+<div id="cell-37" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with linear kernel</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>svc_1 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector classifier with RBF kernel</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>svc_2 <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svc_1.predict(X_clf_tst)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svc_2.predict(X_clf_tst)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean accuracy</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_1.score(X_clf_tst, y_clf_tst))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svc_2.score(X_clf_tst, y_clf_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[14]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">svm</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> SVC
+<span class="ansi-green-fg">      3</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create the support vector classifier with linear kernel</span>
+<span class="ansi-green-fg">      4</span> svc_1 = SVC(kernel=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">linear</span><span class="ansi-yellow-fg">'</span>).fit(X_clf_trn, y_clf_trn)
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
 <section id="support-vector-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="support-vector-regressor">Support Vector Regressor</h4>
-<div id="cell-39" class="cell" data-execution_count="216">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with linear kernel</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>svr_1 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with RBF kernel</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>svr_2 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svr_1.predict(X_reg_tst)</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svr_2.predict(X_reg_tst)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_1))</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_2))</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination, R^2</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_1.score(X_reg_tst, y_reg_tst))</span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_2.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean squared error (linear): 
- 5282.97
-Mean squared error (rbf): 
- 4429.20
-R squared (linear): 
- -0.05
-R squared (rbf): 
- 0.12</code></pre>
+<div id="cell-39" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with linear kernel</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>svr_1 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'linear'</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the support vector regressor with RBF kernel</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>svr_2 <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">'rbf'</span>).fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> svr_1.predict(X_reg_tst)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> svr_2.predict(X_reg_tst)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_1))</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred_2))</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination, R^2</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (linear): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_1.score(X_reg_tst, y_reg_tst))</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared (rbf): </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> svr_2.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[15]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">svm</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> SVR
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">metrics</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> mean_squared_error
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create the support vector regressor with linear kernel</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
@@ -794,45 +868,59 @@ R squared (rbf):
 <p>Random forests are ensemble-based machine learning algorithms that fit many different decision trees to the data, with each tree restricted to a subset of predictors. Both classification and regression versions of random forests have been implemented in <code>scikit-learn</code>.</p>
 <section id="random-forest-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-classifier">Random Forest Classifier</h4>
-<div id="cell-43" class="cell" data-execution_count="217">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>rf_clf <span class="op">=</span> RandomForestClassifier().fit(X_clf_trn, y_clf_trn)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_clf.predict(X_clf_tst)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy metric</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> accuracy_score(y_clf_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean accuracy: 
- 0.97</code></pre>
+<div id="cell-43" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>rf_clf <span class="op">=</span> RandomForestClassifier().fit(X_clf_trn, y_clf_trn)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_clf.predict(X_clf_tst)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy metric</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean accuracy: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> accuracy_score(y_clf_tst, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[16]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">ensemble</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> RandomForestClassifier
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">metrics</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> accuracy_score
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Build the random forest</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>
 <section id="random-forest-regressor" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-regressor">Random Forest Regressor</h4>
-<div id="cell-45" class="cell" data-execution_count="218">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>rf_reg <span class="op">=</span> RandomForestRegressor().fit(X_reg_trn, y_reg_trn)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_reg.predict(X_reg_tst)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> rf_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean squared error: 
- 3128.73
-R squared: 
- 0.38</code></pre>
+<div id="cell-45" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the random forest</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>rf_reg <span class="op">=</span> RandomForestRegressor().fit(X_reg_trn, y_reg_trn)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_reg.predict(X_reg_tst)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean squared error: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> mean_squared_error(y_reg_tst, y_pred))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'R squared: </span><span class="ch">\n</span><span class="st"> </span><span class="sc">%.2f</span><span class="st">'</span> <span class="op">%</span> rf_reg.score(X_reg_tst, y_reg_tst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[17]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">ensemble</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> RandomForestRegressor
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sklearn</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">metrics</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> mean_squared_error
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># Build the random forest</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'sklearn'</pre>
+</div>
 </div>
 </div>
 </section>

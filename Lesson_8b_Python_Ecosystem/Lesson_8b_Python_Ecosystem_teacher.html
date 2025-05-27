@@ -287,22 +287,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We can also use <code>as</code> to give an alias.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> library_name <span class="im">as</span> alias</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now the library can be accessed using the alias. We have already used this approach when importing libraries like pandas, numpy, matplotlib, and seaborn.</p>
-<div id="826d060f-6d6c-4428-b0f3-119670c60caf" class="cell" data-execution_count="1">
+<div id="0a886c23" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">numpy</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">as</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">np</span>
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">pandas</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">as</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">pd</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">seaborn</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">as</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">sns</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'seaborn'</pre>
+</div>
+</div>
 </div>
 <p>In the previous lectures we have used pandas data frames. When using a module within a library we use it after the library name and a dot. For example, <code>pd.DataFrame</code> or <code>np.array</code>.</p>
 <p>What if we want to use only the specific functions/classes within a module? In that case, we can use <code>from library import function</code>. For example, we want to use the <code>permutation</code> function from numpy.</p>
 <p>In that case we can do</p>
-<div id="c2d8d8ce-22fd-4065-ad12-99639bbd840c" class="cell" data-execution_count="5">
+<div id="49d27704" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.random <span class="im">import</span> permutation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can use the <code>permutation</code> function like we use other functions.</p>
-<div id="0641ceff-402a-4e48-ac9b-6b61e619b9c6" class="cell" data-execution_count="6">
+<div id="f97e20fb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>permutation(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>array([1, 9, 2, 5, 7, 8, 6, 3, 0, 4])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>array([3, 2, 5, 1, 6, 4, 9, 7, 8, 0])</code></pre>
 </div>
 </div>
 <p>Hopefully, you can see how importing data from and exporting data to csv or other delimiter separated files will be helpful for research. Now it’s time to practice your skills with built-in data structures and data frames!</p>
