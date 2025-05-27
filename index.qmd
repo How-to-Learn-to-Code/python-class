@@ -29,13 +29,15 @@ Read lessons here, run small code snippets live in your browser, *or* launch the
 
 ---
 
-## 5  Try an interactive Pyodide cell
+## Try an interactive Pyodide cell
 
 Below is a small Python snippet running **in your browser** via Pyodide. Click **Run Code** to execute it:
 
-```{pyodide}
+```{python}
 #| autorun: false
 #| echo: true
 #| engine: pyodide
 
 sum([10, 20, 30, 40, 50])
+```
+
