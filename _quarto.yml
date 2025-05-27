@@ -47,9 +47,7 @@ format:
     toc: true
     number-sections: false
 
-execute: 
-  freeze: auto
-  cache: true
-  warning: false
-  message: false
-  error: true
+execute:
+  enabled: auto
+  freeze: auto          # only re-execute if source changed
+  cache: true           # speed up CI builds
