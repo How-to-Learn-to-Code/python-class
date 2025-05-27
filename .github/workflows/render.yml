@@ -11,7 +11,7 @@ jobs:
       # ===== Install Quarto CLI (>=1.6) =====
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: "1.6.43"          # pin or use 'release'
+          version: "1.7.3"          # pin or use 'release'
 
       # Ensure the APT-installed binary shadows any pip shim
       - run: echo "PATH=/usr/bin:${PATH}" >> $GITHUB_ENV
