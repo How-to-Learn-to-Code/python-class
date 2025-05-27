@@ -50,4 +50,6 @@ format:
 execute:
   enabled: true    # allow Quarto to process code cells
   cache: true      # still cache for speed, if you like
-  error: false     # don’t fail the build if a cell errors
+  error: true     # don’t fail the build if a cell errors
+  warning: false
+  message: false
