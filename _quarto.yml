@@ -48,5 +48,6 @@ format:
     number-sections: false
 
 execute:
-  enabled: false
-  cache: true       # or false if you don’t want caching
+  enabled: true    # allow Quarto to process code cells
+  cache: true      # still cache for speed, if you like
+  error: false     # don’t fail the build if a cell errors
