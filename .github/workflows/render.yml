@@ -32,7 +32,33 @@ jobs:
       # - uses: actions/setup-python@v5
       #   with: { python-version: '3.11' }
       # - run: pip install -r requirements.txt
-
+      - name: Normalize notebooks for Quarto
+        run: |
+          pip install nbformat
+          python3 - << 'EOF'
+          import glob, nbformat
+                  
+          for path in glob.glob("**/*.ipynb", recursive=True):
+              nb = nbformat.read(path, as_version=4)
+              changed = False
+          
+              # 1) strip out the VSCode cell “id” field
+              for cell in nb.cells:
+                  if cell.get("id", None) is not None:
+                      cell.pop("id", None)
+                      changed = True
+                  
+              # 2) force a known kernel
+              ks = nb.metadata.get("kernelspec", {})
+              if ks.get("name") != "python3":
+                  nb.metadata["kernelspec"] = { 
+                      "name":"python3", "display_name":"Python 3", "language":"python" 
+                  }
+                  changed = True
+                
+              if changed:
+                  nbformat.write(nb, path)
+          EOF
       # ===== Render the site =====
       - name: Render
         run: quarto render
