@@ -48,6 +48,5 @@ format:
     number-sections: false
 
 execute:
-  enabled: auto
-  freeze: auto          # only re-execute if source changed
-  cache: true           # speed up CI builds
+  enabled: true
+  cache: true       # or false if you don’t want caching
