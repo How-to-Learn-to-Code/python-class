@@ -33,7 +33,10 @@ Read lessons here, run small code snippets live in your browser, *or* launch the
 
 Below is a small Python snippet running **in your browser** via Pyodide. Click **Run Code** to execute it:
 
-```{pyodide}
+```{python}
+#| engine: pyodide
+#| autorun: false
+#| echo: true
 sum([10, 20, 30, 40, 50])
 ```
 
