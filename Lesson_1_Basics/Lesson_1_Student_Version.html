@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types – How to Learn to Code – Python for Data Science</title>
+<title>Lesson 1 – Basic Introduction to Programming in Python: Operators and Data Types – How to Learn to Code – Python for Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-81b5c3e63835cfde897ecd3d35a35a41.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-738a6274290606b9c6fcc97b8a51ffbf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1e70fd24aa0f1233d910dce5d2d9acb1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -171,7 +171,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_1_Basics/Lesson_1_Student_Version.html"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lesson_1_Basics/Lesson_1_Student_Version.html"><span class="chapter-title">Lesson 1 – Basic Introduction to Programming in Python: Operators and Data Types</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -198,7 +198,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></a>
+  <a href="../Lesson_1_Basics/Lesson_1_Student_Version.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lesson 1 – Basic Introduction to Programming in Python: Operators and Data Types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -265,7 +265,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Lesson 1 - Basic Introduction to Programming in Python : Operators and Data Types</span></h1>
+<h1 class="title"><span class="chapter-title">Lesson 1 – Basic Introduction to Programming in Python: Operators and Data Types</span></h1>
 </div>
 
 
@@ -290,29 +290,33 @@ window.Quarto = {
 </div>
 <section id="learning-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h3>
-<p>Students will gain an introduction to programming in python, working in interactive notebooks, and learning how to leverage outside resources for coding help. Moreoever students will gain a basic understanding of variables, data types, and working with simple expressions for comparison and computation.</p>
+<p>Students will gain an introduction to programming in Python, working in interactive notebooks, and learning how to leverage outside resources for coding help. Moreover, students will gain a basic understanding of variables, data types, and working with simple expressions for comparison and computation.</p>
 <ul>
 <li><a href="#math">Basic math operators: +, -, *, /, **</a></li>
 <li><a href="#assign">Use of the assignment operator (=)</a></li>
 <li><a href="#data">Data types: integer, float, string, boolean</a></li>
 <li><a href="#function">Basic functions: print(), type(), int(), float(), str(), bool()</a></li>
 <li><a href="#compare">Comparison operators: &gt;, &lt;, ==, &gt;=, &lt;=</a></li>
-<li><a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html#homework">In Class Exercises</a></li>
+<li><a href="../Lesson_5_Pandas_DataFrame/Lesson5_pandas_DataFrame_Student.html#homework">In-Class Exercises</a></li>
 </ul>
 <section id="basic-introduction-to-programming-in-python" class="level4">
 <h4 class="anchored" data-anchor-id="basic-introduction-to-programming-in-python">Basic Introduction to Programming in Python <a id="program"></a></h4>
-<p>Python is a general purpose programming language that is widely used in scientific computing, image analysis, machine learning etc. It allows you to specify a set of instructions, written as a script or a program, to execute some task of interest.</p>
+<p>Python is a general-purpose programming language widely used in scientific computing, image analysis, machine learning, and more. It allows you to specify a set of instructions, written as a script or a program, to execute a task of interest.</p>
 <ul>
-<li>Have any of you used a script before? What did you do to run it? What was the purpose of the script? Did it aid in reproducibility? Was it quicker to run or modify than calculating things individually by hand?</li>
+<li>Have any of you used a script before? How did you run it? What was the purpose of the script? Did it aid in reproducibility? Was it quicker to run or modify than calculating things manually?</li>
 </ul>
-<p>The purpose of this series of python workshops is not to give you an extensive in depth overview of everything you can do in python. However, we do aim to give you all the skills and terminology necessary to <strong>learn</strong> how to learn to code in python. Google, <a href="https://stackoverflow.com/">stack overflow</a>, and <a href="https://github.com/">github issues</a>) are invaluable tools you can use to your advantage for (1) gaining coding help and (2) learning how to write code from reading code.</p>
+<p>The purpose of this series of Python workshops is not to give you an extensive, in-depth overview of everything you can do in Python. Instead, we aim to equip you with the skills and terminology necessary to <strong>learn</strong> how to code in Python. Google, <a href="https://stackoverflow.com/">Stack Overflow</a>, and <a href="https://github.com/">GitHub Issues</a> are invaluable tools you can use to your advantage for (1) gaining coding help and (2) learning how to write code by reading examples.</p>
 </section>
 <section id="introduction-to-jupyter-notebooks-and-google-colab" class="level4">
 <h4 class="anchored" data-anchor-id="introduction-to-jupyter-notebooks-and-google-colab">Introduction to Jupyter Notebooks and Google Colab <a id="jupyter"></a></h4>
-<p>“The Jupyter Notebook is an incredibly powerful tool for interactively developing and presenting data science projects. A notebook integrates code and its output into a single document that combines visualizations, narrative text, mathematical equations, and other rich media. The intuitive workflow promotes iterative and rapid development, making notebooks an increasingly popular choice at the heart of contemporary data science, analysis, and increasingly science at large.” - <a href="https://www.dataquest.io/blog/jupyter-notebook-tutorial/">dataquest</a></p>
-<p>All of our lessons will be presented in Jupyter notebooks due to their interactive nature (.ipynb file extension). They consist of two main attributes, a <code>kernel</code> and <code>cells</code>. * A <code>kernel</code> interprets and executes the code. Here we are using the kernel for python; however, you can specify a kernel for another language like R. * A <code>cell</code> is a container for either text or code to be executed.</p>
-<p>To run the python code in a cell, you just hit shift + enter. Try it with the code below.</p>
-<div id="cell-7" class="cell" data-quarto="{&quot;autorun&quot;:false,&quot;echo&quot;:true,&quot;engine&quot;:&quot;pyodide&quot;}" data-execution_count="1">
+<p>“The Jupyter Notebook is an incredibly powerful tool for interactively developing and presenting data science projects. A notebook integrates code and its output into a single document that combines visualizations, narrative text, mathematical equations, and other rich media. The intuitive workflow promotes iterative and rapid development, making notebooks an increasingly popular choice at the heart of contemporary data science, analysis, and increasingly science at large.” – <a href="https://www.dataquest.io/blog/jupyter-notebook-tutorial/">Dataquest</a></p>
+<p>All of our lessons will be presented in Jupyter notebooks due to their interactive nature (.ipynb file extension). They consist of two main components: a <code>kernel</code> and <code>cells</code>.</p>
+<ul>
+<li>A <code>kernel</code> interprets and executes the code. Here we are using the Python kernel; however, you can specify a kernel for another language like R.</li>
+<li>A <code>cell</code> is a container for either text (Markdown) or code to be executed.</li>
+</ul>
+<p>To run the Python code in a cell, press <strong>Shift + Enter</strong>. Try it with the code below.</p>
+<div id="cell-5" class="cell" data-quarto="{&quot;autorun&quot;:false,&quot;echo&quot;:true,&quot;engine&quot;:&quot;pyodide&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'hello world'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>hello world</code></pre>
@@ -321,90 +325,140 @@ window.Quarto = {
 </section>
 <section id="basic-math-operators--" class="level4">
 <h4 class="anchored" data-anchor-id="basic-math-operators--">Basic math operators: +, -, *, /, ** <a id="math"></a></h4>
-<p>The simplest way we can use python is to use is as a calculator! You can use python to do addition, subtraction, division, multiplication, and exponentiation. Let’s walk through some simple math calculations.</p>
-<p><span class="math display">\[ 2 + 3 \]</span></p>
-<p><span class="math display">\[ \frac{6}{2} * 20 - 100 \]</span></p>
-<p><span class="math display">\[ 2^{8} \]</span></p>
-<ul>
-<li>Was the above result what you expected? If you used <code>^</code> then your result was 10; however, if you used <code>**</code> then your result was 256. This demonstrates why it’s important to check the answers you get from your code to make sure the results seem reasonable. You might not always get an error when your code is incorrect :)</li>
-</ul>
+<p>The simplest way to use Python is as a calculator. You can perform addition, subtraction, division, multiplication, and exponentiation. Let’s walk through some simple math calculations.</p>
+<p><span class="math display">\[2 + 3\]</span></p>
+<div id="cell-7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>5</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\frac{6}{2} \times 20 - 100\]</span></p>
+<div id="cell-9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span> <span class="dv">20</span> <span class="op">-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>-40.0</code></pre>
+</div>
+</div>
+<p><span class="math display">\[2^{8}\]</span></p>
+<div id="cell-11" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>256</code></pre>
+</div>
+</div>
+<p><em>Was the above result what you expected? If you used <code>^</code>, your result would be 10; however, if you used <code>**</code>, your result is 256. This demonstrates why it’s important to check the answers you get from your code to make sure the results seem reasonable. You might not always get an error when your code is incorrect.</em></p>
 </section>
 <section id="use-of-the-assignment-operator" class="level4">
 <h4 class="anchored" data-anchor-id="use-of-the-assignment-operator">Use of the assignment operator (=) <a id="assign"></a></h4>
-<p>What if you want to store some value (like the result of the above calculation) and use it for another task later? Here, you can assign it to a variable with the assignment operator <code>=</code>.</p>
-<p>For example, let’s assign the value 22 to variable <code>x</code> as,</p>
-<div id="cell-16" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What if you want to store some value (like the result of the above calculation) and use it for another task later? You can assign it to a variable with the assignment operator <code>=</code>.</p>
+<p>For example, let’s assign the value 22 to the variable <code>x</code>:</p>
+<div id="cell-14" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice that the code above did not return any result. That’s because it is now stored in the variable called <code>x</code>!</p>
-<div id="cell-18" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<p>Notice that the code above did not display any output. That’s because the value is now stored in the variable called <code>x</code>.</p>
+<div id="cell-16" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>22</code></pre>
 </div>
 </div>
-<p>Try assigning the values 1, 2, and 3 to the variables <code>x</code>, <code>y</code>, and <code>z</code> respectively.</p>
-<p>If you’d like to see what the values of the variables were, you can use the <code>print()</code> function. Here, the input of the function (what goes inside the parantheses) is whatever you’d like to display to the terminal.</p>
-<div id="cell-22" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Try assigning the values 1, 2, and 3 to the variables <code>x</code>, <code>y</code>, and <code>z</code>, respectively.</p>
+<div id="cell-18" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you’d like to see what the values of the variables are, you can use the <code>print()</code> function. The input to the function (what goes inside the parentheses) is whatever you’d like to display to the terminal.</p>
+<div id="cell-20" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>22</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="color:rgb(0,135,0)">print</span>(x)
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">y</span>)
-<span class="ansi-green-fg">      3</span> <span style="color:rgb(0,135,0)">print</span>(z)
-
-<span class="ansi-red-fg">NameError</span>: name 'y' is not defined</pre>
+<pre><code>1
+2
+3</code></pre>
 </div>
 </div>
-</div>
-<p>Once you have variables assigned, you can use them to do basic operations. For example, try calculating the following. Be sure to use the assingment operator when necessary and print your results to check that they make sense.</p>
+<p>Once you have variables assigned, you can use them to do basic operations. For example, try calculating the following. Be sure to use the assignment operator when necessary and print your results to check that they make sense.</p>
 <ol type="1">
-<li>Assign the variable <code>a</code> as the result of <span class="math inline">\(4 + 5*2\)</span></li>
-<li>Compute <span class="math inline">\(5 + a\)</span></li>
-<li>Assign the variable b as the result of <span class="math inline">\(\frac{a}{2.5}\)</span></li>
+<li>Assign the variable <code>a</code> to the result of <span class="math inline">\(4 + 5 \times 2\)</span>.</li>
+<li>Compute <span class="math inline">\(5 + a\)</span>.</li>
+<li>Assign the variable <code>b</code> to the result of <span class="math inline">\(\frac{a}{2.5}\)</span>.</li>
 </ol>
-<p><strong>Of note</strong>, you can name a variable anything you’d like (although it’s best to be descriptive for you and others who will end up reading your code). However, a variable name must start with a letter and <em>not</em> a number. For fun, try assigning the value 3 as the variable <code>1variable</code> and see what the result is.</p>
+<div id="cell-22" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">+</span> a)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a <span class="op">/</span> <span class="fl">2.5</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>14
+19
+5.6</code></pre>
+</div>
+</div>
+<p><strong>Of note</strong>, you can name a variable almost anything you’d like (though it’s best to be descriptive for you and others who end up reading your code). However, a variable name must start with a letter and <em>not</em> a number. For fun, try assigning the value 3 to a variable called <code>variable1</code> and see the result.</p>
+<div id="cell-24" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(variable1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+</div>
 </section>
 <section id="data-types-integer-float-string-boolean" class="level4">
 <h4 class="anchored" data-anchor-id="data-types-integer-float-string-boolean">Data types: integer, float, string, boolean <a id="data"></a></h4>
-<p>Programming languages often include different data types that can be used for different tasks (e.g.&nbsp;arithmetic, comparison, debugging etc.). Here we’ll discuss four of the most common types: 1. <em>integer</em>: whole number 2. <em>float</em>: decimal number 3. <em>string</em>: text 4. <em>boolean</em>: True or False</p>
-<p><strong>Integers</strong> <br></p>
-<p>Integers are positive or negative whole numbers with no decimals. We’ve already been using them it today’s lesson. For example, print the variables <code>x</code>, <code>y</code>, <code>z</code>, and <code>a</code>.</p>
-<p><strong>Floats</strong> <br></p>
-<p>Floats, short for floating point real values, are positive or negative numbers with decimals. As with integers, you can use them to do arithmetic or assign them to variables. Try defining and printing the following expressions.</p>
+<p>Programming languages often include different data types that can be used for various tasks (e.g., arithmetic, comparison, debugging). Here we’ll discuss four of the most common types: 1. <strong>integer</strong>: whole number 2. <strong>float</strong>: decimal number 3. <strong>string</strong>: text 4. <strong>boolean</strong>: True or False</p>
+<p><strong>Integers</strong><br></p>
+<p>Integers are positive or negative whole numbers with no decimal point. We’ve already been using them in today’s lesson. For example, print the variables <code>x</code>, <code>y</code>, <code>z</code>, and <code>a</code>.</p>
+<div id="cell-27" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+14</code></pre>
+</div>
+</div>
+<p><strong>Floats</strong><br></p>
+<p>Floats, short for floating-point values, are positive or negative numbers with decimals. As with integers, you can use them to do arithmetic or assign them to variables. Try defining and printing the following expressions:</p>
 <ul>
-<li>f1 assigned to value 4.5</li>
-<li>f2 assigned to value -3.0</li>
-<li>f1 + f2</li>
+<li>Assign <code>f1 = 4.5</code></li>
+<li>Assign <code>f2 = -3.0</code></li>
+<li>Compute <code>f1 + f2</code></li>
 </ul>
-<p><strong>Strings</strong> <br></p>
-<p>Strings refer to text (ie they’re a series of characters) and can be (1) assigned to variables for data manipulation or (2) can be used in print statements for debugging or monitoring tasks. You define them by placing the text within single or double quotation marks as,</p>
-<div id="cell-33" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>oligo1 <span class="op">=</span> <span class="st">'GCGCTCAAT'</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>oligo2 <span class="op">=</span> <span class="st">'TACTAGGCA'</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oligo1, oligo2)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'string variable 1 is'</span>, oligo1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-29" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> <span class="fl">4.5</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>f2 <span class="op">=</span> <span class="op">-</span><span class="fl">3.0</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f1 <span class="op">+</span> f2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.5</code></pre>
+</div>
+</div>
+<p><strong>Strings</strong><br></p>
+<p>Strings refer to text (i.e., they’re a series of characters) and can be (1) assigned to variables for data manipulation or (2) used in print statements for debugging or monitoring tasks. You define them by placing the text within single or double quotation marks, as in:</p>
+<div id="cell-31" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>oligo1 <span class="op">=</span> <span class="st">'GCGCTCAAT'</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>oligo2 <span class="op">=</span> <span class="st">'TACTAGGCA'</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oligo1, oligo2)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'String variable 1 is'</span>, oligo1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GCGCTCAAT TACTAGGCA
-string variable 1 is GCGCTCAAT</code></pre>
+String variable 1 is GCGCTCAAT</code></pre>
 </div>
 </div>
-<p><strong>Booleans</strong> <br></p>
-<p>Booleans are either <code>True</code> or <code>False</code>. Note the capitilization of the first letter. They are often used for comparisons (e.g.&nbsp;the output of <span class="math inline">\(1 &gt; 2\)</span> would result in <code>False</code>). Additionally, it’s important to note that True behaves as 1 and False behaves as 0 in arithmetic operations.</p>
-<div id="cell-35" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span><span class="op">*</span>t)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span><span class="op">*</span>f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Booleans</strong><br></p>
+<p>Booleans are either <code>True</code> or <code>False</code>. Note the capitalization of the first letter. They are often used for comparisons (e.g., the output of <code>1 &gt; 2</code> would be <code>False</code>). Additionally, keep in mind that <code>True</code> behaves as 1 and <code>False</code> behaves as 0 in arithmetic operations.</p>
+<div id="cell-33" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">*</span> t)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">*</span> f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2
 0</code></pre>
@@ -413,68 +467,111 @@ string variable 1 is GCGCTCAAT</code></pre>
 </section>
 <section id="comparison-operators" class="level4">
 <h4 class="anchored" data-anchor-id="comparison-operators">Comparison operators: &gt;, &lt;, ==, &gt;=, &lt;= <a id="compare"></a></h4>
-<p>Comparison operators (&gt;, &lt;, ==, &gt;=, &lt;=) can be used to compare two or more variables. The output of the comparison is a Boolean (ie <code>True</code> or <code>False</code>). Therefore, we often use comparison operators to set up condition statements (e.g.&nbsp;if this comparison statement is True, then do this task. If it is False, then do something else). You’ll learn more about condition statements and control in Lesson 2.</p>
-<p>Let’s set up a few comparisons and use print statements to see the results.</p>
-<p><span class="math display">\[ 2 &gt; 1.5 \]</span> <span class="math display">\[ 4 &lt;= 2 \]</span> <span class="math display">\[ 5 == 5.0 \]</span> <span class="math display">\[ 6 &gt;= 6 \]</span> <span class="math display">\[ 7.4 &lt; 3 \]</span></p>
+<p>Comparison operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>&gt;=</code>, <code>&lt;=</code>) can be used to compare two expressions. The output of a comparison is a Boolean (<code>True</code> or <code>False</code>). We often use comparison operators to set up conditional statements (e.g., “If this comparison is True, then do something; if it’s False, do something else”). You’ll learn more about conditional statements in Lesson 2.</p>
+<p>Let’s set up a few comparisons and use print statements to see the results:</p>
+<p><code>print(2 &gt; 1.5)</code> <code>print(4 &lt;= 2)</code> <code>print(5 == 5.0)</code> <code>print(6 &gt;= 6)</code> <code>print(7.4 &lt; 3)</code></p>
+<div id="cell-35" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">&gt;</span> <span class="fl">1.5</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">4</span> <span class="op">&lt;=</span> <span class="dv">2</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">==</span> <span class="fl">5.0</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">6</span> <span class="op">&gt;=</span> <span class="dv">6</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="fl">7.4</span> <span class="op">&lt;</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True
+False
+True
+True
+False</code></pre>
+</div>
+</div>
 </section>
 <section id="basic-functions-type-int-float-str-bool" class="level4">
 <h4 class="anchored" data-anchor-id="basic-functions-type-int-float-str-bool">Basic functions: type(), int(), float(), str(), bool() <a id="function"></a></h4>
-<p>We’ve already started using one basic function, <code>print()</code>. Each function has a goal and does a task. How it works is it takes whatever is specified within the parantheses (the arguments), performs the task, and then outputs the results. Functions are extraordinarily useful for reproducible code and you’ll learn more about them in Lesson 3.</p>
+<p>We’ve already started using one basic function, <code>print()</code>. Each function has a purpose: it takes whatever is specified within the parentheses (the arguments), performs a task, and then outputs the result. Functions are extraordinarily useful for reproducible code, and you’ll learn more about them in Lesson 3.</p>
 <p>For now, let’s explore some other basic functions. The function <code>type()</code> returns the data type of the argument you give it. See the example below.</p>
-<div id="cell-40" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>float</code></pre>
+<div id="cell-37" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="fl">2.1</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="st">'hello world'</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="dv">1</span>))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;
+&lt;class 'bool'&gt;</code></pre>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="st">'hello world'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>str</code></pre>
-</div>
-</div>
-<div id="cell-42" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>int</code></pre>
-</div>
-</div>
-<div id="cell-43" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>bool</code></pre>
-</div>
-</div>
-<p>There are other useful functions that let you specify the data type or coerce the data type into another. <code>int()</code>, <code>float()</code>, <code>bool()</code>, and <code>str()</code> let you specify data as an integer, float, boolean, or string. Let’s take a look at how this works for the <code>int()</code> and <code>str()</code> functions.</p>
-<div id="cell-45" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="cell-46" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>'20'</code></pre>
+<p>Other useful functions let you specify or coerce a data type into another. <code>int()</code>, <code>float()</code>, <code>bool()</code>, and <code>str()</code> let you convert a value to an integer, float, boolean, or string. Let’s take a look at how this works for the <code>int()</code> and <code>str()</code> functions.</p>
+<div id="cell-39" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">int</span>(<span class="fl">2.1</span>))  <span class="co"># converts 2.1 to integer 2</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(<span class="dv">20</span>))  <span class="co"># converts 20 to string '20'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2
+20</code></pre>
 </div>
 </div>
 </section>
 <section id="in-class-exercises" class="level4">
-<h4 class="anchored" data-anchor-id="in-class-exercises">In Class Exercises <a id="homework"></a></h4>
-<p>The following exercises will help you understand the concepts taught in this lesson better.</p>
+<h4 class="anchored" data-anchor-id="in-class-exercises">In-Class Exercises <a id="homework"></a></h4>
+<p>The following exercises will help you practice the concepts taught in this lesson.</p>
 <ol type="1">
-<li><p>Like in algebra, parentheses can be used to specify the order of operations. What would you expect to be the result of the following expressions? (Try to predict the answer before checking your answers in python.) <span class="math display">\[1 + 3*3\]</span> <span class="math display">\[(1 + 3)*3\]</span> <span class="math display">\[(4*4) + 5\]</span> <span class="math display">\[1 &gt; 3\]</span> <span class="math display">\["1" &gt; "3"\]</span> <span class="math display">\[14 &gt;= 2*7\]</span> <span class="math display">\[0 == \mathrm{False}\]</span> <span class="math display">\[\mathrm{True} == 1^{0}\]</span> <span class="math display">\[\mathrm{int}(\mathrm{True}) == \mathrm{str}(1^{0})\]</span> <span class="math display">\[\mathrm{float("one")}\]</span></p></li>
-<li><p>Create two new variables, comp_oligo1 and comp_oligo2, that are the complementary DNA sequences of oligo1 and oligo2 (hint: A &lt;-&gt; T and G &lt;-&gt; C)</p></li>
-<li><p>Compute the melting temperature of oligo1 and oligo2 using the following equation: <span class="math display">\[\mathrm{T_{m}} = 2(\mathrm{A} + \mathrm{T}) + 4(\mathrm{G} + \mathrm{C})\]</span> where A, T, G, and C refer to the number of A, T, G, C nucleotides in the primer.</p></li>
+<li>Predict (on paper) then confirm in Python the results of these expressions:
+<ol type="1">
+<li><code>1 + 3 * 3</code></li>
+<li><code>(1 + 3) * 3</code></li>
+<li><code>(4 * 4) + 5</code></li>
+<li><code>1 &gt; 3</code></li>
+<li><code>"1" &gt; "3"</code> (Which compares the strings lexicographically.)</li>
+</ol></li>
+<li><strong>Rectangle area and perimeter</strong>
+<ol type="1">
+<li>Create two variables, <code>width</code> and <code>height</code>, and assign them any positive integer values.</li>
+<li>Compute the area of the rectangle and assign it to a variable called <code>area</code>.</li>
+<li>Compute the perimeter of the rectangle and assign it to a variable called <code>perimeter</code>.</li>
+<li>Print both <code>area</code> and <code>perimeter</code> in descriptive sentences.</li>
+</ol></li>
+<li><strong>Even or odd?</strong>
+<ol type="1">
+<li>Create a variable <code>n</code> and assign it any integer value.</li>
+<li>Write a one-line expression (without <code>if</code>/<code>else</code>) that prints “n is even” if <code>n</code> is even, or “n is odd” if <code>n</code> is odd. (Hint: use <code>("even", "odd")[n % 2]</code>.)</li>
+<li>Test your code with <code>n = 42</code> and <code>n = 13</code>.</li>
+</ol></li>
 </ol>
-<div id="cell-48" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-41" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 1</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((<span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((<span class="dv">4</span> <span class="op">*</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">5</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">1</span> <span class="op">&gt;</span> <span class="dv">3</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"1"</span> <span class="op">&gt;</span> <span class="st">"3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10
+12
+21
+False
+False</code></pre>
 </div>
-<div id="cell-49" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-42" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="dv">5</span>  <span class="co"># example value, replace with any positive integer</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="dv">3</span>  <span class="co"># example value, replace with any positive integer</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>perimeter <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (width <span class="op">+</span> height)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Area = </span><span class="sc">{</span>area<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Perimeter = </span><span class="sc">{</span>perimeter<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area = 15
+Perimeter = 16</code></pre>
+</div>
+</div>
+<div id="cell-43" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 3</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">42</span>  <span class="co"># try n = 42 and n = 13</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span>(<span class="st">'even'</span>, <span class="st">'odd'</span>)[n <span class="op">%</span> <span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42 is even</code></pre>
+</div>
 </div>
 
 
