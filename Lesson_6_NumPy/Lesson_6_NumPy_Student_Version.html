@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-81b5c3e63835cfde897ecd3d35a35a41.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1e70fd24aa0f1233d910dce5d2d9acb1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6be7b025e4e0ea4f42d05849648ef895.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -343,10 +343,10 @@ window.Quarto = {
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_0(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>list time for my_dot_0:
-1.68 ms ± 3.7 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+1.7 ms ± 29.2 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 np.array time for my_dot_0:
-2.67 ms ± 39.9 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+2.59 ms ± 23.7 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
 </div>
 </div>
 <p>In a surprise result, seemingly contrary to everything previously stated, the <code>list</code> manipulation came out faster than the manipulation using the <code>numpy.array</code>. The small caveat is that the <code>numpy.array</code> object is built for speed when used with NumPy’s built in functions. We can try the test again, but this time we use some built in functions from NumPy to clean up the function definition and improve our results, hopefully.</p>
@@ -363,10 +363,10 @@ np.array time for my_dot_0:
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> my_dot_1(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>list time for my_dot_1:
-710 μs ± 14.4 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+732 μs ± 32.3 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 np.array time for my_dot_1:
-9.7 μs ± 1.05 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+9.62 μs ± 794 ns per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
 </div>
 </div>
 <p>That’s more like it! Notice that the <code>list</code> speed sees some improvement using the built in NumPy functions as well, but certainly not as much as the <code>numpy.array</code>. In general the NumPy functions can handle generic <code>list</code> types, but the full potential is unlocked with the <code>numpy.array</code> type. For this final speed test, we can use the the totally pre-built <code>numpy.dot</code> function and check out the speed.</p>
@@ -377,11 +377,11 @@ np.array time for my_dot_1:
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit <span class="op">-</span>n <span class="dv">10</span> tmp <span class="op">=</span> np.dot(A_arr, B_arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>list time for np.dot:
-822 μs ± 5.33 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+842 μs ± 21 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 np.array time for np.dot:
-The slowest run took 8.27 times longer than the fastest. This could mean that an intermediate result is being cached.
-12.8 μs ± 10.8 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+The slowest run took 11.74 times longer than the fastest. This could mean that an intermediate result is being cached.
+8.62 μs ± 9.56 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
 </div>
 </div>
 <p>Will you look at that! The totally pre-built function is even faster than our last test with the two different functions. Notice that the <code>list</code> test really struggles, comparitively, with this function. Together, all of these speed tests should highlight: 1. NumPy functions are very efficient. 2. NumPy functions are relatively easy to use and clean up your code. 3. NumPy functions work best with <code>numpy.array</code> objects. 4. If you can find a NumPy function to handle your <code>numpy.array</code> objects, you should use it rather than trying to build your own function.</p>
@@ -489,17 +489,17 @@ the above arrays have dimension 3
 <div class="cell-output cell-output-stdout">
 <pre><code>the location of the NaN is (np.int64(3), np.int64(5)) 
 
-Requirement already satisfied: matplotlib in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (3.10.3)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (1.3.2)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (4.58.2)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (1.4.8)
-Requirement already satisfied: numpy&gt;=1.23 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (2.2.6)
-Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (25.0)
-Requirement already satisfied: pillow&gt;=8 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (11.2.1)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (3.2.3)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from matplotlib) (2.9.0.post0)
-Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.17.0)
+Requirement already satisfied: matplotlib in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (3.10.3)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (1.3.2)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (4.58.2)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (1.4.8)
+Requirement already satisfied: numpy&gt;=1.23 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (2.3.0)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (25.0)
+Requirement already satisfied: pillow&gt;=8 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (11.2.1)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (3.2.3)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from matplotlib) (2.9.0.post0)
+Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.17.0)
 Note: you may need to restart the kernel to use updated packages.
 row 2 mean = 0.02053209316073448 and variance = 1.0315188879373587
 row 4 mean = -0.10027662190124971 and variance = 0.8912458143138923</code></pre>
@@ -545,20 +545,20 @@ row 4 mean = -0.10027662190124971 and variance = 0.8912458143138923</code></pre>
 <span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># wanted last step</span>
 <span class="ansi-green-fg">      9</span> t_arange = np.arange(<span class="ansi-green-fg">0.</span>, <span class="ansi-yellow-fg">'''</span><span class="ansi-yellow-fg">end of range value</span><span class="ansi-yellow-fg">'''</span>, <span class="ansi-green-fg">0.01</span>)  
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.13.3/x64/lib/python3.13/site-packages/numpy/_core/function_base.py:121</span>, in <span class="ansi-cyan-fg">linspace</span><span class="ansi-blue-fg">(start, stop, num, endpoint, retstep, dtype, axis, device)</span>
-<span class="ansi-green-fg">     25</span> <span style="color:rgb(175,0,255)">@array_function_dispatch</span>(_linspace_dispatcher)
-<span class="ansi-green-fg">     26</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">linspace</span>(start, stop, num=<span class="ansi-green-fg">50</span>, endpoint=<span style="font-weight:bold;color:rgb(0,135,0)">True</span>, retstep=<span style="font-weight:bold;color:rgb(0,135,0)">False</span>, dtype=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">     27</span>              axis=<span class="ansi-green-fg">0</span>, *, device=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>):
-<span class="ansi-green-fg">     28</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">     29</span> <span style="font-style:italic" class="ansi-yellow-fg">    Return evenly spaced numbers over a specified interval.</span>
-<span class="ansi-green-fg">     30</span> 
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    119</span> 
-<span class="ansi-green-fg">    120</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">121</span>     num = <span class="ansi-yellow-bg">operator</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">num</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    122</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> num &lt; <span class="ansi-green-fg">0</span>:
-<span class="ansi-green-fg">    123</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(
-<span class="ansi-green-fg">    124</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Number of samples, </span><span style="font-weight:bold;color:rgb(175,95,135)">%s</span><span class="ansi-yellow-fg">, must be non-negative.</span><span class="ansi-yellow-fg">"</span> % num
-<span class="ansi-green-fg">    125</span>         )
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.13.4/x64/lib/python3.13/site-packages/numpy/_core/function_base.py:122</span>, in <span class="ansi-cyan-fg">linspace</span><span class="ansi-blue-fg">(start, stop, num, endpoint, retstep, dtype, axis, device)</span>
+<span class="ansi-green-fg">     26</span> <span style="color:rgb(175,0,255)">@array_function_dispatch</span>(_linspace_dispatcher)
+<span class="ansi-green-fg">     27</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">linspace</span>(start, stop, num=<span class="ansi-green-fg">50</span>, endpoint=<span style="font-weight:bold;color:rgb(0,135,0)">True</span>, retstep=<span style="font-weight:bold;color:rgb(0,135,0)">False</span>, dtype=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">     28</span>              axis=<span class="ansi-green-fg">0</span>, *, device=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>):
+<span class="ansi-green-fg">     29</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
+<span class="ansi-green-fg">     30</span> <span style="font-style:italic" class="ansi-yellow-fg">    Return evenly spaced numbers over a specified interval.</span>
+<span class="ansi-green-fg">     31</span> 
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    120</span> 
+<span class="ansi-green-fg">    121</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">122</span>     num = <span class="ansi-yellow-bg">operator</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">num</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    123</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> num &lt; <span class="ansi-green-fg">0</span>:
+<span class="ansi-green-fg">    124</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-fg">    125</span>             <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Number of samples, </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>num<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">, must be non-negative.</span><span class="ansi-yellow-fg">"</span>
+<span class="ansi-green-fg">    126</span>         )
 
 <span class="ansi-red-fg">TypeError</span>: 'str' object cannot be interpreted as an integer</pre>
 </div>
